@@ -1,0 +1,88 @@
+﻿@model Product
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Create Product</h2>
+            </div>
+        </div>
+        <div class="card-body p-4">
+
+            <form method="post" class="row">
+
+                <div class="border p-3 mt-4">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="Title" class="p-0"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="Description" class="p-0"></label>
+                        <textarea asp-for="Description" class="form-control" ></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="ISBN" class="p-0"></label>
+                        <input asp-for="ISBN" class="form-control" />
+                        <span asp-validation-for="ISBN" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="BasePrice" class="p-0"></label>
+                        <input asp-for="BasePrice" class="form-control" />
+                        <span asp-validation-for="BasePrice" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="CostPrice" class="p-0"></label>
+                        <input asp-for="CostPrice" class="form-control" />
+                        <span asp-validation-for="CostPrice" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-floating py-2 col-12">
+                        <label asp-for="Author" class="p-0"></label>
+                        <input asp-for="Author" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+
+                    </div>       
+
+                    @*       <div class="md-3">
+                    <label>Status</label>
+                    <input asp-for="Status" class="form-control" />
+                    </div>
+
+                    <div class="md-3">
+                    <label>Created By</label>
+                    <input asp-for="DisplayOrder" class="form-control" />
+                    </div>
+
+                    <div class="md-3">
+                    <label>Created Date</label>
+                    <input asp-for="DisplayOrder" class="form-control" />
+                    </div> *@
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+ @section Scripts{
+
+                @{
+                     <partial name="_ValidationScriptsPartial" />
+                }
+            }
