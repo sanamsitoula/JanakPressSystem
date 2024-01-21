@@ -23,16 +23,44 @@ namespace Ecom.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.Entity<Category>().HasData(
-               new Category { Id = 1, Name = "Action", Description = "Action", DisplayOrder = 1, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
-         new Category { Id = 2, Name = "Tamil", Description = "Tamil", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
-           new Category { Id = 3, Name = "Animation", Description = "Animation", DisplayOrder = 2, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now }
-             
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "NEB", Description = "NEB", DisplayOrder = 1, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+          new Category { Id = 2, Name = "HSEB", Description = "HSEB", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+            new Category { Id = 3, Name = "SLC", Description = "SLC", DisplayOrder = 2, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now });
 
 
-               );
+
+             modelBuilder.Entity<Subject>().HasData(
+               new Subject { Id = 1, Name = "Math"},
+         new Subject { Id = 2, Name = "Science" },
+           new Subject { Id = 3, Name = "Nepali"
+           });
+
+
+            modelBuilder.Entity<Class>().HasData(
+              new Class { Id = 1, Name = "One" },
+        new Class { Id = 2, Name = "Two" },
+          new Class
+          {
+              Id = 3,
+              Name = "Three"
+          });
+
+            modelBuilder.Entity<Forma>().HasData(
+              new Forma { Id = 1, Name = "TA-32" },
+        new Forma { Id = 2, Name = "33-40" },
+        new Forma { Id = 3, Name = "41-51" },
+        new Forma { Id = 4, Name = "52-62" },
+          new Forma
+          {
+              Id = 5,
+              Name = "64-93"
+          });
+
+
+
             //modelBuilder.Entity<Product>().HasData(
-              
+
             //    new Product { 
             //        Id = 1,
             //        Title = "Action",

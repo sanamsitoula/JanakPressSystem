@@ -12,7 +12,7 @@ namespace Ecom.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; } // 
+        public required string Name { get; set; } // 
         public int ?PageNumber{ get; set; }//
         public int ?PrintTarget { get; set; }
         public DateTimeOffset ?JobDate { get; set; }
@@ -22,12 +22,12 @@ namespace Ecom.Models
         [Required]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
-        public int LotNumber { get; set; }
+        public Product ?Product { get; set; }
+        public int ?LotNumber { get; set; }
         [Required]
         public int JobTypeId { get; set; }
         [ForeignKey("JobTypeId")]
-        public JobType JobType { get; set; }
+        public JobType ?JobType { get; set; }
 
         public int? PrintAchieved { get; set; }
         public string? Desc { get; set; } // 

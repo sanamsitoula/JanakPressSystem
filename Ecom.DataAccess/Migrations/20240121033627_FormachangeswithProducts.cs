@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class FormachangeswithProducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,8 +20,8 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -40,30 +40,11 @@ namespace Ecom.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     status = table.Column<bool>(type: "bit", nullable: true),
-                    FiscalYear = table.Column<int>(type: "int", nullable: false)
+                    FiscalYear = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Class", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Forma",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Page = table.Column<int>(type: "int", nullable: false),
-                    PrintTarget = table.Column<int>(type: "int", nullable: false),
-                    PrintAchieved = table.Column<int>(type: "int", nullable: false),
-                    AssociatedFormaId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Forma", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +54,7 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,7 +68,7 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -116,23 +97,26 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BasePrice = table.Column<double>(type: "float", nullable: false),
-                    CostPrice = table.Column<double>(type: "float", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BasePrice = table.Column<double>(type: "float", nullable: true),
+                    CostPrice = table.Column<double>(type: "float", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FiscalYear = table.Column<int>(type: "int", nullable: false),
-                    PageNumber = table.Column<int>(type: "int", nullable: false),
+                    FiscalYear = table.Column<int>(type: "int", nullable: true),
+                    PageNumber = table.Column<int>(type: "int", nullable: true),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     ClassId = table.Column<int>(type: "int", nullable: false),
-                    FormaId = table.Column<int>(type: "int", nullable: false),
                     FormaAssociation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectLanguageId = table.Column<int>(type: "int", nullable: false),
-                    SubjectTypeId = table.Column<int>(type: "int", nullable: false)
+                    FormaListId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FormaNames = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectLanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectLanguages = table.Column<int>(type: "int", nullable: true),
+                    SubjectTypeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectTypes = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,17 +134,36 @@ namespace Ecom.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Forma_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Forma",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Products_Subject_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subject",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Forma",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Page = table.Column<int>(type: "int", nullable: true),
+                    PrintTarget = table.Column<int>(type: "int", nullable: true),
+                    PrintAchieved = table.Column<int>(type: "int", nullable: true),
+                    AssociatedFormaId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Forma", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Forma_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -170,13 +173,13 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PageNumber = table.Column<int>(type: "int", nullable: false),
-                    PrintTarget = table.Column<int>(type: "int", nullable: false),
+                    PageNumber = table.Column<int>(type: "int", nullable: true),
+                    PrintTarget = table.Column<int>(type: "int", nullable: true),
                     JobDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     JobStartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     JobCompleteDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    LotNumber = table.Column<int>(type: "int", nullable: false),
+                    LotNumber = table.Column<int>(type: "int", nullable: true),
                     JobTypeId = table.Column<int>(type: "int", nullable: false),
                     PrintAchieved = table.Column<int>(type: "int", nullable: true),
                     Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -211,10 +214,47 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 1, 19, 13, 16, 5, 82, DateTimeKind.Local).AddTicks(937), "Action", 1, "Action", true },
-                    { 2, "1", new DateTime(2024, 1, 19, 13, 16, 5, 82, DateTimeKind.Local).AddTicks(952), "Tamil", 3, "Tamil", true },
-                    { 3, "1", new DateTime(2024, 1, 19, 13, 16, 5, 82, DateTimeKind.Local).AddTicks(954), "Animation", 2, "Animation", true }
+                    { 1, "1", new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3674), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3687), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3689), "SLC", 2, "SLC", true }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Class",
+                columns: new[] { "Id", "Description", "FiscalYear", "Name", "status" },
+                values: new object[,]
+                {
+                    { 1, null, null, "One", null },
+                    { 2, null, null, "Two", null },
+                    { 3, null, null, "Three", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Forma",
+                columns: new[] { "Id", "AssociatedFormaId", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
+                values: new object[,]
+                {
+                    { 1, null, "TA-32", null, null, null, null, null, null },
+                    { 2, null, "33-40", null, null, null, null, null, null },
+                    { 3, null, "41-51", null, null, null, null, null, null },
+                    { 4, null, "52-62", null, null, null, null, null, null },
+                    { 5, null, "64-93", null, null, null, null, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Subject",
+                columns: new[] { "Id", "Description", "Name", "status" },
+                values: new object[,]
+                {
+                    { 1, null, "Math", null },
+                    { 2, null, "Science", null },
+                    { 3, null, "Nepali", null }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Forma_ProductId",
+                table: "Forma",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobTicket_JobTypeId",
@@ -237,11 +277,6 @@ namespace Ecom.DataAccess.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_FormaId",
-                table: "Products",
-                column: "FormaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_SubjectId",
                 table: "Products",
                 column: "SubjectId");
@@ -250,6 +285,9 @@ namespace Ecom.DataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Forma");
+
             migrationBuilder.DropTable(
                 name: "JobTicket");
 
@@ -267,9 +305,6 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Class");
-
-            migrationBuilder.DropTable(
-                name: "Forma");
 
             migrationBuilder.DropTable(
                 name: "Subject");

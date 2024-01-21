@@ -22,26 +22,26 @@
             Title
         </th>
           <th>
-           ISBN
+           Category
         </th>
         <th>
-            Description
+            Subject
         </th>
       
         <th>
-           Author
+           Class
         </th>
         <th>
-            BasePrice
+            Forma
         </th>
                 <th>
-                    CostPrice
+                    Subject Language
                 </th>
                 <th>
-                    Status
+                    Subject Type
                 </th>
                 <th>
-                    CreatedBy
+                    Options
                 </th>
     </tr>
     </thead>
@@ -50,19 +50,27 @@
         {
             <tr>
                 <td>@obj.Title</td>
-                    <td>@obj.ISBN</td>
-                    <td>@obj.Description</td>
-                    <td>@obj.Author</td>
-                    <td>@obj.BasePrice</td> 
-                    <td>@obj.CostPrice</td>
-                    <td>@obj.Status</td>
-                    <td>@obj.CreatedBy</td>
+                    <td>@obj.Category.Name</td>
+                    <td>@obj.Subject.Name</td>
+                    <td>@obj.Class.Name</td>
+                    <td>
+                         @foreach (var item in obj.Forma)
+                        {
+                            <li>@item.Name</li>
+                        } 
+                        @* @{
+                            string.Join(",", obj.Forma.Select(e => e.Name)).ToArray();
+                        } *@
+                    </td>
+
+                    <td>@obj.SubjectLanguageId.ToString()</td>
+                    <td>@obj.SubjectTypeId.ToString()</td>
 
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Product" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
-<i class="bi bi-pencil-square"></i>Edit
-</a>
+                            <i class="bi bi-pencil-square"></i>Edit
+                            </a>
                             <a asp-controller="Product" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
                                 <i class="bi bi-trash-fill"></i>Delete
                             </a>

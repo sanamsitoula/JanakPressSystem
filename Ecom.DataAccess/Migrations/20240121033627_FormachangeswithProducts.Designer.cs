@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240119073621_initial_change")]
-    partial class initial_change
+    [Migration("20240121033627_FormachangeswithProducts")]
+    partial class FormachangeswithProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,11 +40,10 @@ namespace Ecom.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("DisplayOrder")
+                    b.Property<int?>("DisplayOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -64,30 +63,30 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 1, 19, 13, 21, 21, 300, DateTimeKind.Local).AddTicks(5010),
-                            Description = "Action",
+                            CreatedDate = new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3674),
+                            Description = "NEB",
                             DisplayOrder = 1,
-                            Name = "Action",
+                            Name = "NEB",
                             Status = true
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 1, 19, 13, 21, 21, 300, DateTimeKind.Local).AddTicks(5030),
-                            Description = "Tamil",
+                            CreatedDate = new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3687),
+                            Description = "HSEB",
                             DisplayOrder = 3,
-                            Name = "Tamil",
+                            Name = "HSEB",
                             Status = true
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 1, 19, 13, 21, 21, 300, DateTimeKind.Local).AddTicks(5032),
-                            Description = "Animation",
+                            CreatedDate = new DateTime(2024, 1, 21, 9, 21, 27, 270, DateTimeKind.Local).AddTicks(3689),
+                            Description = "SLC",
                             DisplayOrder = 2,
-                            Name = "Animation",
+                            Name = "SLC",
                             Status = true
                         });
                 });
@@ -115,6 +114,23 @@ namespace Ecom.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Class");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "One"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Two"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Three"
+                        });
                 });
 
             modelBuilder.Entity("Ecom.Models.Forma", b =>
@@ -141,6 +157,9 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int?>("PrintTarget")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
@@ -149,7 +168,36 @@ namespace Ecom.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Forma");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "TA-32"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "33-40"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "41-51"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "52-62"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "64-93"
+                        });
                 });
 
             modelBuilder.Entity("Ecom.Models.JobTicket", b =>
@@ -187,7 +235,7 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int>("JobTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LotNumber")
+                    b.Property<int?>("LotNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -302,8 +350,12 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<string>("FormaAssociation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FormaId")
-                        .HasColumnType("int");
+                    b.Property<string>("FormaListId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FormaNames")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
                         .HasColumnType("nvarchar(max)");
@@ -320,10 +372,16 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectLanguageId")
+                    b.Property<string>("SubjectLanguageId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubjectLanguages")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectTypeId")
+                    b.Property<string>("SubjectTypeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubjectTypes")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -335,8 +393,6 @@ namespace Ecom.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ClassId");
-
-                    b.HasIndex("FormaId");
 
                     b.HasIndex("SubjectId");
 
@@ -363,6 +419,30 @@ namespace Ecom.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subject");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Math"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Science"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Nepali"
+                        });
+                });
+
+            modelBuilder.Entity("Ecom.Models.Forma", b =>
+                {
+                    b.HasOne("Ecom.Models.Product", null)
+                        .WithMany("Forma")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Ecom.Models.JobTicket", b =>
@@ -398,12 +478,6 @@ namespace Ecom.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ecom.Models.Forma", "Forma")
-                        .WithMany()
-                        .HasForeignKey("FormaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Ecom.Models.Subject", "Subject")
                         .WithMany()
                         .HasForeignKey("SubjectId")
@@ -414,9 +488,12 @@ namespace Ecom.DataAccess.Migrations
 
                     b.Navigation("Class");
 
-                    b.Navigation("Forma");
-
                     b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Ecom.Models.Product", b =>
+                {
+                    b.Navigation("Forma");
                 });
 #pragma warning restore 612, 618
         }

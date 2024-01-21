@@ -10,12 +10,12 @@ namespace Ecom.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(30)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [MaxLength(100)]
-        public string Description { get; set; }
+        public string ?Description { get; set; }
         [DisplayName("Display Order")]
         [Range(1,100,ErrorMessage ="The number should be between 1 to 100")]
-        public int DisplayOrder { get; set; }
+        public int ?DisplayOrder { get; set; }
         public bool? Status { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
