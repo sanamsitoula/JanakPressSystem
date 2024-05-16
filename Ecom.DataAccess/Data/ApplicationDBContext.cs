@@ -1,9 +1,11 @@
 ﻿using Ecom.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecom.DataAccess.Data
 {
-    public class ApplicationDBContext: DbContext
+    public class ApplicationDBContext: IdentityDbContext<IdentityUser>
     {
         // DB context is from EF
        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) 
@@ -20,9 +22,11 @@ namespace Ecom.DataAccess.Data
         public DbSet<JobType> JobType { get; set; }
         public DbSet<Machinary> Machinary { get; set; }
         public DbSet<Subject> Subject { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          // base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "NEB", Description = "NEB", DisplayOrder = 1, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
           new Category { Id = 2, Name = "HSEB", Description = "HSEB", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
@@ -56,9 +60,11 @@ namespace Ecom.DataAccess.Data
               Id = 5,
               Name = "64-93"
           });
-
-
-
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(u => new { u.UserId, u.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+         //  modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+          
             //modelBuilder.Entity<Product>().HasData(
 
             //    new Product { 

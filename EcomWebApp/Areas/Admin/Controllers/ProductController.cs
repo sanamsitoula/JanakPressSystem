@@ -127,44 +127,11 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product c)
         {
-            // Category catobj = _unitOfWork.Category.GetAll().FirstOrDefault(); ;
-            //  c.Category = catobj;
-            // Convert the List<Forma>? to IEnumerable<SelectListItem>
-
-            if (c.FormaListId != null)
-            {
-                StringBuilder concatenatedValues = new StringBuilder();
-
-                for (int i = 0; i < int.Parse(c.FormaListId); i++)
-                {
-                    // Example validation: Check if each value is not empty
-                    if (string.IsNullOrEmpty(c.FormaListId[i].ToString()))
-                    {
-                        ModelState.AddModelError($"FormaListId[{i}]", $"FormaListId at index {i} is required.");
-                    }
-                    else
-                    {
-                        // Concatenate the values with commas
-                        concatenatedValues.Append(c.FormaListId[i]);
-
-                        // Add a comma after each value except the last one
-                        if (i < int.Parse(c.FormaListId) - 1)
-                        {
-                            concatenatedValues.Append(", ");
-                        }
-                    }
-                }
-
-                // Save the concatenated values to the database or perform other actions
-                string finalConcatenatedString = concatenatedValues.ToString();
-
-                c.FormaListId = finalConcatenatedString;
-            }
+  
 
                 if (ModelState.IsValid)
             {
                 // return ValidationProblem();
-                string valueToSave = c.FormaListId;
                 _unitOfWork.Product.Add(c);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Sucessfully";
