@@ -36,6 +36,7 @@ namespace Ecom.DataAccess.Repository
             query=query.Where(filter);
             return query.FirstOrDefault();
         }
+     
 
         public IQueryable<T> GetAll()
         {
@@ -51,6 +52,15 @@ namespace Ecom.DataAccess.Repository
             return dbSet.AsQueryable();
         }
 
+        public IQueryable<T> GetAllThroughParam(System.Linq.Expressions.Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> query = dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return (IQueryable<T>)query.ToList();
+        }
 
 
         public void Remove(T entity)

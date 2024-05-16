@@ -1,0 +1,119 @@
+﻿@model List<JobTicket,Forma>
+
+@{
+    ViewData["Title"] = "Job Ticket";
+}
+<style>
+    .heading h5 {
+        font-weight: 900;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black !important;
+    }
+
+        table th,
+        table td,
+        .font-size-18-px {
+            font-size: 18 px;
+        }
+</style>
+
+    <div class="container">
+        <div class="heading text-center">
+            <h1>जनक शिक्षा सामग्री केन्द्र लिमिटेड</h1>
+            <h5>Production विभाग </h5>
+            <h5>सानोठिमी,भक्तपुर </h5>
+            <h5>(Printing शाखा)</h5>
+        </div>
+        <div class="date d-flex justify-content-between">
+            <div>
+            <h5>
+                @*  <input asp-for="Id" hidden /> *@
+                    <strong>
+                        Job Ticket No.:JEMC-P2S-8081-0539
+                    </strong>
+
+                </h5>
+                <p>
+                    <b>Bill Number : </b> <u>057 </u> <br>
+                    <b>Billing Date : </b> <u>2024-05-12</u> /
+                    <u>2081-1-30</u><br>
+                    <b>Vendor Name:</b> online sanshar pvt.ltd
+                </p>
+            </div>
+            <div>
+
+                <h5>
+                    <strong>
+                        मिति: 2081-02-02
+                    </strong>
+
+                </h5>
+                <p>Created Date: 2024-05-15</p>
+
+            </div>
+
+        </div>
+
+        <div class="from mt-3">
+            <h5><strong>श्री स्टोर शाखा,</strong></h5>
+            <h5>आर्थिक प्रशासन विभाग</h5>
+            <h5>ज.शि.सा.के.लि. ।</h5>
+        </div>
+
+        <div class="subject text-center mt-5 font-size-18-px">
+            <h5> <strong>विषय:</strong> स्टोर दखिला गरिदिने सम्बन्धमा </h5>
+        </div>
+
+
+
+        <div class="content mt-5">
+            <h5>
+                उपरोक्त सम्बन्धमा यस ज.शि.सा.के.लि.
+
+                को स्वीकृत खरिद आदेश. JEMC-PO-8081-0634 अनुसार खरिद भएका तपसिल
+
+                उल्लेखित सामानहरु स्टोर दाखिला गरिदिनुहुन अनुरोध छ ।
+            </h5>
+        </div>
+
+        <div class="table mt-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Page Number</th>
+                    <th>Print Target</th>
+                    <th>Job Date</th>
+                    <th>Product</th>
+                    <th>Lot Number</th>
+                    <th>Job Type</th>
+                    <th>Job Step</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.Id</td>
+                        <td>@obj.Name</td>
+                        <td>@obj.PageNumber</td>
+                        <td>@obj.PrintTarget</td>
+                        <td>@obj.JobDate</td>
+                        <td>@obj.Product.Title</td>
+                        <td>@obj.LotNumber</td>
+                        <td>@obj.JobType</td>
+
+                        <td>@obj.JobStep.ToString()</td>
+                        <td>@obj.Status</td>
+                       
+                    </tr>
+                }
+            </tbody>
+                
+                  

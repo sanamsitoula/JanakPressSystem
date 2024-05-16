@@ -29,6 +29,9 @@
                     PrintTarget
                 </th>
                 <th>
+                    Product Details
+                </th>
+                <th>
                     Status
                 </th>
               
@@ -41,7 +44,7 @@
                     <td>@obj.Name</td>
                      <td>@obj.Page</td>
                     <td>@obj.PrintTarget</td>
-                 
+                    <td>@(obj.Product.Title)</td>
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Forma" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
@@ -52,6 +55,7 @@
                             </a>
                         </div>
                     </td>
+
                 </tr>
 
             }

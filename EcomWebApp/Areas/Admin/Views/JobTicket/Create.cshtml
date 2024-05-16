@@ -1,72 +1,40 @@
-﻿@model Forma
-<div class="card shadow border-0 my-4">
-    <div class="card-header  ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-bg-light py-2">Create Forma</h2>
-            </div>
-        </div>
-        <div class="card-body p-4">
+﻿@model JobTicket
 
-            <form method="post" class="row">
-
-                <div class="border p-3 mt-4">
-                    <div asp-validation-summary="ModelOnly"></div>
-                    <div class="form-floating py-2 col-12">
-                        <label asp-for="Name" class="p-0"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating py-2 col-12">
-                        <label asp-for="Page" class="p-0"></label>
-                        <input asp-for="Page" class="form-control" />
-                        <span asp-validation-for="Page" class="text-danger"></span>
-
-                    </div>
-                    <div class="form-floating py-2 col-12">
-                        <label asp-for="PrintTarget" class="p-0"></label>
-                        <input asp-for="PrintTarget" class="form-control" />
-                        <span asp-validation-for="PrintTarget" class="text-danger"></span>
-
-                    </div>
-
-                   
-
-                    @*       <div class="md-3">
-                    <label>Status</label>
-                    <input asp-for="Status" class="form-control" />
-                    </div>
-
-                    <div class="md-3">
-                    <label>Created By</label>
-                    <input asp-for="DisplayOrder" class="form-control" />
-                    </div>
-
-                    <div class="md-3">
-                    <label>Created Date</label>
-                    <input asp-for="DisplayOrder" class="form-control" />
-                    </div> *@
-                    <div class="row pt-2">
-                        <div class="col-6 col-md-3">
-                            <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
-
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <a asp-controller="Forma" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
-
-                        </div>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="text-center mb-0">Create Job Ticket</h2>
                 </div>
+                <div class="card-body">
+                    <form method="post">
 
-            </form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
+                       
+
+                        <div class="mb-3">
+                            <label for="printTarget" class="form-label">Print Target</label>
+                            <input type="number" id="printTarget" class="form-control" asp-for="PrintTarget" />
+                            <span asp-validation-for="PrintTarget" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a asp-controller="Forma" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
 }

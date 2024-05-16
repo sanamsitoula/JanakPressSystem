@@ -51,14 +51,15 @@ namespace Ecom.DataAccess.Data
           });
 
             modelBuilder.Entity<Forma>().HasData(
-              new Forma { Id = 1, Name = "TA-32" },
-        new Forma { Id = 2, Name = "33-40" },
-        new Forma { Id = 3, Name = "41-51" },
-        new Forma { Id = 4, Name = "52-62" },
+              new Forma { Id = 1, Name = "TA-32",ProductId=1 },
+        new Forma { Id = 2, Name = "33-40", ProductId = 1 },
+        new Forma { Id = 3, Name = "41-51", ProductId = 1 },
+        new Forma { Id = 4, Name = "52-62", ProductId = 1 },
           new Forma
           {
               Id = 5,
-              Name = "64-93"
+              Name = "64-93",
+              ProductId = 1
           });
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(u => new { u.UserId, u.RoleId });
             modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();

@@ -2,6 +2,8 @@
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Microsoft.SqlServer.Server;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
@@ -17,10 +19,35 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            
-            List<JobTicket>? obj = _unitOfWork.JobTicket.GetAll().ToList();
 
-            return View(obj);
+            var jobTickets = _unitOfWork.JobTicket.GetAll(); // Fetch job tickets from the repository
+
+            // Mapping JobTicket entities to DTOs
+            var objJobTicketList = jobTickets.Select(jobTicket => new JobTicket
+            {
+                Id = jobTicket.Id,
+                Name = jobTicket.Name,
+                JobStartDate = jobTicket.JobStartDate,
+                JobStep= string.IsNullOrEmpty(jobTicket.JobStep) ? "" : jobTicket.JobStep,
+                // Initialize Product property to avoid NullReferenceException
+                Product = new Product { Title = "" }
+            }).ToList();
+
+            // Populating Product information for each JobTicket
+            foreach (var jobTicket in objJobTicketList)
+            {
+                var product = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == jobTicket.ProductId);
+                if (product != null)
+                {
+                    jobTicket.Product = product;
+                }
+                else
+                {
+                    // Handle case when product is null
+                }
+            }
+
+            return View(objJobTicketList);
         }
 
         public IActionResult Create()
@@ -109,7 +136,39 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View();
         }
+        public IActionResult View(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            JobTicket jobTicket = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
 
+            // Create a list containing the single JobTicket object
+            List<JobTicket> jobTicketList = new List<JobTicket> { jobTicket };
+
+          
+            var pisd= _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
+            int k = pisd;
+            // var jobTickets = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
+
+            // Mapping JobTicket entities to DTOs
+            var objJobTicketList = jobTicketList.Select(jobTicket => new JobTicket
+            {
+                Id = jobTicket.Id,
+                Name = jobTicket.Name,
+                JobStartDate = jobTicket.JobStartDate,
+                JobStep = string.IsNullOrEmpty(jobTicket.JobStep) ? "" : jobTicket.JobStep,
+                ProductId = jobTicket.ProductId,
+                // Initialize Product property to avoid NullReferenceException
+                Product = new Product { Title = "" }
+            }).ToList();
+            //  var Forma = _unitOfWork.Forma.GetAll(x => listIds.Contains(x.Id)).ToList();
+            var forma = _unitOfWork.Forma.GetAllThroughParam(u => u.ProductId == k).ToList();
+           
+
+            return View(objJobTicketList);
+        }
 
 
 

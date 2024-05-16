@@ -4,6 +4,7 @@ using Ecom.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240516142846_changeinProductClasSUb")]
+    partial class changeinProductClasSUb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 16, 20, 47, 1, 935, DateTimeKind.Local).AddTicks(8027),
+                            CreatedDate = new DateTime(2024, 5, 16, 20, 13, 45, 885, DateTimeKind.Local).AddTicks(8688),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -70,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 16, 20, 47, 1, 935, DateTimeKind.Local).AddTicks(8041),
+                            CreatedDate = new DateTime(2024, 5, 16, 20, 13, 45, 885, DateTimeKind.Local).AddTicks(8701),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -80,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 16, 20, 47, 1, 935, DateTimeKind.Local).AddTicks(8042),
+                            CreatedDate = new DateTime(2024, 5, 16, 20, 13, 45, 885, DateTimeKind.Local).AddTicks(8703),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",
@@ -233,9 +236,6 @@ namespace Ecom.DataAccess.Migrations
 
                     b.Property<DateTimeOffset?>("JobStartDate")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("JobStep")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("JobTypeId")
                         .HasColumnType("int");

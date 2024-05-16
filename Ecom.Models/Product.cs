@@ -21,17 +21,17 @@ namespace Ecom.Models
         public double? CostPrice { get; set; }
         public bool? Status { get; set; }
         public string? CreatedBy { get; set; }
-        public required int CategoryId { get; set; }
+        public  int? CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public  Category? Category { get; set; }
         public string? ImageURL { get; set; }
         public int? FiscalYear { get; set; }
         public int? PageNumber { get; set; }
         [ForeignKey("SubjectId")]
-        public required int SubjectId { get; set; }
+        public  int? SubjectId { get; set; }
         public  Subject? Subject { get; set; }
         [ForeignKey("ClassId")]
-        public required int ClassId { get; set; }
+        public  int? ClassId { get; set; }
         public Class? Class { get; set; }
         public string? FormaAssociation { get; set; }    
         public string FormaListId { get; set; }

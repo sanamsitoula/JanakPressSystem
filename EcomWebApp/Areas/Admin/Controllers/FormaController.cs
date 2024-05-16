@@ -2,6 +2,7 @@
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
@@ -17,14 +18,42 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            
-            List<Forma>? obj = _unitOfWork.Forma.GetAll().ToList();
+            List<Forma>? objProductList = _unitOfWork.Forma.
+                GetAll()?
+            .Select(Forma => new Forma
+            {
+                Id = Forma.Id,
+                Name = Forma.Name,
+                Page = Forma.Page,
+                PrintTarget = Forma.PrintTarget,
+                ProductId = Forma.ProductId
+                // Set values for any other new properties
+            })
+            .ToList();
+            objProductList.ForEach(e =>
+            {
 
-            return View(obj);
+                e.Product = new Product // Assuming Category is a complex object
+                {
+                    // Set the SubjectId here
+                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title
+                    // Set other properties of the Category object if needed
+                };
+            });
+            return View(objProductList);
         }
 
         public IActionResult Create()
         {
+            List<Product>? pro = _unitOfWork.Product.GetAll().ToList();
+            // Convert the List<Forma>? to IEnumerable<SelectListItem>
+            IEnumerable<SelectListItem>? selectListItems3 = pro?.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(), // Replace with the actual property you want as the value
+                Text = s.Title // Replace with the actual property you want as the text
+            });
+            ViewBag.productlist = selectListItems3;
+
             return View();
         }
         [HttpPost]

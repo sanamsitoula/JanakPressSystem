@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -17,6 +18,9 @@ namespace Ecom.Models
         public string ?AssociatedFormaId { get; set; }
         public string ?Remarks { get; set; }
         public bool ?Status { get; set; }
+        public required int ProductId { get; set; }
+        [ForeignKey("ProductId")]
+        public Product? Product { get; set; }
 
 
     }

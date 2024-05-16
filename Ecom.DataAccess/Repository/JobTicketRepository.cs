@@ -19,5 +19,7 @@ namespace Ecom.DataAccess.Repository
         {
            _db.JobTicket.Update(JobTicket);
         }
+
+     
     }
 }

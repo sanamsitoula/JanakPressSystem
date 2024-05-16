@@ -14,4 +14,7 @@ namespace Ecom.Utility
         public const string Role_user_indi = "Individual";
 
     }
+
+
+
 }

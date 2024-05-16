@@ -41,6 +41,11 @@ namespace Ecom.Models
         public DateTimeOffset? CreatedDate { get; set; }
         public int? FiscalYear { get; set; }
         public int? PrePrintSize { get; set; }
+        public string? JobStep { get; set; }
 
+        public static implicit operator int(JobTicket v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
