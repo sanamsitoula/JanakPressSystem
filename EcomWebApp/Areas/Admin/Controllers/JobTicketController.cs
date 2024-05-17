@@ -179,7 +179,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         public IActionResult View(int? id)
         {
            var forma = _unitOfWork.Forma.GetAll().ToList();
-            var JobTicket = _unitOfWork.JobTicket.GetAll().ToList();
+          //  var JobTicket = _unitOfWork.GetFirstOrDefault(u => u.Id == id);
+            JobTicket obj = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
 
             var jtf = new JobTicketForma()
             {
