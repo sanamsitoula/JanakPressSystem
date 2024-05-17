@@ -1,5 +1,6 @@
 ﻿@model Ecom.Models.JobTicketForma
 
+
 @{
     ViewData["Title"] = "Job Ticket";
 }
@@ -28,82 +29,67 @@
             <h5>सानोठिमी,भक्तपुर </h5>
             <h5>(Printing शाखा)</h5>
         </div>
-        <div class="date d-flex justify-content-between">
+        <div class="row">
              @foreach (var obj in Model.jobstick)
                 {
-            <div>
-            <h5> 
-                @*  <input asp-for="Id" hidden /> *@
-                    <strong>
-                        Job Ticket No.:@obj.Id
-                    </strong>
-
-                </h5>
-                <p>
-                    <b>Class  : </b> <u>0 </u> <br>
-                    <b>Page Number : </b> <u>@obj.PageNumber</u> /
-                    <b>Page  : </b> <u>@obj.PrePrintSize</u> /
-
-                    <b>Vendor Name:</b> online sanshar pvt.ltd
-                </p>
-            </div>
-            <div>
-
-             
-                <p>Job Date: @obj.JobDate</p>
-                <p>Job Start Date: @obj.JobStartDate</p>
-                <p>Job Completion Date: @obj.JobCompleteDate</p>
-
-            </div>
-}
+        <div class="col-md-4">
+            <strong>
+                    Job Ticket No.:@obj.Id / @obj.Name
+            </strong>
+            <br />
+                <b>Class  : </b> <u>
+                    @if(obj.Product.Title != null)
+                {
+                        @obj.Product.Class  @obj.Product.Title
+                    }
+                </u>  <br />
+                <b>Page Number : </b> <u>@obj.PageNumber</u>
+                <br /> <b>Page  : </b> <u>@obj.PrePrintSize</u>
+                <br /> <b>Job Start Date: @obj.JobStartDate</b>
+                <b>Job Completion Date: @obj.JobCompleteDate</b>
+        </div>
+        <div class="col-md-4">
+                <h5>  Lot Number : @obj.LotNumber |
+                Year : @obj.FiscalYear  </h5>
+        </div>
+        <div class="col-md-4">
+                <b>Job Date: @obj.JobDate</b>
+                <br />
+                <b>Print Target: @obj.PrintTarget</b> <br />
+                <b>Print Achieved: @obj.PrintAchieved</b>
+        </div>
+                }
         </div>
         
-        <div class="from mt-3">
-            <h5><strong>श्री स्टोर शाखा,</strong></h5>
-            <h5>आर्थिक प्रशासन विभाग</h5>
-            <h5>ज.शि.सा.के.लि. ।</h5>
-        </div>
-
-        <div class="subject text-center mt-5 font-size-18-px">
-            <h5> <strong>विषय:</strong> स्टोर दखिला गरिदिने सम्बन्धमा </h5>
-        </div>
-
-
-
-        <div class="content mt-5">
-            <h5>
-                उपरोक्त सम्बन्धमा यस ज.शि.सा.के.लि.
-
-                को स्वीकृत खरिद आदेश. JEMC-PO-8081-0634 अनुसार खरिद भएका तपसिल
-
-                उल्लेखित सामानहरु स्टोर दाखिला गरिदिनुहुन अनुरोध छ ।
-            </h5>
-        </div>
+  
         
        
             <div class="table mt-5">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Page Number</th>
+                            <th>S.N</th>
+                            <th>Forma</th>
+                            <th>Page </th>
                             <th>Print Target</th>
-                           
-                            <th>Status</th>
+                            <th>Remarks</th>
                         </tr>
                     </thead>
                     <tbody>
+                @{
+                    int sn = 1; // Initialize the serial number counter
+                }
                         @foreach (var mo in Model.forma)
                         {
                             <tr>
-                                <td>@mo.Id</td>
+                        <td>@sn</td> <!-- Output the serial number -->
                                 <td>@mo.Name</td>
                                 <td>@mo.Page</td>
                                 <td>@mo.PrintTarget</td>
-                              
+                        <td>@mo.Id |@mo.Remarks</td>
 
                             </tr>
+                    sn++; // Increment the serial number counter
                         }
                     </tbody>
                     </table>

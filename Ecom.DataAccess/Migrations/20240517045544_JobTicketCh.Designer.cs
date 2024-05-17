@@ -4,6 +4,7 @@ using Ecom.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240517045544_JobTicketCh")]
+    partial class JobTicketCh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 17, 10, 42, 53, 788, DateTimeKind.Local).AddTicks(4547),
+                            CreatedDate = new DateTime(2024, 5, 17, 10, 40, 43, 930, DateTimeKind.Local).AddTicks(4684),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -70,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 17, 10, 42, 53, 788, DateTimeKind.Local).AddTicks(4564),
+                            CreatedDate = new DateTime(2024, 5, 17, 10, 40, 43, 930, DateTimeKind.Local).AddTicks(4702),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -80,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 17, 10, 42, 53, 788, DateTimeKind.Local).AddTicks(4565),
+                            CreatedDate = new DateTime(2024, 5, 17, 10, 40, 43, 930, DateTimeKind.Local).AddTicks(4704),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",

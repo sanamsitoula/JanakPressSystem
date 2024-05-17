@@ -30,5 +30,6 @@ namespace Ecom.Models
 
         public List<JobTicket> jobstick { get; set; }
         public List<Forma> forma { get; set; }
+        public List<Product> ?product { get; set; }
     }
 }

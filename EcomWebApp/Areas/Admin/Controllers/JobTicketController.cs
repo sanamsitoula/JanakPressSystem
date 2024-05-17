@@ -4,6 +4,7 @@ using Ecom.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.SqlServer.Server;
+using System.Net.Sockets;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
@@ -19,35 +20,29 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            List<JobTicket>? objProductList = _unitOfWork.JobTicket.
+              GetAll()?
+          .Select(jobTicket => new JobTicket
+          {
+              Id = jobTicket.Id,
+              Name = jobTicket.Name,
+              ProductId = jobTicket.ProductId,
+              // Set values for any other new properties
+          }).ToList();
 
-            var jobTickets = _unitOfWork.JobTicket.GetAll(); // Fetch job tickets from the repository
 
-            // Mapping JobTicket entities to DTOs
-            var objJobTicketList = jobTickets.Select(jobTicket => new JobTicket
+            objProductList.ForEach(e =>
             {
-                Id = jobTicket.Id,
-                Name = jobTicket.Name,
-                JobStartDate = jobTicket.JobStartDate,
-                JobStep= string.IsNullOrEmpty(jobTicket.JobStep) ? "" : jobTicket.JobStep,
-                // Initialize Product property to avoid NullReferenceException
-                Product = new Product { Title = "" }
-            }).ToList();
-
-            // Populating Product information for each JobTicket
-            foreach (var jobTicket in objJobTicketList)
-            {
-                var product = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == jobTicket.ProductId);
-                if (product != null)
+                e.Product = new Product // Assuming Product is a complex object
                 {
-                    jobTicket.Product = product;
-                }
-                else
-                {
-                    // Handle case when product is null
-                }
-            }
+                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                    Id = e.ProductId,
 
-            return View(objJobTicketList);
+                    // Set other properties of the Category object if needed
+                };
+
+            });
+            return View(objProductList);
         }
 
         public IActionResult Create()
@@ -158,7 +153,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Id = jobTicket.Id,
                 Name = jobTicket.Name,
                 JobStartDate = jobTicket.JobStartDate,
-                JobStep = string.IsNullOrEmpty(jobTicket.JobStep) ? "" : jobTicket.JobStep,
+               // JobStep = string.IsNullOrEmpty(jobTicket.JobStep) ? "" : jobTicket.JobStep,
                 ProductId = jobTicket.ProductId,
                 // Initialize Product property to avoid NullReferenceException
                 Product = new Product { Title = "" }
@@ -176,17 +171,25 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
 
 
-        public IActionResult View(int? id)
+        public IActionResult View(int? id, int? proId)
         {
-           var forma = _unitOfWork.Forma.GetAll().ToList();
-          //  var JobTicket = _unitOfWork.GetFirstOrDefault(u => u.Id == id);
-            JobTicket obj = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
+            // Retrieve and filter the forma list based on the id parameter
+            var forma = _unitOfWork.Forma.GetAll()
+                         .Where(f => f.ProductId == proId)
+                         .ToList();
+            JobTicket jobTicket = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
+            Product product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == proId);
+            //   var JobTicket = _unitOfWork.GetFirstOrDefault(u => u.Id == id);
+            // JobTicket obj = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
 
             var jtf = new JobTicketForma()
             {
                forma= forma,
-              
-               jobstick =JobTicket
+                jobstick = jobTicket != null ? new List<JobTicket> { jobTicket } : new List<JobTicket>(),
+                product = product != null ? new List<Product> { product } : new List<Product>()
+
+                //  jobstick = new List<JobTicket> { jobTicket }
+                // jobstick = jobTicket
 
             };
 
