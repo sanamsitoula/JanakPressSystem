@@ -1,4 +1,4 @@
-﻿@model List<JobTicket,Forma>
+﻿@model Ecom.Models.JobTicketForma
 
 @{
     ViewData["Title"] = "Job Ticket";
@@ -97,15 +97,15 @@
                 </tr>
                 </thead>
             <tbody>
-                @foreach (var obj in Model)
+                @foreach (var obj in Model.jobstick)
                 {
                     <tr>
-                        <td>@obj.Id</td>
+                         <td>@obj.Id</td>
                         <td>@obj.Name</td>
                         <td>@obj.PageNumber</td>
                         <td>@obj.PrintTarget</td>
                         <td>@obj.JobDate</td>
-                        <td>@obj.Product.Title</td>
+                      @*   <td>@obj.Product.Title ? ""</td> *@
                         <td>@obj.LotNumber</td>
                         <td>@obj.JobType</td>
 
@@ -115,5 +115,35 @@
                     </tr>
                 }
             </tbody>
-                
-                  
+        </table>
+    </div>
+
+            <div class="table mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Page Number</th>
+                            <th>Print Target</th>
+                           
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var mo in Model.forma)
+                        {
+                            <tr>
+                                <td>@mo.Id</td>
+                                <td>@mo.Name</td>
+                                <td>@mo.Page</td>
+                                <td>@mo.PrintTarget</td>
+                              
+
+                            </tr>
+                        }
+                    </tbody>
+                    </table>
+                    </div>
+
+

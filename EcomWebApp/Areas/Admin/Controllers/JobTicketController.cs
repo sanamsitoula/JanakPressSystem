@@ -136,7 +136,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View();
         }
-        public IActionResult View(int? id)
+        public IActionResult View2(int? id)
         {
             if (id == null || id == 0)
             {
@@ -149,7 +149,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
           
             var pisd= _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
-            int k = pisd;
+          //  int k = pisd;
             // var jobTickets = _unitOfWork.JobTicket.GetFirstOrDefault(u => u.Id == id);
 
             // Mapping JobTicket entities to DTOs
@@ -163,13 +163,34 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 // Initialize Product property to avoid NullReferenceException
                 Product = new Product { Title = "" }
             }).ToList();
-            //  var Forma = _unitOfWork.Forma.GetAll(x => listIds.Contains(x.Id)).ToList();
-            var forma = _unitOfWork.Forma.GetAllThroughParam(u => u.ProductId == k).ToList();
+            var Forma = _unitOfWork.Forma.GetAll().ToList();
+            //var Forma = _unitOfWork.Forma.GetAll(x => listIds.Contains(x.Id)).ToList();
+         //  var forma = _unitOfWork.Forma.GetAllThroughParam(u => u.ProductId == k).ToList();
            
-
-            return View(objJobTicketList);
+            JobTicketForma jtf = new JobTicketForma()
+            {
+                jobstick = jobTicketList,
+                forma = Forma
+            };
+            return View(jtf);
         }
 
+
+        public IActionResult View(int? id)
+        {
+           var forma = _unitOfWork.Forma.GetAll().ToList();
+            var JobTicket = _unitOfWork.JobTicket.GetAll().ToList();
+
+            var jtf = new JobTicketForma()
+            {
+               forma= forma,
+              
+               jobstick =JobTicket
+
+            };
+
+            return View(jtf);
+        }
 
 
 

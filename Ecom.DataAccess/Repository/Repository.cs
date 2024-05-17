@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecom.DataAccess.Repository
+namespace Ecom.DataAccess.Repository 
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -52,15 +52,15 @@ namespace Ecom.DataAccess.Repository
             return dbSet.AsQueryable();
         }
 
-        public IQueryable<T> GetAllThroughParam(System.Linq.Expressions.Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> query = dbSet;
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            return (IQueryable<T>)query.ToList();
-        }
+        //public IQueryable<T> GetAllThroughParam(System.Linq.Expressions.Expression<Func<T, bool>> filter)
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    if (filter != null)
+        //    {
+        //        query = query.Where(filter);
+        //    }
+        //    return (IQueryable<T>)query.ToList();
+        //}
 
 
         public void Remove(T entity)
@@ -73,5 +73,6 @@ namespace Ecom.DataAccess.Repository
             dbSet.RemoveRange(entity);
 
         }
+
     }
 }

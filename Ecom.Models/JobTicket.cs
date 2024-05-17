@@ -43,9 +43,6 @@ namespace Ecom.Models
         public int? PrePrintSize { get; set; }
         public string? JobStep { get; set; }
 
-        public static implicit operator int(JobTicket v)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

@@ -24,4 +24,11 @@ namespace Ecom.Models
 
 
     }
+
+    public class JobTicketForma
+    {
+
+        public List<JobTicket> jobstick { get; set; }
+        public List<Forma> forma { get; set; }
+    }
 }
