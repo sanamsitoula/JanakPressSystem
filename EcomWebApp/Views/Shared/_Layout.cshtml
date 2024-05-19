@@ -45,6 +45,8 @@
                                     <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
                                 </li>
                             </ul>
+
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Forma" asp-action="Index">Forma</a>
@@ -69,6 +71,24 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="P2M" asp-action="Index">P2M</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Report
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Report" asp-action="P2MReport">P2M Report</a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                </li>
+                            </ul>
+
+
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

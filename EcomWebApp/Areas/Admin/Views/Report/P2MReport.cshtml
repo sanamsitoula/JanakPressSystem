@@ -1,0 +1,195 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+<style>
+    /* styles.css */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .report-container {
+        width: 90%;
+        margin: 20px auto;
+        background-color: #ff33f;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .report-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .report-header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .report-header h2, .report-header h3, .report-header h4 {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+    .report-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .report-table th, .report-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .report-table th {
+            background-color: #f2f2f2;
+        }
+
+        .report-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+    .report-footer {
+        text-align: right;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+    /* styles.css */
+
+
+</style>
+
+
+<div class="report-container">
+    <header class="report-header">
+        <h1>जनक शिक्षा सामग्री केन्द्र लिमिटेड</h1>
+        <h2>Production विभाग</h2>
+        <h3>सानोठिमी, भक्तपुर</h3>
+        <h4>(Printing शाखा)</h4>
+    </header>
+    <table id="report-table" class="display">
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Forma</th>
+                <th>Page</th>
+                <th>Print Target</th>
+                <th>Remarks</th>
+                <th>Column 6</th>
+                <th>Column 7</th>
+                <th>Column 8</th>
+                <th>Column 9</th>
+                <th>Column 10</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Form A</td>
+                <td>10</td>
+                <td>5000</td>
+                <td>First batch</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+                <td>Data 9</td>
+                <td>Data 10</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Form B</td>
+                <td>15</td>
+                <td>3000</td>
+                <td>Second batch</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+                <td>Data 9</td>
+                <td>Data 10</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Form C</td>
+                <td>20</td>
+                <td>4000</td>
+                <td>Third batch</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+                <td>Data 9</td>
+                <td>Data 10</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Form D</td>
+                <td>25</td>
+                <td>3500</td>
+                <td>Fourth batch</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+                <td>Data 9</td>
+                <td>Data 10</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Form E</td>
+                <td>30</td>
+                <td>6000</td>
+                <td>Fifth batch</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+                <td>Data 9</td>
+                <td>Data 10</td>
+            </tr>
+        </tbody>
+    </table>
+    <footer class="report-footer">
+        <p>Created By: Your Name</p>
+    </footer>
+    <footer class="report-footer">
+        <p>Created By: Your Name</p>
+        <button onclick="printReport()">Print</button>
+        <button onclick="exportToPDF()">Export to PDF</button>
+        <button onclick="exportToExcel()">Export to Excel</button>
+    </footer>
+</div>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#report-table').DataTable();
+    });
+
+    function printReport() {
+        var printContents = document.querySelector('.report-container').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+<script>
+    function exportToPDF() {
+        const doc = new jsPDF();
+        doc.text(20, 20, 'Your Report Title');
+        doc.autoTable({ html: '.report-table' });
+        doc.save('report.pdf');
+    }
+
+    function exportToExcel() {
+        const wb = XLSX.utils.table_to_book(document.querySelector('.report-table'), { sheet: "Sheet 1" });
+        XLSX.writeFile(wb, 'report.xlsx');
+    }
+</script>
