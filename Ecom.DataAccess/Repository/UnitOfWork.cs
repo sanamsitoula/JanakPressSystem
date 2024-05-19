@@ -19,6 +19,8 @@ namespace Ecom.DataAccess.Repository
         public IClassRepository Class { get; private set; }
         public IMachinaryRepository Machinary { get; private set; }
         public IFormaRepository Forma { get; private set; }
+        public IFiscalYearRepository FiscalYear { get; private set; }
+        public IMachineJobRepository MachineJob { get; private set; }
 
         public UnitOfWork (ApplicationDBContext db) 
         {
@@ -31,6 +33,9 @@ namespace Ecom.DataAccess.Repository
             Class = new ClassRepository(_db);
             Machinary = new MachinaryRepository(_db);
             Forma = new FormaRepository(_db);
+            FiscalYear = new FiscalYearRepository(_db);
+            MachineJob = new MachineJobRepository(_db);
+
 
 
 

@@ -4,6 +4,7 @@ using Ecom.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240519030442_MachineJobAdd")]
+    partial class MachineJobAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 8, 58, 26, 494, DateTimeKind.Local).AddTicks(6052),
+                            CreatedDate = new DateTime(2024, 5, 19, 8, 49, 40, 564, DateTimeKind.Local).AddTicks(292),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -70,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 8, 58, 26, 494, DateTimeKind.Local).AddTicks(6076),
+                            CreatedDate = new DateTime(2024, 5, 19, 8, 49, 40, 564, DateTimeKind.Local).AddTicks(314),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -80,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 8, 58, 26, 494, DateTimeKind.Local).AddTicks(6079),
+                            CreatedDate = new DateTime(2024, 5, 19, 8, 49, 40, 564, DateTimeKind.Local).AddTicks(317),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",
@@ -664,7 +667,7 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int?>("JobTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MachinaryId")
+                    b.Property<int?>("MachinaryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -723,12 +726,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 19, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6547),
+                            CreatedDate = new DateTime(2024, 5, 19, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(766),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 19, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6536),
+                            JobDate = new DateTime(2024, 5, 19, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(753),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -737,7 +740,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 20, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6537),
+                            ReportDate = new DateTime(2024, 5, 20, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(754),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -748,12 +751,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 19, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6560),
+                            CreatedDate = new DateTime(2024, 5, 19, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(779),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 19, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6554),
+                            JobDate = new DateTime(2024, 5, 19, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(773),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -762,7 +765,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 21, 3, 13, 26, 494, DateTimeKind.Utc).AddTicks(6555),
+                            ReportDate = new DateTime(2024, 5, 21, 3, 4, 40, 564, DateTimeKind.Utc).AddTicks(774),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,
@@ -1198,8 +1201,7 @@ namespace Ecom.DataAccess.Migrations
                     b.HasOne("Ecom.Models.Machinary", "Machinary")
                         .WithMany()
                         .HasForeignKey("MachinaryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Ecom.Models.Product", "Product")
                         .WithMany()

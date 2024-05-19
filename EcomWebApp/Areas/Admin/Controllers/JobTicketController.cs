@@ -2,6 +2,7 @@
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.SqlServer.Server;
 using System.Net.Sockets;
@@ -47,6 +48,35 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            //var model = new Product() { };
+            List<Product>? objProduct = _unitOfWork.Product.GetAll().ToList();
+            List<JobType>? objJobType = _unitOfWork.JobType.GetAll().ToList();
+            List<FiscalYear>? objFY = _unitOfWork.FiscalYear.GetAll().ToList();
+
+            IEnumerable<SelectListItem>? selectProductList = objProduct?.Select(form => new SelectListItem
+            {
+                Value = form.Id.ToString(), // Replace with the actual property you want as the value
+                Text = form.Title // Replace with the actual property you want as the text
+            });
+            IEnumerable<SelectListItem>? selectJobTypeList = objJobType?.Select(f => new SelectListItem
+            {
+                Value = f.Id.ToString(), // Replace with the actual property you want as the value
+                Text = f.Name // Replace with the actual property you want as the text
+            });
+            IEnumerable<SelectListItem>? selectFY = objFY?.Select(fy => new SelectListItem
+            {
+                Value = fy.Id.ToString(), // Replace with the actual property you want as the value
+                Text = fy.Name // Replace with the actual property you want as the text
+            });
+
+
+            // Store the IEnumerable<SelectListItem> in ViewBag
+            ViewBag.Product = selectProductList;
+            ViewBag.JobType = selectJobTypeList;
+            ViewBag.FiscalYear = selectFY;
+
+
+
             return View();
         }
         [HttpPost]

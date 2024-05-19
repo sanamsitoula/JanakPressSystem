@@ -16,6 +16,9 @@ namespace Ecom.DataAccess.Repository.IRepository
         IJobTicketRepository JobTicket { get; }
         IFormaRepository Forma { get; }
         IMachinaryRepository Machinary { get; }
+        IFiscalYearRepository FiscalYear { get; }
+        IMachineJobRepository MachineJob { get; }
+
         void Save();
     }
 }

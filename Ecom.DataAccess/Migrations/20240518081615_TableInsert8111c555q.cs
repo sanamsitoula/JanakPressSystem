@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstSeed : Migration
+    public partial class TableInsert8111c555q : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,21 @@ namespace Ecom.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FiscalYear",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FiscalYear", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobType",
                 columns: table => new
                 {
@@ -68,7 +83,10 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    JobStepId = table.Column<int>(type: "int", nullable: true),
+                    JobStep = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,11 +169,12 @@ namespace Ecom.DataAccess.Migrations
                 name: "UserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                 });
 
             migrationBuilder.CreateTable(
@@ -215,15 +234,12 @@ namespace Ecom.DataAccess.Migrations
                     CostPrice = table.Column<double>(type: "float", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FiscalYear = table.Column<int>(type: "int", nullable: true),
                     PageNumber = table.Column<int>(type: "int", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    ClassId = table.Column<int>(type: "int", nullable: false),
-                    FormaAssociation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FormaListId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FormaNames = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: true),
+                    ClassId = table.Column<int>(type: "int", nullable: true),
                     SubjectLanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubjectLanguages = table.Column<int>(type: "int", nullable: true),
                     SubjectTypeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -237,19 +253,19 @@ namespace Ecom.DataAccess.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Products_Class_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Class",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Products_Subject_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subject",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -265,7 +281,7 @@ namespace Ecom.DataAccess.Migrations
                     AssociatedFormaId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -274,7 +290,8 @@ namespace Ecom.DataAccess.Migrations
                         name: "FK_Forma_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -300,12 +317,19 @@ namespace Ecom.DataAccess.Migrations
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     DeletedBy = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    FiscalYear = table.Column<int>(type: "int", nullable: true),
-                    PrePrintSize = table.Column<int>(type: "int", nullable: true)
+                    FiscalYearId = table.Column<int>(type: "int", nullable: true),
+                    PrePrintSize = table.Column<int>(type: "int", nullable: true),
+                    JobStepId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobStep = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobTicket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobTicket_FiscalYear_FiscalYearId",
+                        column: x => x.FiscalYearId,
+                        principalTable: "FiscalYear",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_JobTicket_JobType_JobTypeId",
                         column: x => x.JobTypeId,
@@ -320,14 +344,75 @@ namespace Ecom.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "MachineJobs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    JobTicketId = table.Column<int>(type: "int", nullable: false),
+                    MachinaryId = table.Column<int>(type: "int", nullable: true),
+                    FormaId = table.Column<int>(type: "int", nullable: false),
+                    JobDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ReportDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Page = table.Column<int>(type: "int", nullable: true),
+                    JobTypeId = table.Column<int>(type: "int", nullable: true),
+                    JobStepId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobStep = table.Column<int>(type: "int", nullable: true),
+                    ShiftId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Shift = table.Column<int>(type: "int", nullable: true),
+                    ShiftDurationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShiftDuration = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SupervisorId = table.Column<int>(type: "int", nullable: true),
+                    InchargeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MachineJobs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MachineJobs_Forma_FormaId",
+                        column: x => x.FormaId,
+                        principalTable: "Forma",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MachineJobs_JobTicket_JobTicketId",
+                        column: x => x.JobTicketId,
+                        principalTable: "JobTicket",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MachineJobs_JobType_JobTypeId",
+                        column: x => x.JobTypeId,
+                        principalTable: "JobType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MachineJobs_Machinary_MachinaryId",
+                        column: x => x.MachinaryId,
+                        principalTable: "Machinary",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MachineJobs_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 5, 16, 16, 7, 48, 725, DateTimeKind.Local).AddTicks(6701), "NEB", 1, "NEB", true },
-                    { 2, "1", new DateTime(2024, 5, 16, 16, 7, 48, 725, DateTimeKind.Local).AddTicks(6717), "HSEB", 3, "HSEB", true },
-                    { 3, "1", new DateTime(2024, 5, 16, 16, 7, 48, 725, DateTimeKind.Local).AddTicks(6718), "SLC", 2, "SLC", true }
+                    { 1, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4981), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4996), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4997), "SLC", 2, "SLC", true }
                 });
 
             migrationBuilder.InsertData(
@@ -341,15 +426,33 @@ namespace Ecom.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Forma",
-                columns: new[] { "Id", "AssociatedFormaId", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
+                table: "FiscalYear",
+                columns: new[] { "Id", "Description", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, "TA-32", null, null, null, null, null, null },
-                    { 2, null, "33-40", null, null, null, null, null, null },
-                    { 3, null, "41-51", null, null, null, null, null, null },
-                    { 4, null, "52-62", null, null, null, null, null, null },
-                    { 5, null, "64-93", null, null, null, null, null, null }
+                    { 1, null, "2080", null },
+                    { 2, null, "2081", null },
+                    { 3, null, "2082", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JobType",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, "Pre-Press" },
+                    { 2, null, "Press" },
+                    { 3, null, "Post-Press" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Machinary",
+                columns: new[] { "Id", "Description", "JobStep", "JobStepId", "Name", "Status" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, "Oliver ", null },
+                    { 2, null, null, null, "RMGT", null },
+                    { 3, null, null, null, "NaphA", null }
                 });
 
             migrationBuilder.InsertData(
@@ -362,10 +465,62 @@ namespace Ecom.DataAccess.Migrations
                     { 3, null, "Nepali", null }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Author", "BasePrice", "CategoryId", "ClassId", "CostPrice", "CreatedBy", "Description", "FiscalYear", "ISBN", "ImageURL", "PageNumber", "Status", "SubjectId", "SubjectLanguageId", "SubjectLanguages", "SubjectTypeId", "SubjectTypes", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 1" },
+                    { 2, "Author 2", 200.0, 2, 2, 150.0, "Admin", "Description 2", 2081, "ISBN-2", "http://example.com/product2.jpg", 200, true, 2, "2", null, "2", null, "Product 2" },
+                    { 3, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Forma",
+                columns: new[] { "Id", "AssociatedFormaId", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
+                values: new object[,]
+                {
+                    { 1, null, "TA-32", null, null, null, 1, null, null },
+                    { 2, null, "33-40", null, null, null, 1, null, null },
+                    { 3, null, "41-51", null, null, null, 1, null, null },
+                    { 4, null, "52-62", null, null, null, 1, null, null },
+                    { 5, null, "64-93", null, null, null, 1, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JobTicket",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "Desc", "FiscalYearId", "JobCompleteDate", "JobDate", "JobStartDate", "JobStep", "JobStepId", "JobTypeId", "LotNumber", "Name", "PageNumber", "PrePrintSize", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTimeOffset(new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 1", 1, new DateTimeOffset(new DateTime(2024, 1, 1, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step1", 1, 100, "Job 1", 1, 50, 950, 1000, 1, "Remarks 1", true, 1 },
+                    { 2, 2, new DateTimeOffset(new DateTime(2024, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 2", 2, new DateTimeOffset(new DateTime(2024, 1, 2, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step2", 1, 101, "Job 2", 2, 100, 1900, 2000, 2, "Remarks 2", true, 2 },
+                    { 3, 3, new DateTimeOffset(new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 3", 3, new DateTimeOffset(new DateTime(2024, 1, 3, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step3", 1, 102, "Job 3", 3, 150, 2850, 3000, 3, "Remarks 3", true, 3 },
+                    { 4, 4, new DateTimeOffset(new DateTime(2024, 1, 4, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 4", 1, new DateTimeOffset(new DateTime(2024, 1, 4, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step4", 1, 103, "Job 4", 4, 200, 3800, 4000, 1, "Remarks 4", true, 4 },
+                    { 5, 1, new DateTimeOffset(new DateTime(2024, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 5", 2, new DateTimeOffset(new DateTime(2024, 1, 5, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step5", 2, 104, "Job 5", 5, 250, 4750, 5000, 2, "Remarks 5", true, 1 },
+                    { 6, 1, new DateTimeOffset(new DateTime(2024, 1, 6, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 6", 3, new DateTimeOffset(new DateTime(2024, 1, 6, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step6", 2, 105, "Job 6", 6, 300, 5700, 6000, 3, "Remarks 6", true, 2 },
+                    { 7, 1, new DateTimeOffset(new DateTime(2024, 1, 7, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 7", 1, new DateTimeOffset(new DateTime(2024, 1, 7, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step7", 2, 106, "Job 7", 7, 350, 6650, 7000, 3, "Remarks 7", true, 1 },
+                    { 8, 1, new DateTimeOffset(new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 8", 2, new DateTimeOffset(new DateTime(2024, 1, 8, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step8", 2, 107, "Job 8", 8, 400, 7600, 8000, 3, "Remarks 8", true, 2 },
+                    { 9, 1, new DateTimeOffset(new DateTime(2024, 1, 9, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 9", 3, new DateTimeOffset(new DateTime(2024, 1, 9, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step9", 2, 108, "Job 9", 9, 450, 8550, 9000, 3, "Remarks 9", true, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MachineJobs",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FormaId", "InchargeId", "JobDate", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "Page", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5231), "Description 1", 1, 1, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5221), null, "Step1", 1, 1, 1, "Machine Job 1", 10, 1, "Remarks 1", new DateTime(2024, 5, 19, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5222), null, null, "Duration1", "Shift1", true, 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5237), "Description 2", 2, 2, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5234), null, "Step2", 2, 2, 2, "Machine Job 2", 20, 2, "Remarks 2", new DateTime(2024, 5, 20, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5235), null, null, "Duration2", "Shift2", true, 2, 2 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Forma_ProductId",
                 table: "Forma",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobTicket_FiscalYearId",
+                table: "JobTicket",
+                column: "FiscalYearId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobTicket_JobTypeId",
@@ -375,6 +530,31 @@ namespace Ecom.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_JobTicket_ProductId",
                 table: "JobTicket",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineJobs_FormaId",
+                table: "MachineJobs",
+                column: "FormaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineJobs_JobTicketId",
+                table: "MachineJobs",
+                column: "JobTicketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineJobs_JobTypeId",
+                table: "MachineJobs",
+                column: "JobTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineJobs_MachinaryId",
+                table: "MachineJobs",
+                column: "MachinaryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineJobs_ProductId",
+                table: "MachineJobs",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -397,13 +577,7 @@ namespace Ecom.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Forma");
-
-            migrationBuilder.DropTable(
-                name: "JobTicket");
-
-            migrationBuilder.DropTable(
-                name: "Machinary");
+                name: "MachineJobs");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -425,6 +599,18 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Forma");
+
+            migrationBuilder.DropTable(
+                name: "JobTicket");
+
+            migrationBuilder.DropTable(
+                name: "Machinary");
+
+            migrationBuilder.DropTable(
+                name: "FiscalYear");
 
             migrationBuilder.DropTable(
                 name: "JobType");

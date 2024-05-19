@@ -18,7 +18,6 @@ namespace Ecom.Models
         public DateTimeOffset ?JobDate { get; set; }
         public DateTimeOffset ?JobStartDate { get; set; }
         public DateTimeOffset ?JobCompleteDate { get; set; }
-
         [Required]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
@@ -28,18 +27,16 @@ namespace Ecom.Models
         public int JobTypeId { get; set; }
         [ForeignKey("JobTypeId")]
         public JobType ?JobType { get; set; }
-
         public int? PrintAchieved { get; set; }
         public string? Desc { get; set; } // 
-
         public string? Remarks { get; set; }
-      
         public bool? Status { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set;}
         public int? DeletedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
-        public int? FiscalYear { get; set; }
+        public int? FiscalYearId { get; set; }
+        public FiscalYear ?FiscalYear { get; set; }
         public int? PrePrintSize { get; set; }
         public string ?JobStepId { get; set; }
         public JobStep ?JobStep { get; set; }

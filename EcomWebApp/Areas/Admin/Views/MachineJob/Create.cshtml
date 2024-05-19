@@ -1,0 +1,215 @@
+﻿@model MachineJob
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="text-center mb-0">Create Machine Job</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="row">
+
+                        <div class="form-floating py-4 col-12">
+                            <label for="name" class="form-label p-4">Name</label>
+                            <input type="text" id="name" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="ProductId" class="form-label p-4"></label>
+                            <select asp-for="ProductId" class="form-control" asp-items="ViewBag.Product">
+                                <option value="">Please Choose your Product</option>
+                            </select>
+
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="MachinaryId" class="form-label p-4"></label>
+                            <select asp-for="MachinaryId" class="form-control" asp-items="ViewBag.Machinary">
+                                <option value="">Please Choose your Machinary</option>
+                            </select>
+
+                            <span asp-validation-for="MachinaryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobTicketId" class="form-label p-4"></label>
+                            <select asp-for="JobTicketId" class="form-control" asp-items="ViewBag.JobTicket">
+                                <option value="">Please Choose your JobTicket</option>
+                            </select>
+
+                            <span asp-validation-for="JobTicketId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="FormaId" class="form-label p-4"></label>
+                            <select asp-for="FormaId" class="form-control" asp-items="ViewBag.Forma">
+                                <option value="">Please Choose your Forma</option>
+                            </select>
+
+                            <span asp-validation-for="FormaId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="FormaPageSize" class="form-label p-4"> Forma Page Size</label>
+                            <input type="FormaPageSize" id="FormaPageSize" class="form-control" asp-for="FormaPageSize" />
+                            <span asp-validation-for="FormaPageSize" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="FormaTarget" class="form-label p-4"> FormaTarget</label>
+                            <input type="FormaTarget" id="FormaTarget" class="form-control" asp-for="FormaTarget" />
+                            <span asp-validation-for="FormaTarget" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobQuantity" class="form-label p-4">Job Quantity</label>
+                            <input type="JobQuantity" id="JobQuantity" class="form-control" asp-for="JobQuantity" />
+                            <span asp-validation-for="JobQuantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobTypeId" class="form-label p-4"></label>
+                            <select asp-for="JobTypeId" class="form-control" asp-items="ViewBag.JobType">
+                                <option value="">Please Choose your JobType</option>
+                            </select>
+
+                            <span asp-validation-for="JobTypeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobStepId" class="p-4"></label>
+                            <select asp-for="JobStepId" class="form-control">
+                                <option value="">Please Choose your JobStep</option>
+                                @foreach (var Item in Enum.GetValues(typeof(JobStep)))
+                                {
+                                    <option value="@Item.ToString()">@Item.ToString()</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="JobStepId" class="text-danger"></span>
+
+                        </div>
+
+           
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="ShiftId" class="p-4"></label>
+                            <select asp-for="ShiftId" class="form-control">
+                                <option value="">Please Choose your Shift</option>
+                                @foreach (var Item in Enum.GetValues(typeof(Shift)))
+                                {
+                                    <option value="@Item.ToString()">@Item.ToString()</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="ShiftId" class="text-danger"></span>
+
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="ShiftDurationId" class="p-4"></label>
+                            <select asp-for="ShiftDurationId" class="form-control">
+                                <option value="">Please Choose your ShiftDuration</option>
+                                @foreach (var Item in Enum.GetValues(typeof(ShiftDuration)))
+                                {
+                                    <option value="@Item.ToString()">@Item.ToString()</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="ShiftDurationId" class="text-danger"></span>
+
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="Desc" class="form-label p-4"> Desc</label>
+                            <input type="Desc" id="Desc" class="form-control" asp-for="Desc" />
+                            <span asp-validation-for="Desc" class="text-danger"></span>
+                        </div>
+                       
+
+                       
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="JobDate" class="form-label p-4">JobDate</label>
+                            <input type="datetime-local" id="JobDate" class="form-control" asp-for="JobDate" />
+                            <span asp-validation-for="JobDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label for="ReportDate" class="form-label p-4">ReportDate</label>
+                            <input type="datetime-local" id="ReportDate" class="form-control" asp-for="ReportDate" />
+                            <span asp-validation-for="ReportDate" class="text-danger"></span>
+                        </div>
+                        
+                          
+                       
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a asp-controller="MachineJob" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             // Initialize Select2 on the FormaId dropdown
+         
+            $('#ProductId').change(function () {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        url: '@Url.Action("GetFormasByProductId", "MachineJob")',
+                        type: 'GET',
+                        data: { productId: productId },
+                        success: function (data) {
+                            var formaSelect = $('#FormaId');
+                            formaSelect.empty();
+                            formaSelect.append($('<option>', {
+                                value: '',
+                                text: 'Select a forma'
+                            }));
+                            $.each(data, function (index, item) {
+                                formaSelect.append($('<option>', {
+                                    value: item.value,
+                                    text: item.text
+                                }));
+                            });
+                        }
+                    });
+                }
+            });
+
+
+            $('#FormaId').change(function () {
+                var formaId = $(this).val();
+                if (formaId) {
+                    $.ajax({
+                        url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
+                        type: 'GET',
+                        data: { formaId: formaId },
+                        success: function (data) {
+                            $('#FormaPageSize').val(data.pageSize);
+                            $('#FormaTarget').val(data.formaTarget);
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            $('#FormaPageSize').val('');
+                            $('#FormaTarget').val('');
+
+                        }
+                    });
+                } else {
+                    $('#FormaPageSize').val('');
+                    $('#FormaTarget').val('');
+
+                }
+            });
+        });
+    </script>
+
+
+    <partial name="_ValidationScriptsPartial" />
+}

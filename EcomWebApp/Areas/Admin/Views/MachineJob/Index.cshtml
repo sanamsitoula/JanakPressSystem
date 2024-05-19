@@ -1,0 +1,147 @@
+﻿@model List<MachineJob>
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                MachineJob List
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="MachineJob" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-bag-plus"></i> Create New Machine Job
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-md-4">
+            <input type="text" id="searchTitle" class="form-control mb-2" placeholder="Search by Title" />
+        </div>
+        <div class="col-md-4">
+            <input type="text" id="searchJobType" class="form-control mb-2" placeholder="Search by Job Type" />
+        </div>
+        <div class="col-md-4">
+            <input type="date" id="searchJobDate" class="form-control mb-2" placeholder="Search by Job Date" />
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    # 
+                </th>
+
+                <th>
+                    Machine
+                </th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Job Ticket
+                </th>
+                <th>
+                    Job Name
+                </th>
+               
+                <th>
+                    Forma
+                </th>
+                <th>
+                  Forma Page Size
+                </th>
+                <th>
+                   Forma Target
+                </th>
+                <th>
+                   Job Quantity
+                </th>
+                <th>
+                   Job Type
+                </th>
+                <th>
+                    Job Step
+                </th>
+                <th>
+                    Shift
+                </th>
+                <th>
+                    Auth                </th>
+                <th>
+                    Status
+                </th>
+              @*   <th>
+                    Actions
+                </th> *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {    
+                <tr>
+                    <td>@obj.Id</td>
+                    <td>@(obj.Machinary != null ? obj.Machinary.Name : "No Machinary")</td>
+
+                    <td>@obj.Product.Title</td>
+                    <td>@obj.JobTicket.Name</td>
+                    <td>@obj.Name</td>
+                    <td>@(obj.Forma != null ? obj.Forma.Name : "No Forma")</td>
+
+
+                    <td>@obj.FormaPageSize</td>
+                    <td>@obj.FormaTarget</td>
+                    <td>@obj.JobQuantity</td>
+                    <td>@(obj.JobType != null ? obj.JobType.Name : "No JobType")</td>
+                    <td>@obj.JobStep.ToString()</td>
+                    <td>@obj.Shift.ToString()</td>
+                    <td>@obj.SupervisorId | @obj.OperatorId</td>
+                    <td>@obj.Status</td>
+             @*        <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="MachineJob" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-view"></i>View
+                            </a>
+                            <a asp-controller="MachineJob" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-controller="MachineJob" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#searchTitle').on('keyup', function () {
+                var value = $(this).val().toLowerCase();
+                $('table tbody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $('#searchJobType').on('keyup', function () {
+                var value = $(this).val().toLowerCase();
+                $('table tbody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $('#searchJobDate').on('change', function () {
+                var searchDate = new Date($(this).val());
+                $('table tbody tr').each(function () {
+                    var rowDate = new Date($(this).find('td:nth-child(5)').text().trim());
+                    $(this).toggle(rowDate.toDateString() === searchDate.toDateString());
+                });
+            });
+
+        });
+    </script>
+}
