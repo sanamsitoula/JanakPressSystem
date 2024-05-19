@@ -23,26 +23,83 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             List<JobTicket>? objProductList = _unitOfWork.JobTicket.
               GetAll()?
-          .Select(jobTicket => new JobTicket
+          .Select(JobTicket => new JobTicket
           {
-              Id = jobTicket.Id,
-              Name = jobTicket.Name,
-              ProductId = jobTicket.ProductId,
+              Id = JobTicket.Id,
+              Name = JobTicket.Name,
+              PageNumber = JobTicket.PageNumber,
+              PrintTarget = JobTicket.PrintTarget,
+              JobDate = JobTicket.JobDate,
+              JobStartDate = JobTicket.JobStartDate,
+              JobCompleteDate = JobTicket.JobCompleteDate,
+              ProductId = JobTicket.ProductId,
+              LotNumber = JobTicket.LotNumber,
+              JobTypeId = JobTicket.JobTypeId,
+              PrintAchieved = JobTicket.PrintAchieved,
+              Desc = JobTicket.Desc,
+              Remarks = JobTicket.Remarks,
+              Status = JobTicket.Status,
+              FiscalYearId = JobTicket.FiscalYearId,
+              JobStepId = JobTicket.JobStepId,
+              PrePrintSize = JobTicket.PrePrintSize,
+
+
+
               // Set values for any other new properties
-          }).ToList();
+          }).OrderByDescending(c => c.Id)
+                                   .ToList();
 
-
-            objProductList.ForEach(e =>
+            if (objProductList != null)
             {
-                e.Product = new Product // Assuming Product is a complex object
+                objProductList.ForEach(e =>
                 {
-                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
-                    Id = e.ProductId,
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = e.ProductId,
+                    };
+                    e.JobType = new JobType // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.JobType.GetFirstOrDefault(c => c.Id == e.JobTypeId).Name,
+                        Id = e.JobTypeId,
+                    };
+                    //e.FiscalYear = new FiscalYear // Assuming Product is a complex object
+                    //{
+                    //    Name = _unitOfWork.FiscalYear.GetFirstOrDefault(c => c.Id == e.FiscalYearId).Name,
+                    //    Id = e.FiscalYearId,
+                    //};
 
-                    // Set other properties of the Category object if needed
-                };
 
-            });
+
+
+
+                    //// Assuming JobTicketId is of type int?
+                    //int? MachinaryId = e.MachinaryId;
+
+                    //e.Machinary = MachinaryId.HasValue ? new Machinary // Assuming JobTicket is a complex object
+                    //{
+                    //    Name = _unitOfWork.Machinary.GetFirstOrDefault(c => c.Id == MachinaryId.Value)?.Name,
+                    //    Id = MachinaryId.Value,
+                    //} : null;
+
+                    //// Assuming JobTicketId is of type int?
+                    //int? FormaId = e.FormaId;
+                    //var formaEntity = _unitOfWork.Forma.GetFirstOrDefault(c => c.Id == FormaId.Value);
+                    //if (formaEntity != null)
+                    //{
+                    //    e.Forma = new Forma
+                    //    {
+                    //        Id = formaEntity.Id,
+                    //        Name = formaEntity.Name,
+                    //        Page = formaEntity.Page,
+                    //        PrintTarget = formaEntity.PrintTarget,
+                    //        PrintAchieved = formaEntity.PrintAchieved
+                    //    };
+                    //}
+
+
+                });
+            }
             return View(objProductList);
         }
 
@@ -225,6 +282,16 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View(jtf);
         }
+
+
+        //public IActionResult GetTotalJobQty(int? productId)
+        //{
+        //    int totalJobQty = _unitOfWork.MachineJob.GetAll()
+        //                 .Where(f => f.ProductId == productId)
+        //                 .ToList();
+        //    return Ok(totalJobQty);
+        //}
+
 
 
 

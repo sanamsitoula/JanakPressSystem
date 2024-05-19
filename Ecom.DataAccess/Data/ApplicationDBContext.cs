@@ -25,6 +25,7 @@ namespace Ecom.DataAccess.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<FiscalYear> FiscalYear { get; set; }
         public DbSet<MachineJob> MachineJobs { get; set; }
+        public DbSet<P2M> P2M { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

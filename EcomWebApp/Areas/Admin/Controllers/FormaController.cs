@@ -36,7 +36,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 e.Product = new Product // Assuming Category is a complex object
                 {
                     // Set the SubjectId here
-                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title
+                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                    Id = e.ProductId
                     // Set other properties of the Category object if needed
                 };
             });

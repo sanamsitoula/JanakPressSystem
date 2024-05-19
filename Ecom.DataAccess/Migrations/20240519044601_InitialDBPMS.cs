@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class TableInsert8111c555q : Migration
+    public partial class InitialDBPMS : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -353,12 +353,14 @@ namespace Ecom.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     JobTicketId = table.Column<int>(type: "int", nullable: false),
-                    MachinaryId = table.Column<int>(type: "int", nullable: true),
+                    MachinaryId = table.Column<int>(type: "int", nullable: false),
                     FormaId = table.Column<int>(type: "int", nullable: false),
                     JobDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ReportDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Page = table.Column<int>(type: "int", nullable: true),
-                    JobTypeId = table.Column<int>(type: "int", nullable: true),
+                    FormaPageSize = table.Column<int>(type: "int", nullable: true),
+                    JobQuantity = table.Column<int>(type: "int", nullable: true),
+                    FormaTarget = table.Column<int>(type: "int", nullable: true),
+                    JobTypeId = table.Column<int>(type: "int", nullable: false),
                     JobStepId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobStep = table.Column<int>(type: "int", nullable: true),
                     ShiftId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -372,7 +374,8 @@ namespace Ecom.DataAccess.Migrations
                     Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SupervisorId = table.Column<int>(type: "int", nullable: true),
-                    InchargeId = table.Column<int>(type: "int", nullable: true)
+                    InchargeId = table.Column<int>(type: "int", nullable: true),
+                    OperatorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -410,9 +413,9 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4981), "NEB", 1, "NEB", true },
-                    { 2, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4996), "HSEB", 3, "HSEB", true },
-                    { 3, "1", new DateTime(2024, 5, 18, 14, 1, 15, 120, DateTimeKind.Local).AddTicks(4997), "SLC", 2, "SLC", true }
+                    { 1, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6887), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6902), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6903), "SLC", 2, "SLC", true }
                 });
 
             migrationBuilder.InsertData(
@@ -505,11 +508,11 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "MachineJobs",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FormaId", "InchargeId", "JobDate", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "Page", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5231), "Description 1", 1, 1, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5221), null, "Step1", 1, 1, 1, "Machine Job 1", 10, 1, "Remarks 1", new DateTime(2024, 5, 19, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5222), null, null, "Duration1", "Shift1", true, 1, 1 },
-                    { 2, 2, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5237), "Description 2", 2, 2, new DateTime(2024, 5, 18, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5234), null, "Step2", 2, 2, 2, "Machine Job 2", 20, 2, "Remarks 2", new DateTime(2024, 5, 20, 8, 16, 15, 120, DateTimeKind.Utc).AddTicks(5235), null, null, "Duration2", "Shift2", true, 2, 2 }
+                    { 1, 1, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7140), "Description 1", 1, 10, null, 1, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 20, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131), null, null, "Duration1", "Shift1", true, 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7144), "Description 2", 2, 10, null, 2, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7142), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 21, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7143), null, null, "Duration2", "Shift2", true, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(

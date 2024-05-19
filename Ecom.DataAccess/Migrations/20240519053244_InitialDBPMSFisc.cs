@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Macasd : Migration
+    public partial class InitialDBPMSFisc : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "FormaTarget",
+                name: "FiscalYear",
                 table: "MachineJobs",
                 type: "int",
                 nullable: true);
@@ -22,42 +22,42 @@ namespace Ecom.DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 22, 48, 11, 873, DateTimeKind.Local).AddTicks(8155));
+                value: new DateTime(2024, 5, 19, 11, 17, 44, 219, DateTimeKind.Local).AddTicks(9565));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 22, 48, 11, 873, DateTimeKind.Local).AddTicks(8175));
+                value: new DateTime(2024, 5, 19, 11, 17, 44, 219, DateTimeKind.Local).AddTicks(9583));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 22, 48, 11, 873, DateTimeKind.Local).AddTicks(8178));
+                value: new DateTime(2024, 5, 19, 11, 17, 44, 219, DateTimeKind.Local).AddTicks(9585));
 
             migrationBuilder.UpdateData(
                 table: "MachineJobs",
                 keyColumn: "Id",
                 keyValue: 1,
-                columns: new[] { "CreatedDate", "FormaTarget", "JobDate", "ReportDate" },
-                values: new object[] { new DateTime(2024, 5, 18, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8667), null, new DateTime(2024, 5, 18, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8654), new DateTime(2024, 5, 19, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8655) });
+                columns: new[] { "CreatedDate", "FiscalYear", "JobDate", "ReportDate" },
+                values: new object[] { new DateTime(2024, 5, 19, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9868), null, new DateTime(2024, 5, 19, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9858), new DateTime(2024, 5, 20, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9860) });
 
             migrationBuilder.UpdateData(
                 table: "MachineJobs",
                 keyColumn: "Id",
                 keyValue: 2,
-                columns: new[] { "CreatedDate", "FormaTarget", "JobDate", "ReportDate" },
-                values: new object[] { new DateTime(2024, 5, 18, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8679), null, new DateTime(2024, 5, 18, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8674), new DateTime(2024, 5, 20, 17, 3, 11, 873, DateTimeKind.Utc).AddTicks(8675) });
+                columns: new[] { "CreatedDate", "FiscalYear", "JobDate", "ReportDate" },
+                values: new object[] { new DateTime(2024, 5, 19, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9872), null, new DateTime(2024, 5, 19, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9870), new DateTime(2024, 5, 21, 5, 32, 44, 219, DateTimeKind.Utc).AddTicks(9871) });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FormaTarget",
+                name: "FiscalYear",
                 table: "MachineJobs");
 
             migrationBuilder.UpdateData(
@@ -65,35 +65,35 @@ namespace Ecom.DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7346));
+                value: new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6887));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7359));
+                value: new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6902));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedDate",
-                value: new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7361));
+                value: new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6903));
 
             migrationBuilder.UpdateData(
                 table: "MachineJobs",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedDate", "JobDate", "ReportDate" },
-                values: new object[] { new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7612), new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7603), new DateTime(2024, 5, 19, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7603) });
+                values: new object[] { new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7140), new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131), new DateTime(2024, 5, 20, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131) });
 
             migrationBuilder.UpdateData(
                 table: "MachineJobs",
                 keyColumn: "Id",
                 keyValue: 2,
                 columns: new[] { "CreatedDate", "JobDate", "ReportDate" },
-                values: new object[] { new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7619), new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7616), new DateTime(2024, 5, 20, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7617) });
+                values: new object[] { new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7144), new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7142), new DateTime(2024, 5, 21, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7143) });
         }
     }
 }

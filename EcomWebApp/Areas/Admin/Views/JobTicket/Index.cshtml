@@ -42,6 +42,9 @@
                     Print Target
                 </th>
                 <th>
+                    Print Achieved
+                </th>
+                <th>
                     Job Date
                 </th>
                 <th>
@@ -72,28 +75,29 @@
                     <td>@obj.Name</td>
                     <td>@obj.PageNumber</td>
                     <td>@obj.PrintTarget</td>
+                    <td>@obj.PrintAchieved</td>
                     <td>@obj.JobDate</td>
-            @* //        <td>@obj.Product.Title</td> *@
+                    <td>@obj.Product.Title</td>
                     <td>@obj.LotNumber</td>
-                    <td>@obj.JobType</td>
-                    <td>pro : @obj.ProductId</td>
+                    <td>@obj.JobType.Name</td>
+                   
                     <td>@obj.JobStep.ToString()</td>
                     <td>@obj.Status</td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="JobTicket" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="@obj.ProductId" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-view"></i>View
+                     <td>
+
+                        <a asp-controller="JobTicket" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="@obj.ProductId" class="">
+                            <i class="bi bi-eye"></i>   View
                             </a>
-                            <a asp-controller="JobTicket" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="@obj.ProductId" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-print"></i>Print
+                        <a asp-controller="JobTicket" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="@obj.ProductId" class="">
+                            <i class="bi bi-print"></i>     Print
                             </a>
-                            <a asp-controller="JobTicket" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Edit
+                        <a asp-controller="JobTicket" asp-action="Edit" asp-route-Id="@obj.Id" class="">
+                            <i class="bi bi-pencil"></i> Edit
                             </a>
-                            <a asp-controller="JobTicket" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i> Delete
+                        <a asp-controller="JobTicket" asp-action="Delete" asp-route-Id="@obj.Id" class="">
+                            <i class="bi bi-cancel"></i>     Delete
                             </a>
-                        </div>
+                       
                     </td>
                 </tr>
             }

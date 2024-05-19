@@ -33,12 +33,12 @@ namespace Ecom.Models
         [ForeignKey("ClassId")]
         public  int? ClassId { get; set; }
         public Class? Class { get; set; }
-       // public string? FormaAssociation { get; set; }    
-       // public string FormaListId { get; set; }
+        // public string? FormaAssociation { get; set; }    
+        // public string FormaListId { get; set; }
 
-       // public List<Forma>? Forma { get; set; }
-       // public string? FormaNames { get; set; }
-
+        // public List<Forma>? Forma { get; set; }
+        // public string? FormaNames { get; set; }
+        public int? FormaNumber { get; set; }
         public string? SubjectLanguageId { get; set; }
         public SubjectLanguage? SubjectLanguages { get; set; }
 

@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Ecom.Models
 {
-    public class MachineJob
+    public class P2M
     {
         [Key]
         public int Id { get; set; }
-        public  string Name { get; set; } // 
+        public  string Name { get; set; }
+        public string ?P2M_Code { get; set; }// 
         [Required]
         public int ProductId { get; set; }
-      
         public Product ?Product { get; set; }
         [Required]
-        public int JobTicketId { get; set; }
+        public int ClassId { get; set; }
         
         public JobTicket? JobTicket { get; set; }
         [Required]

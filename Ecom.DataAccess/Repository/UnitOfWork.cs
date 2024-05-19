@@ -21,6 +21,7 @@ namespace Ecom.DataAccess.Repository
         public IFormaRepository Forma { get; private set; }
         public IFiscalYearRepository FiscalYear { get; private set; }
         public IMachineJobRepository MachineJob { get; private set; }
+        public IP2MRepository P2M { get; private set; }
 
         public UnitOfWork (ApplicationDBContext db) 
         {
@@ -35,6 +36,7 @@ namespace Ecom.DataAccess.Repository
             Forma = new FormaRepository(_db);
             FiscalYear = new FiscalYearRepository(_db);
             MachineJob = new MachineJobRepository(_db);
+            P2M = new P2MRepository(_db);
 
 
 

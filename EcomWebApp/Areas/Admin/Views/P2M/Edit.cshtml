@@ -1,0 +1,68 @@
+﻿@model Forma
+<div class="card shadow border-0 my-4">
+    <div class="card-header  ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-bg-light py-2">Update Forma</h2>
+            </div>
+        </div>
+        <div class="card-body p-4">
+<form method="post">
+   @*  <input asp-for="Id" hidden /> *@
+  
+        <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-floating py-2 col-12">
+            <label asp-for="Name" class="p-0"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+                <div class="form-floating py-2 col-12">
+            <label asp-for="Page" class="p-0"></label>
+                    <input asp-for="Page" class="form-control" />
+                    <span asp-validation-for="Page" class="text-danger"></span>
+
+        </div>
+
+                <div class="form-floating py-2 col-12">
+            <label asp-for="PrintTarget" class="p-0"></label>
+                    <input asp-for="PrintTarget" class="form-control" />
+                    <span asp-validation-for="PrintTarget" class="text-danger"></span>
+
+        </div>
+
+        @*       <div class="md-3">
+        <label>Status</label>
+        <input asp-for="Status" class="form-control" />
+        </div>
+
+        <div class="md-3">
+        <label>Created By</label>
+        <input asp-for="DisplayOrder" class="form-control" />
+        </div>
+
+        <div class="md-3">
+        <label>Created Date</label>
+        <input asp-for="DisplayOrder" class="form-control" />
+        </div> *@
+        <div class="row pt-2">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Forma" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+
+            </div>
+        </div>
+   
+
+</form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

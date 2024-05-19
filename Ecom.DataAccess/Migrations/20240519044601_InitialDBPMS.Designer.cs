@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240518155112_Macas")]
-    partial class Macas
+    [Migration("20240519044601_InitialDBPMS")]
+    partial class InitialDBPMS
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7346),
+                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6887),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -73,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7359),
+                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6902),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -83,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 18, 21, 36, 11, 494, DateTimeKind.Local).AddTicks(7361),
+                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6903),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",
@@ -637,10 +637,13 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FormaId")
+                    b.Property<int>("FormaId")
                         .HasColumnType("int");
 
                     b.Property<int?>("FormaPageSize")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FormaTarget")
                         .HasColumnType("int");
 
                     b.Property<int?>("InchargeId")
@@ -661,15 +664,18 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int>("JobTicketId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("JobTypeId")
+                    b.Property<int>("JobTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MachinaryId")
+                    b.Property<int>("MachinaryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OperatorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -720,12 +726,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7612),
+                            CreatedDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7140),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7603),
+                            JobDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -734,7 +740,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 19, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7603),
+                            ReportDate = new DateTime(2024, 5, 20, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -745,12 +751,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7619),
+                            CreatedDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7144),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 18, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7616),
+                            JobDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7142),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -759,7 +765,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 20, 15, 51, 11, 494, DateTimeKind.Utc).AddTicks(7617),
+                            ReportDate = new DateTime(2024, 5, 21, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7143),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,
@@ -1179,7 +1185,8 @@ namespace Ecom.DataAccess.Migrations
                     b.HasOne("Ecom.Models.Forma", "Forma")
                         .WithMany()
                         .HasForeignKey("FormaId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Ecom.Models.JobTicket", "JobTicket")
                         .WithMany()
@@ -1190,12 +1197,14 @@ namespace Ecom.DataAccess.Migrations
                     b.HasOne("Ecom.Models.JobType", "JobType")
                         .WithMany()
                         .HasForeignKey("JobTypeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Ecom.Models.Machinary", "Machinary")
                         .WithMany()
                         .HasForeignKey("MachinaryId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Ecom.Models.Product", "Product")
                         .WithMany()
