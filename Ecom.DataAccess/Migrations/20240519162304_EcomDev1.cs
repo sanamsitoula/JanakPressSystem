@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDBPMS : Migration
+    public partial class EcomDev1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,6 +45,25 @@ namespace Ecom.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Class", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DropdownV",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Para = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParaModel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParaId = table.Column<int>(type: "int", nullable: true),
+                    ParentParaId = table.Column<int>(type: "int", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DropdownV", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,6 +259,7 @@ namespace Ecom.DataAccess.Migrations
                     PageNumber = table.Column<int>(type: "int", nullable: true),
                     SubjectId = table.Column<int>(type: "int", nullable: true),
                     ClassId = table.Column<int>(type: "int", nullable: true),
+                    FormaNumber = table.Column<int>(type: "int", nullable: true),
                     SubjectLanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubjectLanguages = table.Column<int>(type: "int", nullable: true),
                     SubjectTypeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -345,6 +365,52 @@ namespace Ecom.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "P2M",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    P2M_Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    ClassId = table.Column<int>(type: "int", nullable: false),
+                    P2MDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ReportDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PerPokaSize = table.Column<int>(type: "int", nullable: true),
+                    PokaNumber = table.Column<int>(type: "int", nullable: true),
+                    ProductQuantity = table.Column<int>(type: "int", nullable: true),
+                    PiecesQuantity = table.Column<int>(type: "int", nullable: true),
+                    TotalProductQuantity = table.Column<int>(type: "int", nullable: true),
+                    JobStepId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobStep = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckedById = table.Column<int>(type: "int", nullable: true),
+                    VerifiedById = table.Column<int>(type: "int", nullable: true),
+                    RecievedById = table.Column<int>(type: "int", nullable: true),
+                    FiscalYear = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_P2M", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_P2M_Class_ClassId",
+                        column: x => x.ClassId,
+                        principalTable: "Class",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_P2M_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MachineJobs",
                 columns: table => new
                 {
@@ -375,7 +441,8 @@ namespace Ecom.DataAccess.Migrations
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SupervisorId = table.Column<int>(type: "int", nullable: true),
                     InchargeId = table.Column<int>(type: "int", nullable: true),
-                    OperatorId = table.Column<int>(type: "int", nullable: true)
+                    OperatorId = table.Column<int>(type: "int", nullable: true),
+                    FiscalYear = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -413,9 +480,9 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6887), "NEB", 1, "NEB", true },
-                    { 2, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6902), "HSEB", 3, "HSEB", true },
-                    { 3, "1", new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6903), "SLC", 2, "SLC", true }
+                    { 1, "1", new DateTime(2024, 5, 19, 22, 8, 4, 508, DateTimeKind.Local).AddTicks(6455), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 5, 19, 22, 8, 4, 508, DateTimeKind.Local).AddTicks(6485), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 5, 19, 22, 8, 4, 508, DateTimeKind.Local).AddTicks(6487), "SLC", 2, "SLC", true }
                 });
 
             migrationBuilder.InsertData(
@@ -426,6 +493,23 @@ namespace Ecom.DataAccess.Migrations
                     { 1, null, null, "One", null },
                     { 2, null, null, "Two", null },
                     { 3, null, null, "Three", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DropdownV",
+                columns: new[] { "Id", "Para", "ParaId", "ParaModel", "ParentParaId", "Remarks", "Status", "Value" },
+                values: new object[,]
+                {
+                    { 1, "5", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "5" },
+                    { 2, "10", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "10" },
+                    { 3, "15", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "15" },
+                    { 4, "20", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "20" },
+                    { 5, "25", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "25" },
+                    { 6, "30", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "30" },
+                    { 7, "35", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "35" },
+                    { 8, "40", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "40" },
+                    { 9, "45", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "45" },
+                    { 10, "50", 1001, "PerPokaSize", 2001, "PerPokaSize", true, "50" }
                 });
 
             migrationBuilder.InsertData(
@@ -470,12 +554,12 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Author", "BasePrice", "CategoryId", "ClassId", "CostPrice", "CreatedBy", "Description", "FiscalYear", "ISBN", "ImageURL", "PageNumber", "Status", "SubjectId", "SubjectLanguageId", "SubjectLanguages", "SubjectTypeId", "SubjectTypes", "Title" },
+                columns: new[] { "Id", "Author", "BasePrice", "CategoryId", "ClassId", "CostPrice", "CreatedBy", "Description", "FiscalYear", "FormaNumber", "ISBN", "ImageURL", "PageNumber", "Status", "SubjectId", "SubjectLanguageId", "SubjectLanguages", "SubjectTypeId", "SubjectTypes", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 1" },
-                    { 2, "Author 2", 200.0, 2, 2, 150.0, "Admin", "Description 2", 2081, "ISBN-2", "http://example.com/product2.jpg", 200, true, 2, "2", null, "2", null, "Product 2" },
-                    { 3, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 3" }
+                    { 1, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, null, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 1" },
+                    { 2, "Author 2", 200.0, 2, 2, 150.0, "Admin", "Description 2", 2081, null, "ISBN-2", "http://example.com/product2.jpg", 200, true, 2, "2", null, "2", null, "Product 2" },
+                    { 3, "Author 1", 100.0, 1, 1, 50.0, "Admin", "Description 1", 2080, null, "ISBN-1", "http://example.com/product1.jpg", 100, true, 1, "1", null, "1", null, "Product 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -508,11 +592,11 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "MachineJobs",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FiscalYear", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7140), "Description 1", 1, 10, null, 1, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 20, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131), null, null, "Duration1", "Shift1", true, 1, 1 },
-                    { 2, 2, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7144), "Description 2", 2, 10, null, 2, new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7142), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 21, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7143), null, null, "Duration2", "Shift2", true, 2, 2 }
+                    { 1, 1, new DateTime(2024, 5, 19, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6713), "Description 1", null, 1, 10, null, 1, new DateTime(2024, 5, 19, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6705), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 20, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6706), null, null, "Duration1", "Shift1", true, 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 19, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6719), "Description 2", null, 2, 10, null, 2, new DateTime(2024, 5, 19, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6717), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 21, 16, 23, 4, 508, DateTimeKind.Utc).AddTicks(6717), null, null, "Duration2", "Shift2", true, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -561,6 +645,16 @@ namespace Ecom.DataAccess.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_P2M_ClassId",
+                table: "P2M",
+                column: "ClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_P2M_ProductId",
+                table: "P2M",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -580,7 +674,13 @@ namespace Ecom.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "DropdownV");
+
+            migrationBuilder.DropTable(
                 name: "MachineJobs");
+
+            migrationBuilder.DropTable(
+                name: "P2M");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

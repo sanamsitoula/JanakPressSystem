@@ -5,7 +5,7 @@ using Ecom.Models;
 
 namespace Ecom.DataAccess.Repository
 {
-    public class P2MRepository : Repository<JobTicket>, IP2MRepository
+    public class P2MRepository : Repository<P2M>, IP2MRepository
     {
         private ApplicationDBContext _db;
         public P2MRepository(ApplicationDBContext db) : base(db)

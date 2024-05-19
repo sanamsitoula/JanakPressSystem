@@ -1,15 +1,15 @@
-﻿@model List<MachineJob>
+﻿@model List<P2M>
 
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                MachineJob List
+                P2M List
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="MachineJob" asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-bag-plus"></i> Create New Machine Job
+            <a asp-controller="P2M" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-bag-plus"></i> Create New Procurement To Marketing
             </a>
         </div>
     </div>
@@ -33,44 +33,23 @@
                     # 
                 </th>
                  <th>
-                    Job Date 
+                   Code/ Job Date 
                 </th>
-                <th>
-                    Machine
-                </th>
+               
                 <th>
                     Product
                 </th>
                 <th>
-                    Job Ticket
+                    Class
                 </th>
                 <th>
-                    Job Name
+                    Code
                 </th>
                
                 <th>
-                    Forma
-                </th>
-                <th>
-                  Forma Page Size
-                </th>
-                <th>
-                   Forma Target
-                </th>
-                <th>
-                   Job Quantity
-                </th>
-                <th>
-                   Job Type
-                </th>
-                <th>
                     Job Step
                 </th>
-                <th>
-                    Shift
-                </th>
-                <th>
-                    Auth                </th>
+ 
                 <th>
                     Status
                 </th>
@@ -84,22 +63,16 @@
             {    
                 <tr>
                     <td>@obj.Id</td>
-                    <td>@obj.JobDate</td>
-                    <td>@(obj.Machinary != null ? obj.Machinary.Name : "No Machinary")</td>
+                    <td>@obj.P2M_Code <br/>@obj.P2MDate</td>
+                    <td>@(obj.Product != null ? obj.Product.Title : "No Product")</td>
 
-                    <td>@obj.Product.Title</td>
-                    <td>@obj.JobTicket.Name</td>
-                    <td>@obj.Name</td>
-                    <td>@(obj.Forma != null ? obj.Forma.Name : "No Forma")</td>
+                    <td>@obj.Class.Name</td>
+                    <td>@obj.P2M_Code</td>
 
 
-                    <td>@obj.Forma.Page</td>
-                    <td>@obj.Forma.PrintTarget</td>
-                    <td>@obj.JobQuantity</td>
-                    <td>@(obj.JobType != null ? obj.JobType.Name : "No JobType")</td>
+                   
                     <td>@obj.JobStepId.ToString()</td>
-                    <td>@obj.ShiftId.ToString()</td>
-                    <td>@obj.SupervisorId | @obj.OperatorId</td>
+                 
                     <td>@obj.Status</td>
              @*        <td>
                         <div class="w-75 btn-group" role="group">

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240519044601_InitialDBPMS")]
-    partial class InitialDBPMS
+    [Migration("20240519171628_EcomDev1A")]
+    partial class EcomDev1A
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6887),
+                            CreatedDate = new DateTime(2024, 5, 19, 23, 1, 27, 592, DateTimeKind.Local).AddTicks(9764),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -73,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6902),
+                            CreatedDate = new DateTime(2024, 5, 19, 23, 1, 27, 592, DateTimeKind.Local).AddTicks(9778),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -83,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 19, 10, 31, 1, 92, DateTimeKind.Local).AddTicks(6903),
+                            CreatedDate = new DateTime(2024, 5, 19, 23, 1, 27, 592, DateTimeKind.Local).AddTicks(9779),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",
@@ -130,6 +130,152 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             Name = "Three"
+                        });
+                });
+
+            modelBuilder.Entity("Ecom.Models.DropdownV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Para")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ParaModel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentParaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DropdownV");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Para = "5",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "5"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Para = "10",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "10"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Para = "15",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "15"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Para = "20",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "20"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Para = "25",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "25"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Para = "30",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "30"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Para = "35",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "35"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Para = "40",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "40"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Para = "45",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "45"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Para = "50",
+                            ParaId = 1001,
+                            ParaModel = "PerPokaSize",
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true,
+                            Value = "50"
                         });
                 });
 
@@ -637,6 +783,9 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FiscalYear")
+                        .HasColumnType("int");
+
                     b.Property<int>("FormaId")
                         .HasColumnType("int");
 
@@ -726,12 +875,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7140),
+                            CreatedDate = new DateTime(2024, 5, 19, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(42),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131),
+                            JobDate = new DateTime(2024, 5, 19, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(32),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -740,7 +889,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 20, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7131),
+                            ReportDate = new DateTime(2024, 5, 20, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(33),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -751,12 +900,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7144),
+                            CreatedDate = new DateTime(2024, 5, 19, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(48),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 19, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7142),
+                            JobDate = new DateTime(2024, 5, 19, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(46),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -765,13 +914,100 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 21, 4, 46, 1, 92, DateTimeKind.Utc).AddTicks(7143),
+                            ReportDate = new DateTime(2024, 5, 21, 17, 16, 27, 593, DateTimeKind.Utc).AddTicks(46),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,
                             SupervisorId = 2,
                             UpdatedBy = 2
                         });
+                });
+
+            modelBuilder.Entity("Ecom.Models.P2M", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CheckedById")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FiscalYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("JobStep")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobStepId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("P2MDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("P2M_Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PerPokaSize")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PiecesQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PokaNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReceivedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ReportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("TotalProductQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VerifiedById")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("P2M");
                 });
 
             modelBuilder.Entity("Ecom.Models.Product", b =>
@@ -804,6 +1040,9 @@ namespace Ecom.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FiscalYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FormaNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
@@ -1219,6 +1458,23 @@ namespace Ecom.DataAccess.Migrations
                     b.Navigation("JobType");
 
                     b.Navigation("Machinary");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Ecom.Models.P2M", b =>
+                {
+                    b.HasOne("Ecom.Models.Class", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecom.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Class");
 
                     b.Navigation("Product");
                 });

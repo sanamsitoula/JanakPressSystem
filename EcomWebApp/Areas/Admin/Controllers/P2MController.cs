@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -10,37 +11,43 @@ using System.Net.Sockets;
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class MachineJobController : Controller
+    public class P2MController : Controller
     {
       
         private readonly IUnitOfWork _unitOfWork;
-        public MachineJobController(IUnitOfWork unitOfWork)
+        private static readonly char[] Base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
+
+        public P2MController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
         }
         public IActionResult Index()
         {
-            List<MachineJob>? objProductList = _unitOfWork.MachineJob.
+            List<P2M>? objProductList = _unitOfWork.P2M.
               GetAll()?
-          .Select(MachineJob => new MachineJob
+          .Select(P2M => new P2M
           {
-              Id = MachineJob.Id,
-              Name = MachineJob.Name,
-              ProductId = MachineJob.ProductId,
-              MachinaryId = MachineJob.MachinaryId, 
-              FormaId = MachineJob.FormaId,
-              JobTicketId = MachineJob.JobTicketId,
-              JobType = MachineJob.JobType,
-              FormaPageSize = MachineJob.FormaPageSize,
-              FormaTarget=MachineJob.FormaTarget,
-              JobQuantity = MachineJob.JobQuantity,
-              JobDate= MachineJob.JobDate,
-              SupervisorId=MachineJob.SupervisorId,
-              OperatorId=MachineJob.OperatorId,
-              JobStepId=MachineJob.JobStepId,
-              ShiftId=MachineJob.ShiftId,
-              ShiftDurationId=MachineJob.ShiftDurationId,
+              Id = P2M.Id,
+              P2M_Code=P2M.P2M_Code,
+              Name = P2M.Name,
+              ProductId = P2M.ProductId,
+              ClassId = P2M.ClassId,
+              P2MDate = P2M.P2MDate,
+              ReportDate    = P2M.ReportDate,
+              PerPokaSize=P2M.PerPokaSize,
+              PokaNumber=P2M.PokaNumber,
+              ProductQuantity=P2M.ProductQuantity,
+              PiecesQuantity=P2M.PiecesQuantity,
+              TotalProductQuantity=P2M.TotalProductQuantity,
+              JobStepId=P2M.JobStepId,
+              Status   = P2M.Status,
+              Desc= P2M.Desc,
+              CheckedById=P2M.CheckedById,
+              VerifiedById=P2M.VerifiedById,
+              ReceivedById=P2M.ReceivedById,
+              FiscalYear=P2M.FiscalYear,
+
 
               // Set values for any other new properties
           }).OrderByDescending(c => c.Id)
@@ -53,44 +60,19 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 e.Product = new Product // Assuming Product is a complex object
                 {
                     Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
-                    Id = e.ProductId,
+                    Id = (int)e.ProductId,
                 };
-
-
-
-                // Assuming JobTicketId is of type int?
-                int? JobTicketId = e.JobTicketId;
-
-                e.JobTicket = JobTicketId.HasValue ? new JobTicket // Assuming JobTicket is a complex object
+                e.Class = new Class // Assuming Product is a complex object
                 {
-                    Name = _unitOfWork.JobTicket.GetFirstOrDefault(c => c.Id == JobTicketId.Value)?.Name,
-                    Id = JobTicketId.Value,
-                } : null;
+                    Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
+                    Id = e.ClassId,
+                };
+              
 
-           
-                // Assuming JobTicketId is of type int?
-                int? MachinaryId = e.MachinaryId;
 
-                e.Machinary = MachinaryId.HasValue ? new Machinary // Assuming JobTicket is a complex object
-                {
-                    Name = _unitOfWork.Machinary.GetFirstOrDefault(c => c.Id == MachinaryId.Value)?.Name,
-                    Id = MachinaryId.Value,
-                } : null;
 
-                // Assuming JobTicketId is of type int?
-                int? FormaId = e.FormaId;
-                var formaEntity = _unitOfWork.Forma.GetFirstOrDefault(c => c.Id == FormaId.Value);
-                if (formaEntity != null)
-                {
-                    e.Forma = new Forma
-                    {
-                        Id = formaEntity.Id,
-                        Name = formaEntity.Name,
-                        Page = formaEntity.Page,
-                        PrintTarget = formaEntity.PrintTarget,
-                        PrintAchieved = formaEntity.PrintAchieved
-                    };
-                }
+
+
 
 
             });
@@ -106,7 +88,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             List<Product>? objProduct = _unitOfWork.Product.GetAll().OrderByDescending(c => c.Id).ToList();
             List<JobType>? objJobType = _unitOfWork.JobType.GetAll().ToList();
             List<Machinary>? objMac = _unitOfWork.Machinary.GetAll().OrderByDescending(c => c.Id).ToList();
-            List<JobTicket>? objJT = _unitOfWork.JobTicket.GetAll().OrderByDescending(c => c.Id).ToList();
+            List<Class>? objClass = _unitOfWork.Class.GetAll().OrderByDescending(c => c.Id).ToList();
 
             IEnumerable<SelectListItem>? selectProductList = objProduct?.Select(form => new SelectListItem
             {
@@ -130,7 +112,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Value = form.Id.ToString(), // Use 'form' here, not 'f'
                 Text = form.Name // Use 'form' here, not 'f'
             });
-            IEnumerable<SelectListItem>? selectJobTicketItems = objJT?.Select(form => new SelectListItem
+            IEnumerable<SelectListItem>? selectClassItems = objClass?.Select(form => new SelectListItem
             {
                 Value = form.Id.ToString(), // Use 'form' here, not 'f'
                 Text = form.Name // Use 'form' here, not 'f'
@@ -142,25 +124,26 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             ViewBag.JobType = selectJobTypeList;
             ViewBag.Forma = selectFormaItems;
             ViewBag.Machinary = selectMachineItems;
-            ViewBag.JobTicket = selectJobTicketItems;
+            ViewBag.Class = selectClassItems;
 
 
 
             return View();
         }
         [HttpPost]
-        public IActionResult Create(MachineJob obj)
+        public IActionResult Create(P2M obj)
         {
             if (ModelState.IsValid)
             {
-                obj.JobDate = obj.JobDate.Value.Date;
-                obj.ReportDate = obj.ReportDate.Value.Date;
+                obj.P2M_Code = "P2M-"+ UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                obj.P2MDate = obj.P2MDate;
+                obj.ReportDate = obj.ReportDate;
                 obj.Status = true;
               
-                _unitOfWork.MachineJob.Add(obj);
+                _unitOfWork.P2M.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "MachineJob Created Sucessfully";
-                return RedirectToAction("Index", "MachineJob");
+                TempData["success"] = "P2M Created Sucessfully";
+                return RedirectToAction("Index", "P2M");
             }
 
             return View();
@@ -173,12 +156,12 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            MachineJob? obj = _unitOfWork.MachineJob.GetFirstOrDefault(u => u.Id == id);
+            P2M? obj = _unitOfWork.P2M.GetFirstOrDefault(u => u.Id == id);
             if (obj == null) { return NotFound(); }
             return View(obj);
         }
         [HttpPost]
-        public IActionResult Edit(MachineJob obj)
+        public IActionResult Edit(P2M obj)
         {
 
 
@@ -186,10 +169,10 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
           
             if (ModelState.IsValid)
             {
-                _unitOfWork.MachineJob.Update(obj);
+                _unitOfWork.P2M.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "MachineJob Edited Sucessfully";
-                return RedirectToAction("Index", "MachineJob");
+                TempData["success"] = "P2M Edited Sucessfully";
+                return RedirectToAction("Index", "P2M");
             }
 
 
@@ -204,7 +187,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            MachineJob? obj = _unitOfWork.MachineJob.GetFirstOrDefault(u => u.Id == id);
+            P2M? obj = _unitOfWork.P2M.GetFirstOrDefault(u => u.Id == id);
             if (obj == null) { return NotFound(); }
             return View(obj);
         }
@@ -212,7 +195,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         public IActionResult DeletePost(int? id)
         {
 
-            MachineJob obj = _unitOfWork.MachineJob.GetFirstOrDefault(u => u.Id == id);
+            P2M obj = _unitOfWork.P2M.GetFirstOrDefault(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
@@ -221,10 +204,10 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 obj.Status = false;
-                _unitOfWork.MachineJob.Remove(obj);
+                _unitOfWork.P2M.Remove(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "MachineJob Deleted Sucessfully";
-                return RedirectToAction("Index", "MachineJob");
+                TempData["success"] = "P2M Deleted Sucessfully";
+                return RedirectToAction("Index", "P2M");
             }
 
             return View();
@@ -237,12 +220,12 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             var forma = _unitOfWork.Forma.GetAll()
                          .Where(f => f.ProductId == proId)
                          .ToList();
-            MachineJob MachineJob = _unitOfWork.MachineJob.GetFirstOrDefault(u => u.Id == id);
+            P2M P2M = _unitOfWork.P2M.GetFirstOrDefault(u => u.Id == id);
             Product product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == proId);
-            //   var MachineJob = _unitOfWork.GetFirstOrDefault(u => u.Id == id);
-            // MachineJob obj = _unitOfWork.MachineJob.GetFirstOrDefault(u => u.Id == id);
+            //   var P2M = _unitOfWork.GetFirstOrDefault(u => u.Id == id);
+            // P2M obj = _unitOfWork.P2M.GetFirstOrDefault(u => u.Id == id);
 
-            var jtf = new MachineJob()
+            var jtf = new P2M()
             {
              
 
@@ -283,6 +266,33 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 pageSize = "",
                 formaTarget = ""
             });
+        }
+
+
+        public static string GenerateUniqueCodeFromTimestamp()
+        {
+            // Get the current timestamp in ticks
+            long ticks = DateTime.UtcNow.Ticks;
+
+            // Convert ticks to Base32
+            string base32String = ConvertToBase32(ticks);
+
+            // Ensure the code is exactly 7 characters long
+            // If shorter, pad with 'A'; if longer, truncate
+            return base32String.Length >= 7 ? base32String.Substring(0, 7) : base32String.PadRight(7, 'A');
+        }
+
+        private static string ConvertToBase32(long input)
+        {
+            char[] buffer = new char[13]; // Max length for 64-bit number in Base32
+            int i = 12;
+            do
+            {
+                buffer[i--] = Base32Chars[input % 32];
+                input /= 32;
+            } while (input != 0);
+
+            return new string(buffer, i + 1, 12 - i);
         }
 
 

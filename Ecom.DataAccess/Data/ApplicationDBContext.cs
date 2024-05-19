@@ -284,6 +284,123 @@ namespace Ecom.DataAccess.Data
                
             });
 
+            // Seed data for DropdownV entity
+            modelBuilder.Entity<DropdownV>().HasData(
+                new DropdownV
+                {
+                   Id= 1,
+                    Para = "5",
+                    Value = "5",
+                    ParaModel = "PerPokaSize",
+                    ParaId = 1001,
+                    ParentParaId = 2001,
+                    Remarks = "PerPokaSize",
+                    Status = true
+                },
+                  new DropdownV
+                  {
+                      Id = 2,
+                      Para = "10",
+                      Value = "10",
+                      ParaModel = "PerPokaSize",
+                      ParaId = 1001,
+                      ParentParaId = 2001,
+                      Remarks = "PerPokaSize",
+                      Status = true
+                  },
+                    new DropdownV
+                    {
+                        Id = 3,
+                        Para = "15",
+                        Value = "15",
+                        ParaModel = "PerPokaSize",
+                        ParaId = 1001,
+                        ParentParaId = 2001,
+                        Remarks = "PerPokaSize",
+                        Status = true
+                    },
+                      new DropdownV
+                      {
+                          Id = 4,
+                          Para = "20",
+                          Value = "20",
+                          ParaModel = "PerPokaSize",
+                          ParaId = 1001,
+                          ParentParaId = 2001,
+                          Remarks = "PerPokaSize",
+                          Status = true
+                      },
+                        new DropdownV
+                        {
+                            Id = 5,
+                            Para = "25",
+                            Value = "25",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        }
+                        ,
+                        new DropdownV
+                        {
+                            Id = 6,
+                            Para = "30",
+                            Value = "30",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        }
+                        ,
+                        new DropdownV
+                        {
+                            Id = 7,
+                            Para = "35",
+                            Value = "35",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        },
+                        new DropdownV
+                        {
+                            Id = 8,
+                            Para = "40",
+                            Value = "40",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        },
+                        new DropdownV
+                        {
+                            Id = 9,
+                            Para = "45",
+                            Value = "45",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        },
+                        new DropdownV
+                        {
+                            Id = 10,
+                            Para = "50",
+                            Value = "50",
+                            ParaModel = "PerPokaSize",
+                            ParaId = 1001,
+                            ParentParaId = 2001,
+                            Remarks = "PerPokaSize",
+                            Status = true
+                        }
+            );
+
+ 
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(u => new { u.UserId, u.RoleId });
             modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();

@@ -1,11 +1,11 @@
-﻿@model MachineJob
+﻿@model P2M
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white py-3">
-                    <h2 class="text-center mb-0">Create Machine Job</h2>
+                    <h2 class="text-center mb-0">Create P2M </h2>
                 </div>
                 <div class="card-body">
                     <form method="post" class="row">
@@ -24,54 +24,16 @@
                             <span asp-validation-for="ProductId" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-4 col-6">
-                            <label asp-for="MachinaryId" class="form-label p-4"></label>
-                            <select asp-for="MachinaryId" class="form-control" asp-items="ViewBag.Machinary">
-                                <option value="">Please Choose your Machinary</option>
+                            <label asp-for="ClassId" class="form-label p-4"></label>
+                            <select asp-for="ClassId" class="form-control" asp-items="ViewBag.Class">
+                                <option value="">Please Choose your Class</option>
                             </select>
 
-                            <span asp-validation-for="MachinaryId" class="text-danger"></span>
+                            <span asp-validation-for="ClassId" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="JobTicketId" class="form-label p-4"></label>
-                            <select asp-for="JobTicketId" class="form-control" asp-items="ViewBag.JobTicket">
-                                <option value="">Please Choose your JobTicket</option>
-                            </select>
+                        
+                       
 
-                            <span asp-validation-for="JobTicketId" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="FormaId" class="form-label p-4"></label>
-                            <select asp-for="FormaId" class="form-control" asp-items="ViewBag.Forma">
-                                <option value="">Please Choose your Forma</option>
-                            </select>
-
-                            <span asp-validation-for="FormaId" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="FormaPageSize" class="form-label p-4"> Forma Page Size</label>
-                            <input type="FormaPageSize" id="FormaPageSize" class="form-control" asp-for="FormaPageSize" />
-                            <span asp-validation-for="FormaPageSize" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="FormaTarget" class="form-label p-4"> FormaTarget</label>
-                            <input type="FormaTarget" id="FormaTarget" class="form-control" asp-for="FormaTarget" />
-                            <span asp-validation-for="FormaTarget" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="JobQuantity" class="form-label p-4">Job Quantity</label>
-                            <input type="JobQuantity" id="JobQuantity" class="form-control" asp-for="JobQuantity" />
-                            <span asp-validation-for="JobQuantity" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="JobTypeId" class="form-label p-4"></label>
-                            <select asp-for="JobTypeId" class="form-control" asp-items="ViewBag.JobType">
-                                <option value="">Please Choose your JobType</option>
-                            </select>
-
-                            <span asp-validation-for="JobTypeId" class="text-danger"></span>
-                        </div>
 
                         <div class="form-floating py-4 col-6">
                             <label asp-for="JobStepId" class="p-4"></label>
@@ -89,33 +51,7 @@
 
            
 
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="ShiftId" class="p-4"></label>
-                            <select asp-for="ShiftId" class="form-control">
-                                <option value="">Please Choose your Shift</option>
-                                @foreach (var Item in Enum.GetValues(typeof(Shift)))
-                                {
-                                    <option value="@Item.ToString()">@Item.ToString()</option>
-                                }
-                            </select>
-
-                            <span asp-validation-for="ShiftId" class="text-danger"></span>
-
-                        </div>
-
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="ShiftDurationId" class="p-4"></label>
-                            <select asp-for="ShiftDurationId" class="form-control">
-                                <option value="">Please Choose your ShiftDuration</option>
-                                @foreach (var Item in Enum.GetValues(typeof(ShiftDuration)))
-                                {
-                                    <option value="@Item.ToString()">@Item.ToString()</option>
-                                }
-                            </select>
-
-                            <span asp-validation-for="ShiftDurationId" class="text-danger"></span>
-
-                        </div>
+                        
 
                         <div class="form-floating py-4 col-6">
                             <label for="Desc" class="form-label p-4"> Desc</label>
@@ -127,9 +63,9 @@
                        
 
                         <div class="form-floating py-4 col-6">
-                            <label for="JobDate" class="form-label p-4">JobDate</label>
-                            <input type="datetime-local" id="JobDate" class="form-control" asp-for="JobDate" />
-                            <span asp-validation-for="JobDate" class="text-danger"></span>
+                            <label for="P2MDate" class="form-label p-4">P2M Date</label>
+                            <input type="datetime-local" id="P2MDate" class="form-control" asp-for="P2MDate" />
+                            <span asp-validation-for="P2MDate" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-4 col-6">
                             <label for="ReportDate" class="form-label p-4">ReportDate</label>
