@@ -34,7 +34,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Id = product.Id,
                 Title = product.Title,
                 CategoryId = product.CategoryId,
-                FormaListId = string.IsNullOrEmpty(product.FormaListId)?"" : product.FormaListId,
+               // FormaListId = string.IsNullOrEmpty(product.FormaListId)?"" : product.FormaListId,
                 SubjectId = product.SubjectId,
                 ClassId = product.ClassId,
                 SubjectLanguageId = product.SubjectLanguageId,
@@ -51,8 +51,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             objProductList.ForEach(e =>
             {
-                List<int> listIds = e.FormaListId.Split(",").Select(int.Parse).ToList();
-                e.Forma = fromas.Where(x => listIds.Contains(x.Id)).ToList();
+               
                 e.Category = new Category // Assuming Category is a complex object
                 {
                     Name = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == e.CategoryId).Name,

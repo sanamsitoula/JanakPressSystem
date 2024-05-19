@@ -53,15 +53,7 @@
                     <td>@obj.Category.Name</td>
                     <td>@obj.Subject.Name</td>
                     <td>@obj.Class.Name</td>
-                    <td>
-                         @foreach (var item in obj.Forma)
-                        {
-                            <li>@item.Name</li>
-                        } 
-                        @* @{
-                            string.Join(",", obj.Forma.Select(e => e.Name)).ToArray();
-                        } *@
-                    </td>
+                   
 
                     <td>@obj.SubjectLanguageId.ToString()</td>
                     <td>@obj.SubjectTypeId.ToString()</td>

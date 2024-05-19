@@ -18,8 +18,8 @@ namespace Ecom.Models
         public string ?AssociatedFormaId { get; set; }
         public string ?Remarks { get; set; }
         public bool ?Status { get; set; }
-        public required int ProductId { get; set; }
-        [ForeignKey("ProductId")]
+        public  int ProductId { get; set; }
+       
         public Product? Product { get; set; }
 
 
