@@ -26,6 +26,7 @@ namespace Ecom.DataAccess.Data
         public DbSet<FiscalYear> FiscalYear { get; set; }
         public DbSet<MachineJob> MachineJobs { get; set; }
         public DbSet<P2M> P2M { get; set; }
+        public DbSet<DropdownV> DropdownV { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -396,6 +397,42 @@ namespace Ecom.DataAccess.Data
                             ParaId = 1001,
                             ParentParaId = 2001,
                             Remarks = "PerPokaSize",
+                            Status = true
+                        }
+                        ,
+                        new DropdownV
+                        {
+                            Id = 11,
+                            Para = "Male",
+                            Value = "Male",
+                            ParaModel = "Gender",
+                            ParaId = 1002,
+                            ParentParaId = 2002,
+                            Remarks = "Gender",
+                            Status = true
+                        }
+                        ,
+                        new DropdownV
+                        {
+                            Id = 12,
+                            Para = "Female",
+                            Value = "Female",
+                            ParaModel = "Gender",
+                            ParaId = 1002,
+                            ParentParaId = 2002,
+                            Remarks = "Gender",
+                            Status = true
+                        }
+                        ,
+                        new DropdownV
+                        {
+                            Id = 13,
+                            Para = "Others",
+                            Value = "Others",
+                            ParaModel = "Gender",
+                            ParaId = 1002,
+                            ParentParaId = 2002,
+                            Remarks = "Gender",
                             Status = true
                         }
             );

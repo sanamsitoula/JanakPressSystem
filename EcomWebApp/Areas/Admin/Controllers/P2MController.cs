@@ -15,7 +15,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
     {
       
         private readonly IUnitOfWork _unitOfWork;
-        private static readonly char[] Base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".ToCharArray();
 
         public P2MController(IUnitOfWork unitOfWork)
         {
@@ -35,6 +34,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
               ClassId = P2M.ClassId,
               P2MDate = P2M.P2MDate,
               ReportDate    = P2M.ReportDate,
+              JobTicketId = P2M.JobTicketId,
+              FormaNumber = P2M.FormaNumber,
               PerPokaSize=P2M.PerPokaSize,
               PokaNumber=P2M.PokaNumber,
               ProductQuantity=P2M.ProductQuantity,
@@ -82,12 +83,12 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            List<Forma>? f = _unitOfWork.Forma.GetAll()
+            List<JobTicket>? f = _unitOfWork.JobTicket.GetAll()
                                    .OrderByDescending(c => c.Id)
                                    .ToList();
             List<Product>? objProduct = _unitOfWork.Product.GetAll().OrderByDescending(c => c.Id).ToList();
             List<JobType>? objJobType = _unitOfWork.JobType.GetAll().ToList();
-            List<Machinary>? objMac = _unitOfWork.Machinary.GetAll().OrderByDescending(c => c.Id).ToList();
+            List<DropdownV>? objDropdownV = _unitOfWork.DropdownV.GetAll().Where(d => d.ParaModel == "PerPokaSize").OrderByDescending(c => c.Id).ToList();
             List<Class>? objClass = _unitOfWork.Class.GetAll().OrderByDescending(c => c.Id).ToList();
 
             IEnumerable<SelectListItem>? selectProductList = objProduct?.Select(form => new SelectListItem
@@ -102,15 +103,15 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             });
 
 
-            IEnumerable<SelectListItem>? selectFormaItems = f?.Select(form => new SelectListItem
+            IEnumerable<SelectListItem>? selectJobTicketItems = f?.Select(form => new SelectListItem
             {
                 Value = form.Id.ToString(), // Use 'form' here, not 'f'
                 Text = form.Name // Use 'form' here, not 'f'
             });
-            IEnumerable<SelectListItem>? selectMachineItems = objMac?.Select(form => new SelectListItem
+            IEnumerable<SelectListItem>? selectDropdownVItems = objDropdownV?.Select(form => new SelectListItem
             {
                 Value = form.Id.ToString(), // Use 'form' here, not 'f'
-                Text = form.Name // Use 'form' here, not 'f'
+                Text = form.Para // Use 'form' here, not 'f'
             });
             IEnumerable<SelectListItem>? selectClassItems = objClass?.Select(form => new SelectListItem
             {
@@ -122,8 +123,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             // Store the IEnumerable<SelectListItem> in ViewBag
             ViewBag.Product = selectProductList;
             ViewBag.JobType = selectJobTypeList;
-            ViewBag.Forma = selectFormaItems;
-            ViewBag.Machinary = selectMachineItems;
+            ViewBag.JobTicket = selectJobTicketItems;
+            ViewBag.DropdownV = selectDropdownVItems;
             ViewBag.Class = selectClassItems;
 
 
@@ -135,8 +136,24 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                obj.P2M_Code = "P2M-"+ UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
-                obj.P2MDate = obj.P2MDate;
+                obj.P2M_Code = "P2M-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                //DateTime dateTimeValue = obj.P2MDate;
+                string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
+                DateTime parsedDate;
+                if (DateTime.TryParse(dateString, out parsedDate))
+                {
+                    dateString = parsedDate.ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    // Handle invalid date string
+                    Console.WriteLine("Invalid date string format.");
+                }
+
+
+                string dateString2 = parsedDate.ToString("yyyy-MM-dd"); // Format the date as needed
+
+                obj.P2MDate = dateString2;
                 obj.ReportDate = obj.ReportDate;
                 obj.Status = true;
               
@@ -269,31 +286,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
 
 
-        public static string GenerateUniqueCodeFromTimestamp()
-        {
-            // Get the current timestamp in ticks
-            long ticks = DateTime.UtcNow.Ticks;
-
-            // Convert ticks to Base32
-            string base32String = ConvertToBase32(ticks);
-
-            // Ensure the code is exactly 7 characters long
-            // If shorter, pad with 'A'; if longer, truncate
-            return base32String.Length >= 7 ? base32String.Substring(0, 7) : base32String.PadRight(7, 'A');
-        }
-
-        private static string ConvertToBase32(long input)
-        {
-            char[] buffer = new char[13]; // Max length for 64-bit number in Base32
-            int i = 12;
-            do
-            {
-                buffer[i--] = Base32Chars[input % 32];
-                input /= 32;
-            } while (input != 0);
-
-            return new string(buffer, i + 1, 12 - i);
-        }
 
 
     }

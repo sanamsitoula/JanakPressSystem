@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Ecom.Models.P2M>
+@{
     Layout = null;
 }
 
@@ -91,66 +92,24 @@
             </tr>
         </thead>
         <tbody>
+            @foreach (var obj in Model)
+                {
             <tr>
-                <td>1</td>
-                <td>Form A</td>
-                <td>10</td>
-                <td>5000</td>
-                <td>First batch</td>
+                <td>@obj.Name</td>
+                    <td>@obj.P2M_Code</td>
+
+                    <td>@obj.Product.Title</td>
+
+                <td>@obj.ClassId</td>
+                <td>@obj.P2MDate</td>
                 <td>Data 6</td>
                 <td>Data 7</td>
                 <td>Data 8</td>
                 <td>Data 9</td>
                 <td>Data 10</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Form B</td>
-                <td>15</td>
-                <td>3000</td>
-                <td>Second batch</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Form C</td>
-                <td>20</td>
-                <td>4000</td>
-                <td>Third batch</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Form D</td>
-                <td>25</td>
-                <td>3500</td>
-                <td>Fourth batch</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Form E</td>
-                <td>30</td>
-                <td>6000</td>
-                <td>Fifth batch</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-            </tr>
+                }
+            
         </tbody>
     </table>
     <footer class="report-footer">

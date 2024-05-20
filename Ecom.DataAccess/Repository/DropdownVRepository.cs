@@ -5,22 +5,19 @@ using Ecom.Models;
 
 namespace Ecom.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, 
-        
-        
-        ICategoryRepository
+    public class DropdownVRepository : Repository<DropdownV>, IDropdownVRepository
     {
         private ApplicationDBContext _db;
-        public CategoryRepository(ApplicationDBContext db) : base(db)
+        public DropdownVRepository(ApplicationDBContext db) : base(db)
         {
             _db = db;
         }
        
   
 
-        public void Update(Category category)
+        public void Update(DropdownV DropdownV)
         {
-           _db.Categories.Update(category);
+           _db.DropdownV.Update(DropdownV);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -153,6 +154,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                obj.Desc = "MJ-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+
                 obj.JobDate = obj.JobDate.Value.Date;
                 obj.ReportDate = obj.ReportDate.Value.Date;
                 obj.Status = true;

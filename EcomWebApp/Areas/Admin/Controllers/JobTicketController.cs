@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -42,6 +43,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
               FiscalYearId = JobTicket.FiscalYearId,
               JobStepId = JobTicket.JobStepId,
               PrePrintSize = JobTicket.PrePrintSize,
+              Code  = JobTicket.Code,
 
 
 
@@ -144,6 +146,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                obj.Code = "JT-"+DateTime.Now.Year +"-"+ DateTime.Now.Month+ "-" +UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+
                 obj.Status = true;
               
                 _unitOfWork.JobTicket.Add(obj);
@@ -282,16 +286,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View(jtf);
         }
-
-
-        //public IActionResult GetTotalJobQty(int? productId)
-        //{
-        //    int totalJobQty = _unitOfWork.MachineJob.GetAll()
-        //                 .Where(f => f.ProductId == productId)
-        //                 .ToList();
-        //    return Ok(totalJobQty);
-        //}
-
 
 
 

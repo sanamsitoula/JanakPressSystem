@@ -1,5 +1,6 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
+using Ecom.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Ecom.DataAccess.Repository
         public IFiscalYearRepository FiscalYear { get; private set; }
         public IMachineJobRepository MachineJob { get; private set; }
         public IP2MRepository P2M { get; private set; }
+        public IDropdownVRepository DropdownV { get; private set; }
 
         public UnitOfWork (ApplicationDBContext db) 
         {
@@ -37,6 +39,7 @@ namespace Ecom.DataAccess.Repository
             FiscalYear = new FiscalYearRepository(_db);
             MachineJob = new MachineJobRepository(_db);
             P2M = new P2MRepository(_db);
+            DropdownV = new DropdownVRepository(_db);
 
 
 

@@ -12,7 +12,9 @@ namespace Ecom.Models
     {
         [Key]
         public int Id { get; set; }
-        public required string Name { get; set; } // 
+        public required string Name { get; set; }
+        public  string ?Code { get; set; } // 
+        
         public int ?PageNumber{ get; set; }//
         public int ?PrintTarget { get; set; }
         public DateTimeOffset ?JobDate { get; set; }

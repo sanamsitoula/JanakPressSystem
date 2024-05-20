@@ -15,6 +15,17 @@
                             <input type="text" id="name" class="form-control" asp-for="Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
+
+                         <div class="form-floating py-4 col-6">
+                            <label asp-for="JobTicketId" class="form-label p-4"></label>
+                            <select asp-for="JobTicketId" class="form-control" asp-items="ViewBag.JobTicket">
+                                <option value="">Please Choose your JobTicket</option>
+                            </select>
+
+                            <span asp-validation-for="JobTicketId" class="text-danger"></span>
+                        </div>
+
+
                         <div class="form-floating py-4 col-6">
                             <label asp-for="ProductId" class="form-label p-4"></label>
                             <select asp-for="ProductId" class="form-control" asp-items="ViewBag.Product">
@@ -31,9 +42,48 @@
 
                             <span asp-validation-for="ClassId" class="text-danger"></span>
                         </div>
-                        
-                       
 
+                        <div class="form-floating py-4 col-6">
+                            <label for="FormaNumber" class="form-label p-4">FormaNumber</label>
+                            <input type="text" id="FormaNumber" class="form-control" asp-for="FormaNumber" />
+                            <span asp-validation-for="FormaNumber" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="PerPokaSize" class="form-label p-4"></label>
+                            <select asp-for="PerPokaSize" class="form-control" asp-items="ViewBag.DropdownV">
+                                <option value="">Please Choose your PerPokaSize</option>
+                            </select>
+
+                            <span asp-validation-for="PerPokaSize" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="PokaNumber" class="form-label p-4">PokaNumber</label>
+                            <input type="text" id="PokaNumber" class="form-control" asp-for="PokaNumber" />
+                            <span asp-validation-for="PokaNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="ProductQuantity" class="form-label p-4">ProductQuantity</label>
+                            <input type="text" id="ProductQuantity" class="form-control" asp-for="ProductQuantity" />
+                            <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="PiecesQuantity" class="form-label p-4">PiecesQuantity</label>
+                            <input type="text" id="PiecesQuantity" class="form-control" asp-for="PiecesQuantity" />
+                            <span asp-validation-for="PiecesQuantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="TotalProductQuantity" class="form-label p-4">TotalProductQuantity</label>
+                            <input type="text" id="TotalProductQuantity" class="form-control" asp-for="TotalProductQuantity" />
+                            <span asp-validation-for="TotalProductQuantity" class="text-danger"></span>
+                        </div>
 
                         <div class="form-floating py-4 col-6">
                             <label asp-for="JobStepId" class="p-4"></label>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Text;
+using Ecom.Utility;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
@@ -130,7 +131,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
             {
-                // return ValidationProblem();
+                c.Description = "PRO-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+
                 _unitOfWork.Product.Add(c);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Sucessfully";

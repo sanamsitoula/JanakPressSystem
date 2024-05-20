@@ -19,6 +19,7 @@ namespace Ecom.DataAccess.Repository.IRepository
         IFiscalYearRepository FiscalYear { get; }
         IMachineJobRepository MachineJob { get; }
         IP2MRepository P2M { get; }
+        IDropdownVRepository DropdownV { get; }
 
         void Save();
     }
