@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240520142010_EcomMachJob")]
-    partial class EcomMachJob
+    [Migration("20240521164053_8i")]
+    partial class _8i
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 20, 5, 9, 318, DateTimeKind.Local).AddTicks(8230),
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(833),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -73,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 20, 5, 9, 318, DateTimeKind.Local).AddTicks(8248),
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(856),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -83,10 +83,70 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 20, 5, 9, 318, DateTimeKind.Local).AddTicks(8251),
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(859),
                             Description = "SLC",
-                            DisplayOrder = 2,
+                            DisplayOrder = 3,
                             Name = "SLC",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(862),
+                            Description = "Book",
+                            DisplayOrder = 3,
+                            Name = "Book",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(865),
+                            Description = "Exercise Book",
+                            DisplayOrder = 3,
+                            Name = "Exercise Book",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(868),
+                            Description = "Jhura Kagaj",
+                            DisplayOrder = 3,
+                            Name = "Jhura Kagaj",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(871),
+                            Description = "Kawadi",
+                            DisplayOrder = 3,
+                            Name = "Kawadi",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(873),
+                            Description = "Religious",
+                            DisplayOrder = 3,
+                            Name = "Religious",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedBy = "1",
+                            CreatedDate = new DateTime(2024, 5, 21, 22, 25, 52, 109, DateTimeKind.Local).AddTicks(876),
+                            Description = "Election",
+                            DisplayOrder = 2,
+                            Name = "Election",
                             Status = true
                         });
                 });
@@ -396,31 +456,66 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             Name = "TA-32",
+                            Page = 32,
+                            PrintTarget = 205000,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 2,
                             Name = "33-40",
+                            PrintTarget = 205000,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 3,
                             Name = "41-51",
+                            PrintTarget = 205000,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 4,
                             Name = "52-62",
+                            PrintTarget = 205000,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 5,
+                            Name = "TA-62",
+                            PrintTarget = 205000,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "33-40",
+                            PrintTarget = 205000,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "41-51",
+                            PrintTarget = 205000,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "52-62",
+                            PrintTarget = 205000,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
                             Name = "64-93",
-                            ProductId = 1
+                            Page = 32,
+                            PrintTarget = 205000,
+                            ProductId = 3
                         });
                 });
 
@@ -914,12 +1009,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 20, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8678),
+                            CreatedDate = new DateTime(2024, 5, 21, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1399),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 20, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8665),
+                            JobDate = new DateTime(2024, 5, 21, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1385),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -928,7 +1023,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 21, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8666),
+                            ReportDate = new DateTime(2024, 5, 22, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1386),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -939,12 +1034,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 20, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8688),
+                            CreatedDate = new DateTime(2024, 5, 21, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1410),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 20, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8683),
+                            JobDate = new DateTime(2024, 5, 21, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1405),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -953,7 +1048,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 22, 14, 20, 9, 318, DateTimeKind.Utc).AddTicks(8684),
+                            ReportDate = new DateTime(2024, 5, 23, 16, 40, 52, 109, DateTimeKind.Utc).AddTicks(1406),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,
@@ -1007,9 +1102,8 @@ namespace Ecom.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("P2MDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("P2MDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("P2M_Code")
                         .HasColumnType("nvarchar(max)");
@@ -1035,8 +1129,8 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReportDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("ReportDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");

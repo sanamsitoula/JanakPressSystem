@@ -1,4 +1,5 @@
-﻿using Ecom.DataAccess.Data;
+﻿
+using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
@@ -23,12 +24,16 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
 
         }
-    
-            public async Task<IActionResult> P2MReport(string searchString, int? classId, int? productId, DateTime? fromDate, DateTime? toDate)
-            {
-                var p2m = from p in _unitOfWork.P2M.GetAll()
-                               select p;
-                if (!String.IsNullOrEmpty(searchString))
+
+
+        public async Task<IActionResult> P2MReport(string searchString, int? classId, int? productId, DateTime? fromDate, DateTime? toDate)
+        {
+            var classList = _unitOfWork.Class.GetAll().ToList(); // Get all classes
+
+            var p2m = from p in _unitOfWork.P2M.GetAll()
+                      select p;
+
+            if (!String.IsNullOrEmpty(searchString))
             {
                 p2m = p2m.Where(p => p.Name.Contains(searchString));
             }
@@ -53,8 +58,21 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 p2m = p2m.Where(p => p.P2MDate <= toDate);
             }
 
-            return View(await p2m.ToListAsync());
+            var viewModel = new ReportViewModel
+            {
+                SearchString = searchString,
+                ClassId = classId,
+                ProductId = productId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                P2MList = await p2m.ToListAsync(),
+                ClassList = new SelectList(classList, "Id", "Name") // Set the SelectList for the dropdown
+            };
+
+            return View(viewModel);
         }
+
+
 
         public IActionResult Index()
         {
@@ -66,14 +84,10 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             // You may perform additional operations on objProductList and productList if needed
 
-            var ReportViewModel = new ReportViewModel
-            {
-                P2MList = objProductList,
-                ClassList = classList
-            };
+        
 
             ViewBag.ClassList = new SelectList(classList, "Id", "Name"); // Set the SelectList for the dropdown
-            return View(ReportViewModel);
+            return View();
         }
         [HttpPost]
         public IActionResult GenerateReport2(SearchViewModel searchViewModel)

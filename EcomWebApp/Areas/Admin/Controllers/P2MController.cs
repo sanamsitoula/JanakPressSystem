@@ -1,4 +1,5 @@
 ﻿using Ecom.DataAccess.Data;
+using Ecom.DataAccess.Repository;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
 using Ecom.Utility;
@@ -13,7 +14,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class P2MController : Controller
     {
-      
+
         private readonly IUnitOfWork _unitOfWork;
 
         public P2MController(IUnitOfWork unitOfWork)
@@ -28,47 +29,46 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
           .Select(P2M => new P2M
           {
               Id = P2M.Id,
-              P2M_Code=P2M.P2M_Code,
+              P2M_Code = P2M.P2M_Code,
               Name = P2M.Name,
               ProductId = P2M.ProductId,
               ClassId = P2M.ClassId,
               P2MDate = P2M.P2MDate,
-              ReportDate    = P2M.ReportDate,
+              ReportDate = P2M.ReportDate,
               JobTicketId = P2M.JobTicketId,
               FormaNumber = P2M.FormaNumber,
-              PerPokaSize=P2M.PerPokaSize,
-              PokaNumber=P2M.PokaNumber,
-              ProductQuantity=P2M.ProductQuantity,
-              PiecesQuantity=P2M.PiecesQuantity,
-              TotalProductQuantity=P2M.TotalProductQuantity,
-              JobStepId=P2M.JobStepId,
-              Status   = P2M.Status,
-              Desc= P2M.Desc,
-              CheckedById=P2M.CheckedById,
-              VerifiedById=P2M.VerifiedById,
-              ReceivedById=P2M.ReceivedById,
-              FiscalYear=P2M.FiscalYear,
+              PerPokaSize = P2M.PerPokaSize,
+              PokaNumber = P2M.PokaNumber,
+              ProductQuantity = P2M.ProductQuantity,
+              PiecesQuantity = P2M.PiecesQuantity,
+              TotalProductQuantity = P2M.TotalProductQuantity,
+              JobStepId = P2M.JobStepId,
+              Status = P2M.Status,
+              Desc = P2M.Desc,
+              CheckedById = P2M.CheckedById,
+              VerifiedById = P2M.VerifiedById,
+              ReceivedById = P2M.ReceivedById,
+              FiscalYear = P2M.FiscalYear,
 
 
               // Set values for any other new properties
           }).OrderByDescending(c => c.Id)
-                                   .ToList(); 
+                                   .ToList();
 
             if (objProductList != null)
             {
                 objProductList.ForEach(e =>
-            {
-                e.Product = new Product // Assuming Product is a complex object
                 {
-                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
-                    Id = (int)e.ProductId,
-                };
-                e.Class = new Class // Assuming Product is a complex object
-                {
-                    Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
-                    Id = e.ClassId,
-                };
-              
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                    e.Class = new Class // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
+                        Id = e.ClassId,
+                    };
 
 
 
@@ -76,7 +76,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
 
 
-            });
+
+                });
             }
             return View(objProductList);
         }
@@ -110,7 +111,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             });
             IEnumerable<SelectListItem>? selectDropdownVItems = objDropdownV?.Select(form => new SelectListItem
             {
-                Value = form.Id.ToString(), // Use 'form' here, not 'f'
+                Value = form.Value.ToString(), // Use 'form' here, not 'f'
                 Text = form.Para // Use 'form' here, not 'f'
             });
             IEnumerable<SelectListItem>? selectClassItems = objClass?.Select(form => new SelectListItem
@@ -138,7 +139,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             {
                 obj.P2M_Code = "P2M-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
                 //DateTime dateTimeValue = obj.P2MDate;
-              //  string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
+                //  string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
                 //DateTime parsedDate;
                 //if (DateTime.TryParse(dateString, out parsedDate))
                 //{
@@ -156,7 +157,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 //obj.P2MDate = dateString2;
                 obj.ReportDate = obj.ReportDate;
                 obj.Status = true;
-              
+
                 _unitOfWork.P2M.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "P2M Created Sucessfully";
@@ -183,7 +184,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
 
             obj.Status = true;
-          
+
             if (ModelState.IsValid)
             {
                 _unitOfWork.P2M.Update(obj);
@@ -229,7 +230,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View();
         }
-       
+
 
         public IActionResult View(int? id, int? proId)
         {
@@ -244,7 +245,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             var jtf = new P2M()
             {
-             
+
 
             };
 
@@ -270,12 +271,15 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         public JsonResult GetProductByJobTicketId(int jobTicketId)
         {
             var jobTicket = _unitOfWork.JobTicket.GetFirstOrDefault(f => f.Id == jobTicketId);
-            if (jobTicket != null)
+            var product = _unitOfWork.Product.GetFirstOrDefault(f => f.Id == jobTicket.ProductId);
+            var cls = _unitOfWork.Class.GetFirstOrDefault(f => f.Id == product.ClassId);
+            if (jobTicket != null && product != null && cls != null)
             {
                 return Json(new
                 {
                     productId = jobTicket.ProductId,
-                    noofAssociatedForma = jobTicket.NoofAssociatedForma
+                    noofAssociatedForma = jobTicket.NoofAssociatedForma,
+                    classId = cls.Id
                 });
             }
             return Json(new

@@ -137,40 +137,86 @@
     </div>
 </div>
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
     <script type="text/javascript">
         $(document).ready(function () {
-            // Initialize Select2 on the FormaId dropdown
+
+             // Function to update ProductQuantity
+        function updateProductQuantity() {
+            // Get the value of PerPokaSize (convert to number)
+            var perPokaSize = parseFloat($('#PerPokaSize').val());
+
+            // Get the value of PokaNumber (convert to number)
+            var pokaNumber = parseFloat($('#PokaNumber').val());
+
+
+                var piecesQuantity = parseFloat($('#PiecesQuantity').val());
+
+                
+            // Check if both values are valid numbers
+            if (!isNaN(perPokaSize) && !isNaN(pokaNumber)) {
+                // Calculate the product quantity
+                var productQuantity = perPokaSize * pokaNumber;
+
+                // Update the ProductQuantity field
+                $('#ProductQuantity').val(productQuantity);
+
+                    
+            } else {
+                // If any of the values is not a number, clear the ProductQuantity field
+                $('#ProductQuantity').val('');
+            }
+
+                if (!isNaN(TotalProductQuantity) && !isNaN(PiecesQuantity)) {
+                    // Calculate the product quantity
+                    var productTotalQuantity = piecesQuantity + productQuantity;
+
+                    // Update the ProductQuantity field
+                    $('#TotalProductQuantity').val(productTotalQuantity);
+
+
+                }
+        }
+
+        // Attach the updateProductQuantity function to the input event of PokaNumber
+        $('#PokaNumber').on('input', updateProductQuantity);
+
+        // Attach the updateProductQuantity function to the change event of PerPokaSize
+        $('#PerPokaSize').on('change', updateProductQuantity);
+            $('#ProductQuantity').on('change', updateProductQuantity);
+
 
             $('#JobTicketId').change(function () {
-                var productId = $(this).val();
-                if (productId) {
+                var jobticketId = $(this).val();
+                if (jobticketId) {
                     $.ajax({
                         url: '@Url.Action("GetProductByJobTicketId", "P2M")',
                         type: 'GET',
-                        data: { productId: productId },
+                        data: { jobticketId: jobticketId },
                         success: function (data) {
                             $('#ProductId').val(data.productId);
                             $('#FormaNumber').val(data.noofAssociatedForma);
+                            $('#ClassId').val(data.classId);
+
 
                         },
                         error: function (xhr, status, error) {
                             console.error(error);
                             $('#ProductId').val('');
                             $('#FormaNumber').val('');
+                            $('#ClassId').val(data.classId);
+
 
                         }
                     });
                 } else {
-                    $('#ProductId').val('');
-                    $('#FormaNumber').val('');
+                    $('#FormaPageSize').val('');
+                    $('#FormaTarget').val('');
 
                 }
             });
         });
-
     </script>
-
 
     <partial name="_ValidationScriptsPartial" />
 }
