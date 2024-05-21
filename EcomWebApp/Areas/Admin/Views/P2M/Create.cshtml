@@ -128,7 +128,7 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <a asp-controller="MachineJob" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <a asp-controller="P2M" asp-action="Index" class="btn btn-secondary">Back to List</a>
                         </div>
                     </form>
                 </div>
@@ -140,60 +140,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-             // Initialize Select2 on the FormaId dropdown
-         
-            $('#ProductId').change(function () {
+            // Initialize Select2 on the FormaId dropdown
+
+            $('#JobTicketId').change(function () {
                 var productId = $(this).val();
                 if (productId) {
                     $.ajax({
-                        url: '@Url.Action("GetFormasByProductId", "MachineJob")',
+                        url: '@Url.Action("GetProductByJobTicketId", "P2M")',
                         type: 'GET',
                         data: { productId: productId },
                         success: function (data) {
-                            var formaSelect = $('#FormaId');
-                            formaSelect.empty();
-                            formaSelect.append($('<option>', {
-                                value: '',
-                                text: 'Select a forma'
-                            }));
-                            $.each(data, function (index, item) {
-                                formaSelect.append($('<option>', {
-                                    value: item.value,
-                                    text: item.text
-                                }));
-                            });
-                        }
-                    });
-                }
-            });
-
-
-            $('#FormaId').change(function () {
-                var formaId = $(this).val();
-                if (formaId) {
-                    $.ajax({
-                        url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
-                        type: 'GET',
-                        data: { formaId: formaId },
-                        success: function (data) {
-                            $('#FormaPageSize').val(data.pageSize);
-                            $('#FormaTarget').val(data.formaTarget);
+                            $('#ProductId').val(data.productId);
+                            $('#FormaNumber').val(data.noofAssociatedForma);
 
                         },
                         error: function (xhr, status, error) {
                             console.error(error);
-                            $('#FormaPageSize').val('');
-                            $('#FormaTarget').val('');
+                            $('#ProductId').val('');
+                            $('#FormaNumber').val('');
 
                         }
                     });
                 } else {
-                    $('#FormaPageSize').val('');
-                    $('#FormaTarget').val('');
+                    $('#ProductId').val('');
+                    $('#FormaNumber').val('');
 
                 }
             });
         });
+
     </script>
 
 

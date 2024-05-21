@@ -252,36 +252,36 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetFormasByProductId(int productId)
+        public JsonResult GetClassByProductId(int productId)
         {
-            var formas = _unitOfWork.Forma.GetAll()
-                                 .Where(f => f.ProductId == productId)
+            var classes = _unitOfWork.Product.GetAll()
+                                 .Where(f => f.Id == productId)
                                  .Select(f => new SelectListItem
                                  {
                                      Value = f.Id.ToString(),
-                                     Text = f.Name
+                                     Text = f.Class.Name,
                                  }).ToList();
 
-            return Json(formas);
+            return Json(classes);
         }
 
         [HttpGet]
 
-        public JsonResult GetPageSizeByFormaId(int formaId)
+        public JsonResult GetProductByJobTicketId(int jobTicketId)
         {
-            var forma = _unitOfWork.Forma.GetFirstOrDefault(f => f.Id == formaId);
-            if (forma != null)
+            var jobTicket = _unitOfWork.JobTicket.GetFirstOrDefault(f => f.Id == jobTicketId);
+            if (jobTicket != null)
             {
                 return Json(new
                 {
-                    pageSize = forma.Page,
-                    formaTarget = forma.PrintTarget
+                    productId = jobTicket.ProductId,
+                    noofAssociatedForma = jobTicket.NoofAssociatedForma
                 });
             }
             return Json(new
             {
-                pageSize = "",
-                formaTarget = ""
+                productId = "",
+                noofAssociatedForma = ""
             });
         }
 

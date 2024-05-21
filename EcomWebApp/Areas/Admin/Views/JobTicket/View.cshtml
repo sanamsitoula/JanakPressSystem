@@ -1,9 +1,14 @@
 ﻿@model Ecom.Models.JobTicketForma
 
-
 @{
-    ViewData["Title"] = "Job Ticket";
+    int totalPage = 0;
+   // int totalPrintTarget = 0;  
+     ViewData["Title"] = "Job Ticket";
+
+  
 }
+
+
 <style>
     .heading h5 {
         font-weight: 900;
@@ -30,8 +35,10 @@
             <h5>(Printing शाखा)</h5>
         </div>
         <div class="row">
+       
              @foreach (var obj in Model.jobstick)
                 {
+           
         <div class="col-md-4">
             <strong>
                     Job Ticket No.:@obj.Id / @obj.Name
@@ -40,19 +47,22 @@
                 <b>Class  : </b> <u>
                     @if(obj.Product.Title != null)
                 {
-                        @obj.Product.Class  @obj.Product.Title
+                        @obj.Product.Class  
                     }
                 </u>  <br />
+                <b>Subject: @obj.Product.SubjectId</b><br />
                 <b>Page Number : </b> <u>@obj.PageNumber</u>
-                <br /> <b>Page  : </b> <u>@obj.PrePrintSize</u>
+               @*  <br /> <b>Page  : </b> <u>@obj.PrePrintSize</u>
+                <br /> <b>Job Completion Date: @obj.JobCompleteDate.ToString();</b> *@
+
                 <br /> <b>Job Start Date: @obj.JobStartDate</b>
-                <br /> <b>Job Completion Date: @obj.JobCompleteDate.ToString();</b>
         </div>
         <div class="col-md-4">
                 <h5>  Lot Number : @obj.LotNumber |
                 Year : @obj.FiscalYear  </h5>
         </div>
         <div class="col-md-4">
+                <b>Job Code: @obj.Code</b><br />
                 <b>Job Date: @obj.JobDate</b>
                 <br />
                 <b>Print Target: @obj.PrintTarget</b>
@@ -79,9 +89,12 @@
                     <tbody>
                 @{
                     int sn = 1; // Initialize the serial number counter
-                }
+                } 
+               
                         @foreach (var mo in Model.forma)
                         {
+                    totalPage = totalPage + mo.Page ?? 0;
+                  //  totalPrintTarget = totalPrintTarget + mo.PrintTarget ?? 0;
                             <tr>
                         <td>@sn</td> <!-- Output the serial number -->
                                 <td>@mo.Name</td>
@@ -92,6 +105,12 @@
                             </tr>
                     sn++; // Increment the serial number counter
                         }
+                <tr>
+                    <td colspan="2">Total</td>
+                    <td>@totalPage</td>
+                   @*  <td>@totalPrintTarget</td> *@
+                    <td></td> <!-- You may leave this empty or adjust as per your design -->
+                </tr>
                     </tbody>
                     </table>
                     </div>
