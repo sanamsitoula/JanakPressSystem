@@ -20,8 +20,8 @@ namespace Ecom.Models
         [Required]
         public int ClassId { get; set; }
         public Class ?Class { get; set; }
-        public string P2MDate { get; set; }
-        public string? ReportDate { get; set; }
+        public DateTime? P2MDate { get; set; }
+        public DateTime? ReportDate { get; set; }
 
 
         public int? JobTicketId { get; set; }

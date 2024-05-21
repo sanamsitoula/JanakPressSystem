@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240520024940_PackDB1909980")]
-    partial class PackDB1909980
+    [Migration("20240520082013_EcomTestDB51")]
+    partial class EcomTestDB51
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 8, 34, 38, 656, DateTimeKind.Local).AddTicks(7156),
+                            CreatedDate = new DateTime(2024, 5, 20, 14, 5, 13, 129, DateTimeKind.Local).AddTicks(2022),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -73,7 +73,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 8, 34, 38, 656, DateTimeKind.Local).AddTicks(7186),
+                            CreatedDate = new DateTime(2024, 5, 20, 14, 5, 13, 129, DateTimeKind.Local).AddTicks(2038),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -83,7 +83,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 20, 8, 34, 38, 656, DateTimeKind.Local).AddTicks(7189),
+                            CreatedDate = new DateTime(2024, 5, 20, 14, 5, 13, 129, DateTimeKind.Local).AddTicks(2039),
                             Description = "SLC",
                             DisplayOrder = 2,
                             Name = "SLC",
@@ -911,12 +911,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 20, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7697),
+                            CreatedDate = new DateTime(2024, 5, 20, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2301),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 20, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7685),
+                            JobDate = new DateTime(2024, 5, 20, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2292),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -925,7 +925,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 21, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7686),
+                            ReportDate = new DateTime(2024, 5, 21, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2292),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -936,12 +936,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 20, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7707),
+                            CreatedDate = new DateTime(2024, 5, 20, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2306),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 20, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7702),
+                            JobDate = new DateTime(2024, 5, 20, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2304),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -950,7 +950,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 22, 2, 49, 38, 656, DateTimeKind.Utc).AddTicks(7703),
+                            ReportDate = new DateTime(2024, 5, 22, 8, 20, 13, 129, DateTimeKind.Utc).AddTicks(2304),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,
@@ -1004,9 +1004,8 @@ namespace Ecom.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("P2MDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("P2MDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("P2M_Code")
                         .HasColumnType("nvarchar(max)");
@@ -1032,8 +1031,8 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReportDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("ReportDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");

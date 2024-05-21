@@ -138,22 +138,22 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             {
                 obj.P2M_Code = "P2M-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
                 //DateTime dateTimeValue = obj.P2MDate;
-                string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
-                DateTime parsedDate;
-                if (DateTime.TryParse(dateString, out parsedDate))
-                {
-                    dateString = parsedDate.ToString("yyyy-MM-dd");
-                }
-                else
-                {
-                    // Handle invalid date string
-                    Console.WriteLine("Invalid date string format.");
-                }
+              //  string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
+                //DateTime parsedDate;
+                //if (DateTime.TryParse(dateString, out parsedDate))
+                //{
+                //    dateString = parsedDate.ToString("yyyy-MM-dd");
+                //}
+                //else
+                //{
+                //    // Handle invalid date string
+                //    Console.WriteLine("Invalid date string format.");
+                //}
 
 
-                string dateString2 = parsedDate.ToString("yyyy-MM-dd"); // Format the date as needed
+                //string dateString2 = parsedDate.ToString("yyyy-MM-dd"); // Format the date as needed
 
-                obj.P2MDate = dateString2;
+                //obj.P2MDate = dateString2;
                 obj.ReportDate = obj.ReportDate;
                 obj.Status = true;
               
