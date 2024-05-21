@@ -1,7 +1,9 @@
-﻿@model List<Ecom.Models.P2M>
+﻿@model List<Ecom.Models.SearchViewModel>
+
 @{
     Layout = null;
 }
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
@@ -67,7 +69,34 @@
 
 
 </style>
-
+<form asp-controller="" asp-action="" method="get" class="row">
+   
+    <div class="col-2">
+        <label for="searchString" class="sr-only">Search</label>
+        <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Search" value="@ViewData["searchString"]" />
+    </div>
+    <div class="col-2">
+        <label asp-for="ClassId" class="control-label"></label>
+        <select asp-for="ClassId" class="form-control" asp-items="ViewBag.ClassList">
+            <option value="">Please Choose your Class</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <label for="categoryId" class="sr-only">Category ID</label>
+        <input type="number" class="form-control" id="categoryId" name="categoryId" placeholder="Category ID" value="@ViewData["categoryId"]" />
+    </div>
+    <div class="col-2">
+        <label for="fromDate" class="sr-only">From Date</label>
+        <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="From Date" value="@ViewData["fromDate"]" />
+    </div>
+    <div class="col-2">
+        <label for="toDate" class="sr-only">To Date</label>
+        <input type="date" class="form-control" id="toDate" name="toDate" placeholder="To Date" value="@ViewData["toDate"]" />
+    </div>
+    <div class="py-4 col-2">
+    <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </div>
+</form>
 
 <div class="report-container">
     <header class="report-header">
@@ -98,7 +127,7 @@
                 <td>@obj.Name</td>
                     <td>@obj.P2M_Code</td>
 
-                    <td>@obj.Product.Title</td>
+                    <td>@(obj.Product != null ? obj.Product.Title : "No Product")</td>
 
                 <td>@obj.ClassId</td>
                 <td>@obj.P2MDate</td>

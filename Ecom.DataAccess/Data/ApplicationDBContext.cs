@@ -44,7 +44,13 @@ namespace Ecom.DataAccess.Data
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "NEB", Description = "NEB", DisplayOrder = 1, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
           new Category { Id = 2, Name = "HSEB", Description = "HSEB", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
-            new Category { Id = 3, Name = "SLC", Description = "SLC", DisplayOrder = 2, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now });
+           new Category { Id = 3, Name = "SLC", Description = "SLC", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+            new Category { Id = 4, Name = "Book", Description = "Book", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+             new Category { Id = 5, Name = "Exercise Book", Description = "Exercise Book", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+              new Category { Id = 6, Name = "Jhura Kagaj", Description = "Jhura Kagaj", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+               new Category { Id = 7, Name = "Kawadi", Description = "Kawadi", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+              new Category { Id = 8, Name = "Religious", Description = "Religious", DisplayOrder = 3, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now },
+            new Category { Id = 9, Name = "Election", Description = "Election", DisplayOrder = 2, Status = true, CreatedBy = "1", CreatedDate = DateTime.Now });
 
 
 
