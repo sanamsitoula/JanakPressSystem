@@ -22,7 +22,72 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
 
         }
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
+        {
+            var objProductList = _unitOfWork.P2M.GetAll()
+                .OrderByDescending(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+           
+
+            if (objProductList != null)
+            {
+                objProductList.ForEach(e =>
+                {
+                    // Assuming JobTicketId is of type int?
+                    int? JobTicketId = e.JobTicketId;
+                    var jobTicketEntity = _unitOfWork.JobTicket.GetFirstOrDefault(c => c.Id == JobTicketId.Value);
+                    if (jobTicketEntity != null)
+                    {
+                        e.JobTicket = new JobTicket
+                        {
+                            Id = jobTicketEntity.Id,
+                            Name = jobTicketEntity.Name,
+                            Code = jobTicketEntity.Code
+                           
+                        };
+                    }
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                    e.Class = new Class // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
+                        Id = e.ClassId,
+                    };
+                    e.Subject = new Subject // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Subject.GetFirstOrDefault(c => c.Id == e.SubjectId).Name,
+                        Id = (int)e.SubjectId,
+                    };
+
+
+
+
+
+
+
+
+                });
+            }
+
+            var totalItems = _unitOfWork.P2M.GetAll().Count();
+
+            var viewModel = new PaginatedViewModel<P2M>
+            {
+                Items = objProductList,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult Index2()
         {
             List<P2M>? objProductList = _unitOfWork.P2M.
               GetAll()?
@@ -49,6 +114,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
               VerifiedById = P2M.VerifiedById,
               ReceivedById = P2M.ReceivedById,
               FiscalYear = P2M.FiscalYear,
+              SubjectId = P2M.SubjectId
 
 
               // Set values for any other new properties
@@ -68,6 +134,11 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                     {
                         Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
                         Id = e.ClassId,
+                    };
+                    e.Subject = new Subject // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Subject.GetFirstOrDefault(c => c.Id == e.SubjectId).Name,
+                        Id = (int)e.SubjectId,
                     };
 
 
@@ -91,6 +162,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             List<JobType>? objJobType = _unitOfWork.JobType.GetAll().ToList();
             List<DropdownV>? objDropdownV = _unitOfWork.DropdownV.GetAll().Where(d => d.ParaModel == "PerPokaSize").OrderByDescending(c => c.Id).ToList();
             List<Class>? objClass = _unitOfWork.Class.GetAll().OrderByDescending(c => c.Id).ToList();
+            List<Subject>? objSubject = _unitOfWork.Subject.GetAll().OrderByDescending(c => c.Id).ToList();
 
             IEnumerable<SelectListItem>? selectProductList = objProduct?.Select(form => new SelectListItem
             {
@@ -120,6 +192,11 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Text = form.Name // Use 'form' here, not 'f'
             });
 
+            IEnumerable<SelectListItem>? selectSubjectItems = objSubject?.Select(form => new SelectListItem
+            {
+                Value = form.Id.ToString(), // Use 'form' here, not 'f'
+                Text = form.Name // Use 'form' here, not 'f'
+            });
 
             // Store the IEnumerable<SelectListItem> in ViewBag
             ViewBag.Product = selectProductList;
@@ -128,6 +205,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             ViewBag.DropdownV = selectDropdownVItems;
             ViewBag.Class = selectClassItems;
 
+            ViewBag.Subject = selectSubjectItems;
 
 
             return View();
@@ -138,23 +216,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 obj.P2M_Code = "P2M-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
-                //DateTime dateTimeValue = obj.P2MDate;
-                //  string dateString = obj.P2MDate; // Assuming obj.P2MDate is already a string
-                //DateTime parsedDate;
-                //if (DateTime.TryParse(dateString, out parsedDate))
-                //{
-                //    dateString = parsedDate.ToString("yyyy-MM-dd");
-                //}
-                //else
-                //{
-                //    // Handle invalid date string
-                //    Console.WriteLine("Invalid date string format.");
-                //}
 
-
-                //string dateString2 = parsedDate.ToString("yyyy-MM-dd"); // Format the date as needed
-
-                //obj.P2MDate = dateString2;
                 obj.ReportDate = obj.ReportDate;
                 obj.Status = true;
 
@@ -272,20 +334,26 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             var jobTicket = _unitOfWork.JobTicket.GetFirstOrDefault(f => f.Id == jobTicketId);
             var product = _unitOfWork.Product.GetFirstOrDefault(f => f.Id == jobTicket.ProductId);
+           // int clssItem = product.ClassId;
             var cls = _unitOfWork.Class.GetFirstOrDefault(f => f.Id == product.ClassId);
-            if (jobTicket != null && product != null && cls != null)
+          var subject = _unitOfWork.Subject.GetFirstOrDefault(f => f.Id == product.SubjectId);
+
+            if (jobTicket != null && product != null && cls != null && subject != null)
             {
                 return Json(new
                 {
                     productId = jobTicket.ProductId,
                     noofAssociatedForma = jobTicket.NoofAssociatedForma,
-                    classId = cls.Id
+                    classId = cls.Id,
+                    subjectId = subject.Id
                 });
             }
             return Json(new
             {
                 productId = "",
-                noofAssociatedForma = ""
+                noofAssociatedForma = "",
+                classId ="",
+                subjectId =""
             });
         }
 

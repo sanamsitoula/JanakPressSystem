@@ -42,6 +42,14 @@
 
                             <span asp-validation-for="ClassId" class="text-danger"></span>
                         </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="SubjectId" class="form-label p-4"></label>
+                            <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.Subject">
+                                <option value="">Please Choose your Subject</option>
+                            </select>
+
+                            <span asp-validation-for="SubjectId" class="text-danger"></span>
+                        </div>
 
                         <div class="form-floating py-4 col-6">
                             <label for="FormaNumber" class="form-label p-4">FormaNumber</label>
@@ -69,7 +77,7 @@
 
                         <div class="form-floating py-4 col-6">
                             <label for="ProductQuantity" class="form-label p-4">ProductQuantity</label>
-                            <input type="text" id="ProductQuantity" class="form-control" asp-for="ProductQuantity" />
+                            <input type="text" id="ProductQuantity" class="form-control" asp-for="ProductQuantity" readonly />
                             <span asp-validation-for="ProductQuantity" class="text-danger"></span>
                         </div>
 
@@ -81,7 +89,7 @@
 
                         <div class="form-floating py-4 col-6">
                             <label for="TotalProductQuantity" class="form-label p-4">TotalProductQuantity</label>
-                            <input type="text" id="TotalProductQuantity" class="form-control" asp-for="TotalProductQuantity" />
+                            <input type="text" id="TotalProductQuantity" class="form-control" asp-for="TotalProductQuantity" readonly />
                             <span asp-validation-for="TotalProductQuantity" class="text-danger"></span>
                         </div>
 
@@ -140,31 +148,41 @@
  
     <script type="text/javascript">
         $(document).ready(function () {
+            function updateTotalProductQuantity() {
+                var productQuantity = parseFloat($('#ProductQuantity').val());
+                var piecesQuantity = parseFloat($('#PiecesQuantity').val());
+                // Check if both values are valid numbers
+                if (!isNaN(productQuantity) && !isNaN(piecesQuantity)) {
+                    var totalProductQuantity = productQuantity + piecesQuantity;
+                    $('#TotalProductQuantity').val(totalProductQuantity);
+                } else {
+                    $('#TotalProductQuantity').val('');
+                }
+            }
 
-             // Function to update ProductQuantity
+
         function updateProductQuantity() {
-            // Get the value of PerPokaSize (convert to number)
             var perPokaSize = parseFloat($('#PerPokaSize').val());
-            // Get the value of PokaNumber (convert to number)
             var pokaNumber = parseFloat($('#PokaNumber').val());
             // Check if both values are valid numbers
             if (!isNaN(perPokaSize) && !isNaN(pokaNumber)) {
-                // Calculate the product quantity
                 var productQuantity = perPokaSize * pokaNumber;
-                // Update the ProductQuantity field
                 $('#ProductQuantity').val(productQuantity);
             } else {
-                // If any of the values is not a number, clear the ProductQuantity field
                 $('#ProductQuantity').val('');
             }
         }
 
+
         // Attach the updateProductQuantity function to the input event of PokaNumber
         $('#PokaNumber').on('input', updateProductQuantity);
 
-        // Attach the updateProductQuantity function to the change event of PerPokaSize
         $('#PerPokaSize').on('change', updateProductQuantity);
 
+
+            $('#PiecesQuantity').on('input', updateTotalProductQuantity);
+
+            $('#ProductQuantity').on('change', updateTotalProductQuantity);
 
             $('#JobTicketId').change(function () {
                 var jobticketId = $(this).val();
@@ -177,6 +195,7 @@
                             $('#ProductId').val(data.productId);
                             $('#FormaNumber').val(data.noofAssociatedForma);
                             $('#ClassId').val(data.classId);
+                            $('#SubjectId').val(data.subjectId);
 
 
                         },
@@ -184,7 +203,8 @@
                             console.error(error);
                             $('#ProductId').val('');
                             $('#FormaNumber').val('');
-                            $('#ClassId').val(data.classId);
+                            $('#ClassId').val('');
+                            $('#SubjectId').val('');
 
 
                         }

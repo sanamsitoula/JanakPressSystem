@@ -35,7 +35,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                p2m = p2m.Where(p => p.Name.Contains(searchString));
+                p2m = p2m.Where(p => p.P2M_Code.Contains(searchString));
             }
 
             if (classId.HasValue)

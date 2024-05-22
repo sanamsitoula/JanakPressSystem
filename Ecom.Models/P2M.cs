@@ -52,5 +52,19 @@ namespace Ecom.Models
         public int? VerifiedById { get; set; }
         public int? ReceivedById { get; set; }
         public int? FiscalYear { get; set; }
+
+        public int? SubjectId { get; set; }
+        public Subject? Subject { get; set; }
+
+    }
+
+    public class PaginatedViewModel<T>
+    {
+        public IEnumerable<T> Items { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int TotalItems { get; set; }
+
+        public int TotalPages => (int)Math.Ceiling((double)TotalItems / PageSize);
     }
 }

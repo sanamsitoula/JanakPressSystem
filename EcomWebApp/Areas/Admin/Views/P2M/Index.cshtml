@@ -1,11 +1,9 @@
-﻿@model List<P2M>
+﻿@model PaginatedViewModel<P2M>
 
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">
-                P2M List
-            </h2>
+            <h2 class="text-primary">P2M List</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="P2M" asp-action="Create" class="btn btn-primary">
@@ -29,68 +27,74 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>
-                    # 
-                </th>
-                 <th>
-                   Code/ Job Date 
-                </th>
-               
-                <th>
-                    Product
-                </th>
-                <th>
-                    Class
-                </th>
-                <th>
-                    Code
-                </th>
-               
-                <th>
-                    Job Step
-                </th>
- 
-                <th>
-                    Status
-                </th>
-              @*   <th>
-                    Actions
-                </th> *@
+                <th>Name</th>
+                <th>P2M Code / Job Date</th>
+                <th>Product</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Job Ticket /Code</th>
+                <th>Per Poka Size</th>
+                <th>Poka Number</th>
+                <th>Product Qty</th>
+                <th>Pcs Qty</th>
+                <th>Total Product Qty</th>
+                <th>Job Step</th>
+                <th>Checked By</th>
+                <th>Verified By</th>
+                <th>Received By</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model)
-            {    
+            @foreach (var obj in Model.Items)
+            {
                 <tr>
-                    <td>@obj.Id</td>
-                    <td>@obj.P2M_Code <br/>@obj.P2MDate</td>
+                    <td>@obj.Name</td>
+                    <td>@obj.P2M_Code <br />@obj.P2MDate</td>
                     <td>@(obj.Product != null ? obj.Product.Title : "No Product")</td>
+                    <td>@(obj.Class != null ? obj.Class.Name : "No Class")</td>
+                    <td>@(obj.Subject != null ? obj.Subject.Name : "No Subject")</td>
 
-                    <td>@obj.Class.Name</td>
-                    <td>@obj.P2M_Code</td>
-
-
-                   
+                    <td>@(obj.JobTicket != null ? obj.JobTicket.Name : "No JobTicket") / @(obj.JobTicket != null ? obj.JobTicket.Code : "No JobTicket")</td>
+                    <td>@obj.PerPokaSize</td>
+                    <td>@obj.PokaNumber</td>
+                    <td>@obj.ProductQuantity</td>
+                    <td>@obj.PiecesQuantity</td>
+                    <td>@obj.TotalProductQuantity</td>
                     <td>@obj.JobStepId.ToString()</td>
-                 
+                    <td>@obj.CheckedById</td>
+                    <td>@obj.VerifiedById</td>
+                    <td>@obj.ReceivedById</td>
                     <td>@obj.Status</td>
-             @*        <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="MachineJob" asp-action="View" asp-route-Id="@obj.Id" asp-route-proId="" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-view"></i>View
-                            </a>
-                            <a asp-controller="MachineJob" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a asp-controller="MachineJob" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td> *@
                 </tr>
             }
         </tbody>
     </table>
+
+    <nav>
+        <ul class="pagination">
+            @if (Model.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-pageSize="@Model.PageSize">Previous</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+                </li>
+            }
+
+            @if (Model.PageNumber < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
 
 @section Scripts {
@@ -117,7 +121,6 @@
                     $(this).toggle(rowDate.toDateString() === searchDate.toDateString());
                 });
             });
-
         });
     </script>
 }

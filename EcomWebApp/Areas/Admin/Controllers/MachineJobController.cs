@@ -20,7 +20,84 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
 
         }
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
+        {
+            var objProductList = _unitOfWork.MachineJob.GetAll()
+                .OrderByDescending(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+
+
+            if (objProductList != null)
+            {
+                objProductList.ForEach(e =>
+                {
+                    // Assuming JobTicketId is of type int?
+                    int? JobTicketId = e.JobTicketId;
+                    var jobTicketEntity = _unitOfWork.JobTicket.GetFirstOrDefault(c => c.Id == JobTicketId.Value);
+                    if (jobTicketEntity != null)
+                    {
+                        e.JobTicket = new JobTicket
+                        {
+                            Id = jobTicketEntity.Id,
+                            Name = jobTicketEntity.Name,
+                            Code = jobTicketEntity.Code
+
+                        };
+                    }
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                    // Assuming JobTicketId is of type int?
+                    int? MachinaryId = e.MachinaryId;
+
+                    e.Machinary = MachinaryId.HasValue ? new Machinary // Assuming JobTicket is a complex object
+                    {
+                        Name = _unitOfWork.Machinary.GetFirstOrDefault(c => c.Id == MachinaryId.Value)?.Name,
+                        Id = MachinaryId.Value,
+                    } : null;
+
+                    // Assuming JobTicketId is of type int?
+                    int? FormaId = e.FormaId;
+                    var formaEntity = _unitOfWork.Forma.GetFirstOrDefault(c => c.Id == FormaId.Value);
+                    if (formaEntity != null)
+                    {
+                        e.Forma = new Forma
+                        {
+                            Id = formaEntity.Id,
+                            Name = formaEntity.Name,
+                            Page = formaEntity.Page,
+                            PrintTarget = formaEntity.PrintTarget,
+                            PrintAchieved = formaEntity.PrintAchieved
+                        };
+                    }
+
+
+
+
+
+
+
+                });
+            }
+
+            var totalItems = _unitOfWork.P2M.GetAll().Count();
+
+            var viewModel = new PaginatedViewModel<MachineJob>
+            {
+                Items = objProductList,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult Index2()
         {
             List<MachineJob>? objProductList = _unitOfWork.MachineJob.
               GetAll()?
