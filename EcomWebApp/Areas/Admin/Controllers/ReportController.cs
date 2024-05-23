@@ -93,7 +93,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> P2MReport(string searchString, int? classId, int? productId, DateTime? fromDate, DateTime? toDate,int pageNumber = 1, int pageSize = 100)
         {
             var classList = _unitOfWork.Class.GetAll().ToList(); // Get all classes
-        
+            var JobTicketList = _unitOfWork.JobTicket.GetAll().ToList(); // Get all classes
+                   
             var p2mList = _unitOfWork.P2M.GetAll()
               .OrderByDescending(p => p.Id)
               .Skip((pageNumber - 1) * pageSize)

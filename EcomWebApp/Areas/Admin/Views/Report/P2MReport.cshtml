@@ -1,6 +1,12 @@
 ﻿@model PaginatedViewModel<P2M>
 
+@{
+    int Tpokanumber = 0;
+    int Tproductqty = 0;
+    int Tpcsqty = 0;
+    int totalProductQty = 0;
 
+}
 <style>
   
     .report-container {
@@ -140,6 +146,11 @@
         <tbody>
                 @foreach (var obj in Model.Items)
                 {
+                        Tpokanumber = Tpokanumber + obj.PokaNumber ?? 0;
+                        Tproductqty = Tproductqty + obj.ProductQuantity ?? 0;
+                        Tpcsqty = Tpcsqty + obj.PiecesQuantity ?? 0;
+                        totalProductQty = totalProductQty + obj.TotalProductQuantity ?? 0;
+
                     <tr>
                         <td>@obj.Name</td>
                         <td>@obj.P2M_Code <br />@obj.P2MDate</td>
@@ -160,7 +171,20 @@
                         <td>@obj.Status</td>
                     </tr>
                 }
-            
+                    <tr>
+                        <td colspan="2">Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Tpokanumber</td>
+                        <td>@Tproductqty</td>
+                        <td>@Tpcsqty</td>
+                        <td>@totalProductQty</td>
+                       
+                        <td></td> <!-- You may leave this empty or adjust as per your design -->
+                    </tr>
         </tbody>
     </table>
     </div>
