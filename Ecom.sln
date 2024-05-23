@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.WebApp", "EcomWebApp\Ecom.WebApp.csproj", "{66BE62BA-0200-468E-B8EC-04C1CEA904C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{228ACC0C-99B6-479D-9065-D18AF1609327} = {228ACC0C-99B6-479D-9065-D18AF1609327}
+		{6AFB8E51-2BCE-4DB9-9680-00F0B60B650F} = {6AFB8E51-2BCE-4DB9-9680-00F0B60B650F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.DataAccess", "Ecom.DataAccess\Ecom.DataAccess.csproj", "{9D38E281-013B-4828-9700-2C26E5DFE041}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -6,11 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Ecom.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Database context configuration
@@ -38,12 +41,22 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
+//if (!app.Environment.IsDevelopment())
+//{
+    app.UseExceptionHandler("/Customer/Home/Privacy");
     app.UseHsts();
-}
+//}
 
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/Customer/Home/Privacy";
+        await next();
+    }
+
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -54,6 +67,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Admin}/{controller=MachineJob}/{action=Index}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}");
 
 app.Run();
