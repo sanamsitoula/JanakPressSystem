@@ -65,13 +65,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                         Id = (int)e.SubjectId,
                     };
 
-
-
-
-
-
-
-
                 });
             }
 

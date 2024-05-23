@@ -24,52 +24,180 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
 
         }
-
-
-        public async Task<IActionResult> P2MReport(string searchString, int? classId, int? productId, DateTime? fromDate, DateTime? toDate)
+        public IActionResult Index3(int pageNumber = 1, int pageSize = 100)
         {
-            var classList = _unitOfWork.Class.GetAll().ToList(); // Get all classes
+            var objProductList = _unitOfWork.P2M.GetAll()
+                .OrderByDescending(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-            var p2m = from p in _unitOfWork.P2M.GetAll()
-                      select p;
 
-            if (!String.IsNullOrEmpty(searchString))
+
+            if (objProductList != null)
             {
-                p2m = p2m.Where(p => p.P2M_Code.Contains(searchString));
+                objProductList.ForEach(e =>
+                {
+                    // Assuming JobTicketId is of type int?
+                    int? JobTicketId = e.JobTicketId;
+                    var jobTicketEntity = _unitOfWork.JobTicket.GetFirstOrDefault(c => c.Id == JobTicketId.Value);
+                    if (jobTicketEntity != null)
+                    {
+                        e.JobTicket = new JobTicket
+                        {
+                            Id = jobTicketEntity.Id,
+                            Name = jobTicketEntity.Name,
+                            Code = jobTicketEntity.Code
+
+                        };
+                    }
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                    e.Class = new Class // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
+                        Id = e.ClassId,
+                    };
+                    e.Subject = new Subject // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Subject.GetFirstOrDefault(c => c.Id == e.SubjectId).Name,
+                        Id = (int)e.SubjectId,
+                    };
+
+
+
+
+
+
+
+
+                });
             }
 
+            var totalItems = _unitOfWork.P2M.GetAll().Count();
+
+            var viewModel = new PaginatedViewModel<P2M>
+            {
+                Items = objProductList,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> P2MReport(string searchString, int? classId, int? productId, DateTime? fromDate, DateTime? toDate,int pageNumber = 1, int pageSize = 100)
+        {
+            var classList = _unitOfWork.Class.GetAll().ToList(); // Get all classes
+        
+            var p2mList = _unitOfWork.P2M.GetAll()
+              .OrderByDescending(p => p.Id)
+              .Skip((pageNumber - 1) * pageSize)
+              .Take(pageSize)
+              .ToList();
+
+            //var p2m = from p in _unitOfWork.P2M.GetAll()
+            //          select p;
+            // Apply filters
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                p2mList = p2mList.Where(p =>
+                      p.P2M_Code.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                             p.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                           //  ||                             p.JobTicket.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+                       ).ToList();
+            }
+          
             if (classId.HasValue)
             {
-                p2m = p2m.Where(p => p.ClassId == classId);
+                p2mList = (List<P2M>)p2mList.Where(p => p.ClassId == classId);
             }
 
             if (productId.HasValue)
             {
-                p2m = p2m.Where(p => p.ProductId == productId);
+                p2mList = (List<P2M>)p2mList.Where(p => p.ProductId == productId);
             }
 
+            // Apply date filters
             if (fromDate.HasValue)
             {
-                p2m = p2m.Where(p => p.P2MDate >= fromDate);
+                p2mList = p2mList.Where(p => p.P2MDate >= fromDate.Value).ToList();
             }
 
             if (toDate.HasValue)
             {
-                p2m = p2m.Where(p => p.P2MDate <= toDate);
+                p2mList = p2mList.Where(p => p.P2MDate <= toDate.Value).ToList();
             }
 
-            var viewModel = new ReportViewModel
+
+            if (p2mList != null)
             {
-                SearchString = searchString,
-                ClassId = classId,
-                ProductId = productId,
-                FromDate = fromDate,
-                ToDate = toDate,
-                P2MList = await p2m.ToListAsync(),
-                ClassList = new SelectList(classList, "Id", "Name") // Set the SelectList for the dropdown
+                p2mList.ForEach(e =>
+                {
+                    // Assuming JobTicketId is of type int?
+                    int? JobTicketId = e.JobTicketId;
+                    var jobTicketEntity = _unitOfWork.JobTicket.GetFirstOrDefault(c => c.Id == JobTicketId.Value);
+                    if (jobTicketEntity != null)
+                    {
+                        e.JobTicket = new JobTicket
+                        {
+                            Id = jobTicketEntity.Id,
+                            Name = jobTicketEntity.Name,
+                            Code = jobTicketEntity.Code
+
+                        };
+                    }
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                    e.Class = new Class // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Class.GetFirstOrDefault(c => c.Id == e.ClassId).Name,
+                        Id = e.ClassId,
+                    };
+                    e.Subject = new Subject // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.Subject.GetFirstOrDefault(c => c.Id == e.SubjectId).Name,
+                        Id = (int)e.SubjectId,
+                    };
+
+                });
+            }
+          
+
+
+
+            ViewBag.ClassList = new SelectList(classList, "Id", "Name");
+            var totalItems = _unitOfWork.P2M.GetAll().Count();
+
+            var viewModel = new PaginatedViewModel<P2M>
+            {
+                Items = p2mList,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
             };
 
             return View(viewModel);
+
+            //var viewModel = new ReportViewModel
+            //{
+            //    SearchString = searchString,
+            //    ClassId = classId,
+            //    ProductId = productId,
+            //    FromDate = fromDate,
+            //    ToDate = toDate,
+            //    P2MList = await p2m.ToListAsync(),
+            //    ClassList = new SelectList(classList, "Id", "Name") // Set the SelectList for the dropdown
+            //};
+
+            //return View(viewModel);
         }
 
 
