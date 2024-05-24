@@ -1,4 +1,4 @@
-﻿@model List<Ecom.Models.SearchViewModel>
+﻿@model List<Ecom.Models.P2M>
 
 @{
     Layout = null;
@@ -69,18 +69,18 @@
 
 
 </style>
-<form asp-controller="" asp-action="" method="get" class="row">
+<form asp-controller="Report" asp-action="P2MReport" method="get" class="row">
    
     <div class="col-2">
         <label for="searchString" class="sr-only">Search</label>
         <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Search" value="@ViewData["searchString"]" />
     </div>
-    <div class="col-2">
+@*      <div class="col-2">
         <label asp-for="ClassId" class="control-label"></label>
         <select asp-for="ClassId" class="form-control" asp-items="ViewBag.ClassList">
             <option value="">Please Choose your Class</option>
         </select>
-    </div>
+    </div>  *@
     <div class="col-2">
         <label for="categoryId" class="sr-only">Category ID</label>
         <input type="number" class="form-control" id="categoryId" name="categoryId" placeholder="Category ID" value="@ViewData["categoryId"]" />
@@ -146,9 +146,7 @@
     </footer>
     <footer class="report-footer">
         <p>Created By: Your Name</p>
-        <button onclick="printReport()">Print</button>
-        <button onclick="exportToPDF()">Export to PDF</button>
-        <button onclick="exportToExcel()">Export to Excel</button>
+      
     </footer>
 </div>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -157,27 +155,64 @@
         $('#report-table').DataTable();
     });
 
-    function printReport() {
-        var printContents = document.querySelector('.report-container').innerHTML;
-        var originalContents = document.body.innerHTML;
 
-        document.body.innerHTML = printContents;
-
-        window.print();
-
-        document.body.innerHTML = originalContents;
-    }
 </script>
-<script>
-    function exportToPDF() {
-        const doc = new jsPDF();
-        doc.text(20, 20, 'Your Report Title');
-        doc.autoTable({ html: '.report-table' });
-        doc.save('report.pdf');
-    }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Initialize Select2 on the FormaId dropdown
 
-    function exportToExcel() {
-        const wb = XLSX.utils.table_to_book(document.querySelector('.report-table'), { sheet: "Sheet 1" });
-        XLSX.writeFile(wb, 'report.xlsx');
-    }
+        $('#ClassId').change(function () {
+            var classId = $(this).val();
+            if (classId) {
+                $.ajax({
+                    url: '@Url.Action("GetFormasByProductId", "MachineJob")',
+                    type: 'GET',
+                    data: { classId: classId },
+                    success: function (data) {
+                        var formaSelect = $('#ClassId');
+                        formaSelect.empty();
+                        formaSelect.append($('<option>', {
+                            value: '',
+                            text: 'Select a Class'
+                        }));
+                        $.each(data, function (index, item) {
+                            formaSelect.append($('<option>', {
+                                value: item.value,
+                                text: item.text
+                            }));
+                        });
+                    }
+                });
+            }
+        });
+
+
+        $('#FormaId').change(function () {
+            var formaId = $(this).val();
+            if (formaId) {
+                $.ajax({
+                    url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
+                    type: 'GET',
+                    data: { formaId: formaId },
+                    success: function (data) {
+                        $('#FormaPageSize').val(data.pageSize);
+                        $('#FormaTarget').val(data.formaTarget);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        $('#FormaPageSize').val('');
+                        $('#FormaTarget').val('');
+
+                    }
+                });
+            } else {
+                $('#FormaPageSize').val('');
+                $('#FormaTarget').val('');
+
+            }
+        });
+    });
 </script>
+
