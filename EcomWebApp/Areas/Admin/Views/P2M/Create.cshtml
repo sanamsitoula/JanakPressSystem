@@ -42,6 +42,14 @@
 
                             <span asp-validation-for="ClassId" class="text-danger"></span>
                         </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="SubjectId" class="form-label p-4"></label>
+                            <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.Subject">
+                                <option value="">Please Choose your Subject</option>
+                            </select>
+
+                            <span asp-validation-for="SubjectId" class="text-danger"></span>
+                        </div>
 
                         <div class="form-floating py-4 col-6">
                             <label for="FormaNumber" class="form-label p-4">FormaNumber</label>
@@ -69,7 +77,7 @@
 
                         <div class="form-floating py-4 col-6">
                             <label for="ProductQuantity" class="form-label p-4">ProductQuantity</label>
-                            <input type="text" id="ProductQuantity" class="form-control" asp-for="ProductQuantity" />
+                            <input type="text" id="ProductQuantity" class="form-control" asp-for="ProductQuantity" readonly />
                             <span asp-validation-for="ProductQuantity" class="text-danger"></span>
                         </div>
 
@@ -81,7 +89,7 @@
 
                         <div class="form-floating py-4 col-6">
                             <label for="TotalProductQuantity" class="form-label p-4">TotalProductQuantity</label>
-                            <input type="text" id="TotalProductQuantity" class="form-control" asp-for="TotalProductQuantity" />
+                            <input type="text" id="TotalProductQuantity" class="form-control" asp-for="TotalProductQuantity" readonly />
                             <span asp-validation-for="TotalProductQuantity" class="text-danger"></span>
                         </div>
 
@@ -128,7 +136,7 @@
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <a asp-controller="MachineJob" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <a asp-controller="P2M" asp-action="Index" class="btn btn-secondary">Back to List</a>
                         </div>
                     </form>
                 </div>
@@ -137,53 +145,67 @@
     </div>
 </div>
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
     <script type="text/javascript">
         $(document).ready(function () {
-             // Initialize Select2 on the FormaId dropdown
-         
-            $('#ProductId').change(function () {
-                var productId = $(this).val();
-                if (productId) {
-                    $.ajax({
-                        url: '@Url.Action("GetFormasByProductId", "MachineJob")',
-                        type: 'GET',
-                        data: { productId: productId },
-                        success: function (data) {
-                            var formaSelect = $('#FormaId');
-                            formaSelect.empty();
-                            formaSelect.append($('<option>', {
-                                value: '',
-                                text: 'Select a forma'
-                            }));
-                            $.each(data, function (index, item) {
-                                formaSelect.append($('<option>', {
-                                    value: item.value,
-                                    text: item.text
-                                }));
-                            });
-                        }
-                    });
+            function updateTotalProductQuantity() {
+                var productQuantity = parseFloat($('#ProductQuantity').val());
+                var piecesQuantity = parseFloat($('#PiecesQuantity').val());
+                // Check if both values are valid numbers
+                if (!isNaN(productQuantity) && !isNaN(piecesQuantity)) {
+                    var totalProductQuantity = productQuantity + piecesQuantity;
+                    $('#TotalProductQuantity').val(totalProductQuantity);
+                } else {
+                    $('#TotalProductQuantity').val('');
                 }
-            });
+            }
 
 
-            $('#FormaId').change(function () {
-                var formaId = $(this).val();
-                if (formaId) {
+        function updateProductQuantity() {
+            var perPokaSize = parseFloat($('#PerPokaSize').val());
+            var pokaNumber = parseFloat($('#PokaNumber').val());
+            // Check if both values are valid numbers
+            if (!isNaN(perPokaSize) && !isNaN(pokaNumber)) {
+                var productQuantity = perPokaSize * pokaNumber;
+                $('#ProductQuantity').val(productQuantity);
+            } else {
+                $('#ProductQuantity').val('');
+            }
+        }
+
+
+        // Attach the updateProductQuantity function to the input event of PokaNumber
+        $('#PokaNumber').on('input', updateProductQuantity);
+
+        $('#PerPokaSize').on('change', updateProductQuantity);
+
+
+            $('#PiecesQuantity').on('input', updateTotalProductQuantity);
+
+            $('#ProductQuantity').on('change', updateTotalProductQuantity);
+
+            $('#JobTicketId').change(function () {
+                var jobticketId = $(this).val();
+                if (jobticketId) {
                     $.ajax({
-                        url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
+                        url: '@Url.Action("GetProductByJobTicketId", "P2M")',
                         type: 'GET',
-                        data: { formaId: formaId },
+                        data: { jobticketId: jobticketId },
                         success: function (data) {
-                            $('#FormaPageSize').val(data.pageSize);
-                            $('#FormaTarget').val(data.formaTarget);
+                            $('#ProductId').val(data.productId);
+                            $('#FormaNumber').val(data.noofAssociatedForma);
+                            $('#ClassId').val(data.classId);
+                            $('#SubjectId').val(data.subjectId);
+
 
                         },
                         error: function (xhr, status, error) {
                             console.error(error);
-                            $('#FormaPageSize').val('');
-                            $('#FormaTarget').val('');
+                            $('#ProductId').val('');
+                            $('#FormaNumber').val('');
+                            $('#ClassId').val('');
+                            $('#SubjectId').val('');
+
 
                         }
                     });
@@ -195,7 +217,6 @@
             });
         });
     </script>
-
 
     <partial name="_ValidationScriptsPartial" />
 }

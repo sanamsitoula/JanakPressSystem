@@ -1,22 +1,14 @@
-﻿@model List<Ecom.Models.P2M>
+﻿@model List<Ecom.Models.SearchViewModel>
 
 @{
-    Layout = null;
+    int Tpokanumber = 0;
+    int Tproductqty = 0;
+    int Tpcsqty = 0;
+    int totalProductQty = 0;
+
 }
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
 <style>
-    /* styles.css */
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
+  
     .report-container {
         width: 90%;
         margin: 20px auto;
@@ -46,8 +38,8 @@
         margin-bottom: 20px;
     }
 
-        .report-table th, .report-table td {
-            border: 1px solid #ddd;
+        .report-table th, .report-table td, .report-table tr {
+            border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
@@ -69,86 +61,164 @@
 
 
 </style>
-<form asp-controller="Report" asp-action="P2MReport" method="get" class="row">
+<form asp-controller="" asp-action="" method="get" class="row">
    
     <div class="col-2">
         <label for="searchString" class="sr-only">Search</label>
         <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Search" value="@ViewData["searchString"]" />
     </div>
-@*      <div class="col-2">
+    <div class="col-2">
         <label asp-for="ClassId" class="control-label"></label>
         <select asp-for="ClassId" class="form-control" asp-items="ViewBag.ClassList">
             <option value="">Please Choose your Class</option>
         </select>
-    </div>  *@
+    </div>
     <div class="col-2">
         <label for="categoryId" class="sr-only">Category ID</label>
         <input type="number" class="form-control" id="categoryId" name="categoryId" placeholder="Category ID" value="@ViewData["categoryId"]" />
     </div>
+
     <div class="col-2">
         <label for="fromDate" class="sr-only">From Date</label>
         <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="From Date" value="@ViewData["fromDate"]" />
     </div>
+
     <div class="col-2">
         <label for="toDate" class="sr-only">To Date</label>
         <input type="date" class="form-control" id="toDate" name="toDate" placeholder="To Date" value="@ViewData["toDate"]" />
     </div>
+
     <div class="py-4 col-2">
     <button type="submit" class="btn btn-primary mb-2">Search</button>
+               
     </div>
+
+            <div class="py-4 col-2">
+                <button type="reset" class="btn btn-secondary mb-2" onclick="resetForm()">Reset</button>
+            </div>
 </form>
 
-<div class="report-container">
+
+
+<div class="report-footer">
+            <span> <strong>Total :</strong> <b>@Model.TotalItems</b></span>
+            <button onclick="printReport()">Print</button>
+    <button onclick="exportToPDF()">Export to PDF</button>
+    <button onclick="exportToExcel()">Export to Excel</button>
+</div>
+</div>
+<div class="col-12">
     <header class="report-header">
         <h1>जनक शिक्षा सामग्री केन्द्र लिमिटेड</h1>
         <h2>Production विभाग</h2>
         <h3>सानोठिमी, भक्तपुर</h3>
         <h4>(Printing शाखा)</h4>
     </header>
-    <table id="report-table" class="display">
+    <div class="table mt-5">
+        <table class="table">
         <thead>
             <tr>
-                <th>S.N</th>
-                <th>Forma</th>
-                <th>Page</th>
-                <th>Print Target</th>
-                <th>Remarks</th>
-                <th>Column 6</th>
-                <th>Column 7</th>
-                <th>Column 8</th>
-                <th>Column 9</th>
-                <th>Column 10</th>
+                <tr>
+                    <th>Name</th>
+                    <th>P2M Code / Job Date</th>
+                    <th>Product</th>
+                    <th>Class</th>
+                    <th>Subject</th>
+                    <th>Job Ticket /Code</th>
+                    <th>Per Poka Size</th>
+                    <th>Poka Number</th>
+                    <th>Product Qty</th>
+                    <th>Pcs Qty</th>
+                    <th>Total Product Qty</th>
+                    <th>Job Step</th>
+                    <th>Checked By</th>
+                    <th>Verified By</th>
+                    <th>Received By</th>
+                    <th>Status</th>
+                </tr>
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model)
+                @foreach (var obj in Model.Items)
                 {
-            <tr>
-                <td>@obj.Name</td>
-                    <td>@obj.P2M_Code</td>
+                        Tpokanumber = Tpokanumber + obj.PokaNumber ?? 0;
+                        Tproductqty = Tproductqty + obj.ProductQuantity ?? 0;
+                        Tpcsqty = Tpcsqty + obj.PiecesQuantity ?? 0;
+                        totalProductQty = totalProductQty + obj.TotalProductQuantity ?? 0;
 
-                    <td>@(obj.Product != null ? obj.Product.Title : "No Product")</td>
+                    <tr>
+                        <td>@obj.Name</td>
+                        <td>@obj.P2M_Code <br />@obj.P2MDate</td>
+                        <td>@(obj.Product != null ? obj.Product.Title : "No Product")</td>
+                        <td>@(obj.Class != null ? obj.Class.Name : "No Class")</td>
+                        <td>@(obj.Subject != null ? obj.Subject.Name : "No Subject")</td>
 
-                <td>@obj.ClassId</td>
-                <td>@obj.P2MDate</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-            </tr>
+                        <td>@(obj.JobTicket != null ? obj.JobTicket.Name : "No JobTicket") / @(obj.JobTicket != null ? obj.JobTicket.Code : "No JobTicket")</td>
+                        <td>@obj.PerPokaSize</td>
+                        <td>@obj.PokaNumber</td>
+                        <td>@obj.ProductQuantity</td>
+                        <td>@obj.PiecesQuantity</td>
+                        <td>@obj.TotalProductQuantity</td>
+                        <td>@obj.JobStepId.ToString()</td>
+                        <td>@obj.CheckedById</td>
+                        <td>@obj.VerifiedById</td>
+                        <td>@obj.ReceivedById</td>
+                        <td>@obj.Status</td>
+                    </tr>
                 }
-            
+                    <tr>
+                        <td colspan="2">Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@Tpokanumber</td>
+                        <td>@Tproductqty</td>
+                        <td>@Tpcsqty</td>
+                        <td>@totalProductQty</td>
+                       
+                        <td></td> <!-- You may leave this empty or adjust as per your design -->
+                    </tr>
         </tbody>
     </table>
+    </div>
     <footer class="report-footer">
         <p>Created By: Your Name</p>
+        <button onclick="printReport()">Print</button>
+        <button onclick="exportToPDF()">Export to PDF</button>
+        <button onclick="exportToExcel()">Export to Excel</button>
     </footer>
-    <footer class="report-footer">
-        <p>Created By: Your Name</p>
-      
-    </footer>
+
+    
+<nav>
+    <ul class="pagination">
+               
+        @if (Model.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-pageSize="@Model.PageSize">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+            </li>
+        }
+
+        @if (Model.PageNumber < Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
 </div>
+</div>
+
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -215,4 +285,3 @@
         });
     });
 </script>
-

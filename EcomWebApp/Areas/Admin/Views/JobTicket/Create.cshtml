@@ -107,5 +107,65 @@
 </div>
 
 @section Scripts {
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             // Initialize Select2 on the FormaId dropdown
+         
+            $('#ProductId').change(function () {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        url: '@Url.Action("GetFormasByProductId", "MachineJob")',
+                        type: 'GET',
+                        data: { productId: productId },
+                        success: function (data) {
+                            var formaSelect = $('#FormaId');
+                            formaSelect.empty();
+                            formaSelect.append($('<option>', {
+                                value: '',
+                                text: 'Select a forma'
+                            }));
+                            $.each(data, function (index, item) {
+                                formaSelect.append($('<option>', {
+                                    value: item.value,
+                                    text: item.text
+                                }));
+                            });
+                        }
+                    });
+                }
+            });
+
+
+            $('#FormaId').change(function () {
+                var formaId = $(this).val();
+                if (formaId) {
+                    $.ajax({
+                        url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
+                        type: 'GET',
+                        data: { formaId: formaId },
+                        success: function (data) {
+                            $('#FormaPageSize').val(data.pageSize);
+                            $('#FormaTarget').val(data.formaTarget);
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            $('#FormaPageSize').val('');
+                            $('#FormaTarget').val('');
+
+                        }
+                    });
+                } else {
+                    $('#FormaPageSize').val('');
+                    $('#FormaTarget').val('');
+
+                }
+            });
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

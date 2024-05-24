@@ -20,7 +20,56 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
 
         }
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
+        {
+            var objProductList = _unitOfWork.JobTicket.GetAll()
+                .OrderByDescending(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+
+
+            if (objProductList != null)
+            {
+                objProductList.ForEach(e =>
+                {
+                    
+                    e.Product = new Product // Assuming Product is a complex object
+                    {
+                        Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
+                        Id = (int)e.ProductId,
+                    };
+                   
+                    e.JobType = new JobType // Assuming Product is a complex object
+                    {
+                        Name = _unitOfWork.JobType.GetFirstOrDefault(c => c.Id == e.JobTypeId).Name,
+                        Id = e.JobTypeId,
+                    };
+
+
+
+
+
+
+
+
+                });
+            }
+
+            var totalItems = _unitOfWork.JobTicket.GetAll().Count();
+
+            var viewModel = new PaginatedViewModel<JobTicket>
+            {
+                Items = objProductList,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult Index2()
         {
             List<JobTicket>? objProductList = _unitOfWork.JobTicket.
               GetAll()?
