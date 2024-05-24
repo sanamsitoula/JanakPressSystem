@@ -18,8 +18,11 @@
 <table class="table table-bordered table-striped">
     <thead>
        <tr>
+                <th>
+                    Id
+                </th>
         <th>
-            Title
+            Desc
         </th>
           <th>
            Category
@@ -32,8 +35,11 @@
            Class
         </th>
         <th>
-            Forma
+            Forma Number
         </th>
+                <th>
+                    Page Number
+                </th>
                 <th>
                     Subject Language
                 </th>
@@ -49,14 +55,15 @@
         @foreach(var obj in Model)
         {
             <tr>
-                <td>@obj.Title</td>
+                <td>@obj.Id</td>
+                    <td>@obj.Description</td>
                     <td>@obj.Category.Name</td>
                     <td>@obj.Subject.Name</td>
                     <td>@obj.Class.Name</td>
-                   
-
-                    <td>@obj.SubjectLanguageId.ToString()</td>
-                    <td>@obj.SubjectTypeId.ToString()</td>
+                    <td>@obj.FormaNumber</td>
+                    <td>@obj.PageNumber</td>
+                    <td>@(obj.SubjectLanguageId.ToString() ?? "null")</td>
+                    <td>@(obj.SubjectTypeId.ToString() ?? "null")</td>
 
                     <td>
                         <div class="w-75 btn-group" role="group">

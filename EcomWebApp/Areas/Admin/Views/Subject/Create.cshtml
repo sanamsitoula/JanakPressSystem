@@ -1,0 +1,104 @@
+﻿@model Subject
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="text-center mb-0">Create Subject</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="row">
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="Name" class="form-label p-4">Name</label>
+                            <input type="text" id="Name" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-4 col-6">
+                            <label for="Description" class="form-label  p-4"> Description</label>
+                            <input type="Description" id="Description" class="form-control" asp-for="Description" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+
+
+                       
+
+                       
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a asp-controller="Subject" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             // Initialize Select2 on the FormaId dropdown
+         
+            $('#ProductId').change(function () {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        url: '@Url.Action("GetFormasByProductId", "MachineJob")',
+                        type: 'GET',
+                        data: { productId: productId },
+                        success: function (data) {
+                            var formaSelect = $('#FormaId');
+                            formaSelect.empty();
+                            formaSelect.append($('<option>', {
+                                value: '',
+                                text: 'Select a forma'
+                            }));
+                            $.each(data, function (index, item) {
+                                formaSelect.append($('<option>', {
+                                    value: item.value,
+                                    text: item.text
+                                }));
+                            });
+                        }
+                    });
+                }
+            });
+
+
+            $('#FormaId').change(function () {
+                var formaId = $(this).val();
+                if (formaId) {
+                    $.ajax({
+                        url: '@Url.Action("GetPageSizeByFormaId", "MachineJob")',
+                        type: 'GET',
+                        data: { formaId: formaId },
+                        success: function (data) {
+                            $('#FormaPageSize').val(data.pageSize);
+                            $('#FormaTarget').val(data.formaTarget);
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            $('#FormaPageSize').val('');
+                            $('#FormaTarget').val('');
+
+                        }
+                    });
+                } else {
+                    $('#FormaPageSize').val('');
+                    $('#FormaTarget').val('');
+
+                }
+            });
+        });
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

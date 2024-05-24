@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
@@ -28,6 +29,22 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             return View();
         }
-      
+
+        [HttpPost]
+        public IActionResult Create(JobType obj)
+        {
+            if (ModelState.IsValid)
+            {
+                obj.Description = "JT-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+             
+                _unitOfWork.JobType.Add(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "JobType Created Sucessfully";
+                return RedirectToAction("Index", "JobType");
+            }
+
+            return View();
+        }
+
     }
 }

@@ -39,7 +39,10 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 SubjectId = product.SubjectId,
                 ClassId = product.ClassId,
                 SubjectLanguageId = product.SubjectLanguageId,
-                SubjectTypeId= product.SubjectTypeId
+                SubjectTypeId= product.SubjectTypeId,
+                FormaNumber=product.FormaNumber,
+                PageNumber=product.PageNumber,
+                Description=product.Description
                 
 
             
