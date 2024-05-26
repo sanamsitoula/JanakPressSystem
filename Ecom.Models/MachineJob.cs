@@ -54,5 +54,6 @@ namespace Ecom.Models
         public int? InchargeId { get; set; }
         public int? OperatorId { get; set; }
         public int? FiscalYear { get; set; }
+        public int? JobTicketTarget { get; set; }
     }
 }
