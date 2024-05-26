@@ -14,7 +14,7 @@ namespace Ecom.Models
         public string Name { get; set; }
         public string ?Description { get; set; }
         public bool? Status { get; set; }
-        public int? JobStepId { get; set; }
+        public string? JobStepId { get; set; }
         public JobStep? JobStep { get; set; }
 
     }

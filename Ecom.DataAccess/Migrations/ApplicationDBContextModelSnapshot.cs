@@ -60,7 +60,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7491),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6921),
                             Description = "NEB",
                             DisplayOrder = 1,
                             Name = "NEB",
@@ -70,7 +70,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7504),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6935),
                             Description = "HSEB",
                             DisplayOrder = 3,
                             Name = "HSEB",
@@ -80,7 +80,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 3,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7506),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6936),
                             Description = "SLC",
                             DisplayOrder = 3,
                             Name = "SLC",
@@ -90,7 +90,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 4,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7508),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6938),
                             Description = "Book",
                             DisplayOrder = 3,
                             Name = "Book",
@@ -100,7 +100,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 5,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7509),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6939),
                             Description = "Exercise Book",
                             DisplayOrder = 3,
                             Name = "Exercise Book",
@@ -110,7 +110,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 6,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7511),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6940),
                             Description = "Jhura Kagaj",
                             DisplayOrder = 3,
                             Name = "Jhura Kagaj",
@@ -120,7 +120,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 7,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7512),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6946),
                             Description = "Kawadi",
                             DisplayOrder = 3,
                             Name = "Kawadi",
@@ -130,7 +130,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 8,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7514),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6948),
                             Description = "Religious",
                             DisplayOrder = 3,
                             Name = "Religious",
@@ -140,7 +140,7 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 9,
                             CreatedBy = "1",
-                            CreatedDate = new DateTime(2024, 5, 22, 20, 27, 0, 519, DateTimeKind.Local).AddTicks(7515),
+                            CreatedDate = new DateTime(2024, 5, 24, 11, 40, 11, 312, DateTimeKind.Local).AddTicks(6949),
                             Description = "Election",
                             DisplayOrder = 2,
                             Name = "Election",
@@ -874,8 +874,8 @@ namespace Ecom.DataAccess.Migrations
                     b.Property<int?>("JobStep")
                         .HasColumnType("int");
 
-                    b.Property<int?>("JobStepId")
-                        .HasColumnType("int");
+                    b.Property<string>("JobStepId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1015,12 +1015,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2024, 5, 22, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7786),
+                            CreatedDate = new DateTime(2024, 5, 24, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7215),
                             Desc = "Description 1",
                             FormaId = 1,
                             FormaPageSize = 10,
                             InchargeId = 1,
-                            JobDate = new DateTime(2024, 5, 22, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7777),
+                            JobDate = new DateTime(2024, 5, 24, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7205),
                             JobQuantity = 10,
                             JobStepId = "Step1",
                             JobTicketId = 1,
@@ -1029,7 +1029,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 1",
                             ProductId = 1,
                             Remarks = "Remarks 1",
-                            ReportDate = new DateTime(2024, 5, 23, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7778),
+                            ReportDate = new DateTime(2024, 5, 25, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7206),
                             ShiftDurationId = "Duration1",
                             ShiftId = "Shift1",
                             Status = true,
@@ -1040,12 +1040,12 @@ namespace Ecom.DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = 2,
-                            CreatedDate = new DateTime(2024, 5, 22, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7792),
+                            CreatedDate = new DateTime(2024, 5, 24, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7220),
                             Desc = "Description 2",
                             FormaId = 2,
                             FormaPageSize = 10,
                             InchargeId = 2,
-                            JobDate = new DateTime(2024, 5, 22, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7789),
+                            JobDate = new DateTime(2024, 5, 24, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7217),
                             JobQuantity = 10,
                             JobStepId = "Step2",
                             JobTicketId = 2,
@@ -1054,7 +1054,7 @@ namespace Ecom.DataAccess.Migrations
                             Name = "Machine Job 2",
                             ProductId = 2,
                             Remarks = "Remarks 2",
-                            ReportDate = new DateTime(2024, 5, 24, 14, 42, 0, 519, DateTimeKind.Utc).AddTicks(7790),
+                            ReportDate = new DateTime(2024, 5, 26, 5, 55, 11, 312, DateTimeKind.Utc).AddTicks(7218),
                             ShiftDurationId = "Duration2",
                             ShiftId = "Shift2",
                             Status = true,

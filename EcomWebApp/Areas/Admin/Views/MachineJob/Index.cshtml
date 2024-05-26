@@ -35,6 +35,9 @@
                     Job Date 
                 </th>
                 <th>
+                    Desc
+                </th>
+                <th>
                     Machine
                 </th>
                 <th>
@@ -84,6 +87,7 @@
                 <tr>
                     <td>@obj.Id</td>
                     <td>@obj.JobDate</td>
+                    <td>@obj.Desc</td>
                     <td>@(obj.Machinary != null ? obj.Machinary.Name : "No Machinary")</td>
 
                     <td>@obj.Product.Title</td>

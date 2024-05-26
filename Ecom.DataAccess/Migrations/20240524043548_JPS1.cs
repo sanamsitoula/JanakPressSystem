@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class tta : Migration
+    public partial class JPS1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -462,7 +462,8 @@ namespace Ecom.DataAccess.Migrations
                     CheckedById = table.Column<int>(type: "int", nullable: true),
                     VerifiedById = table.Column<int>(type: "int", nullable: true),
                     ReceivedById = table.Column<int>(type: "int", nullable: true),
-                    FiscalYear = table.Column<int>(type: "int", nullable: true)
+                    FiscalYear = table.Column<int>(type: "int", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -488,6 +489,11 @@ namespace Ecom.DataAccess.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_P2M_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -495,15 +501,15 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(167), "NEB", 1, "NEB", true },
-                    { 2, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(187), "HSEB", 3, "HSEB", true },
-                    { 3, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(189), "SLC", 3, "SLC", true },
-                    { 4, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(190), "Book", 3, "Book", true },
-                    { 5, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(192), "Exercise Book", 3, "Exercise Book", true },
-                    { 6, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(193), "Jhura Kagaj", 3, "Jhura Kagaj", true },
-                    { 7, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(195), "Kawadi", 3, "Kawadi", true },
-                    { 8, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(196), "Religious", 3, "Religious", true },
-                    { 9, "1", new DateTime(2024, 5, 21, 21, 5, 1, 774, DateTimeKind.Local).AddTicks(198), "Election", 2, "Election", true }
+                    { 1, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5234), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5251), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5252), "SLC", 3, "SLC", true },
+                    { 4, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5253), "Book", 3, "Book", true },
+                    { 5, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5255), "Exercise Book", 3, "Exercise Book", true },
+                    { 6, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5256), "Jhura Kagaj", 3, "Jhura Kagaj", true },
+                    { 7, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5257), "Kawadi", 3, "Kawadi", true },
+                    { 8, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5259), "Religious", 3, "Religious", true },
+                    { 9, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5265), "Election", 2, "Election", true }
                 });
 
             migrationBuilder.InsertData(
@@ -591,11 +597,15 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "AssociatedFormaId", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, "TA-32", null, null, null, 1, null, null },
-                    { 2, null, "33-40", null, null, null, 1, null, null },
-                    { 3, null, "41-51", null, null, null, 1, null, null },
-                    { 4, null, "52-62", null, null, null, 1, null, null },
-                    { 5, null, "64-93", null, null, null, 1, null, null }
+                    { 1, null, "TA-32", 32, null, 205000, 1, null, null },
+                    { 2, null, "33-40", null, null, 205000, 1, null, null },
+                    { 3, null, "41-51", null, null, 205000, 1, null, null },
+                    { 4, null, "52-62", null, null, 205000, 1, null, null },
+                    { 5, null, "TA-62", null, null, 205000, 2, null, null },
+                    { 6, null, "33-40", null, null, 205000, 2, null, null },
+                    { 7, null, "41-51", null, null, 205000, 2, null, null },
+                    { 8, null, "52-62", null, null, 205000, 3, null, null },
+                    { 9, null, "64-93", 32, null, 205000, 3, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -603,15 +613,15 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "Code", "CreatedBy", "CreatedDate", "DeletedBy", "Desc", "FiscalYearId", "JobCompleteDate", "JobDate", "JobStartDate", "JobStep", "JobStepId", "JobTypeId", "LotNumber", "Name", "NoofAssociatedForma", "PageNumber", "PrePrintSize", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, null, 1, new DateTimeOffset(new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 1", 1, new DateTimeOffset(new DateTime(2024, 1, 1, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step1", 1, 100, "Job 1", null, 1, 50, 950, 1000, 1, "Remarks 1", true, 1 },
-                    { 2, null, 2, new DateTimeOffset(new DateTime(2024, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 2", 2, new DateTimeOffset(new DateTime(2024, 1, 2, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step2", 1, 101, "Job 2", null, 2, 100, 1900, 2000, 2, "Remarks 2", true, 2 },
-                    { 3, null, 3, new DateTimeOffset(new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 3", 3, new DateTimeOffset(new DateTime(2024, 1, 3, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step3", 1, 102, "Job 3", null, 3, 150, 2850, 3000, 3, "Remarks 3", true, 3 },
-                    { 4, null, 4, new DateTimeOffset(new DateTime(2024, 1, 4, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 4", 1, new DateTimeOffset(new DateTime(2024, 1, 4, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step4", 1, 103, "Job 4", null, 4, 200, 3800, 4000, 1, "Remarks 4", true, 4 },
-                    { 5, null, 1, new DateTimeOffset(new DateTime(2024, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 5", 2, new DateTimeOffset(new DateTime(2024, 1, 5, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step5", 2, 104, "Job 5", null, 5, 250, 4750, 5000, 2, "Remarks 5", true, 1 },
-                    { 6, null, 1, new DateTimeOffset(new DateTime(2024, 1, 6, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 6", 3, new DateTimeOffset(new DateTime(2024, 1, 6, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step6", 2, 105, "Job 6", null, 6, 300, 5700, 6000, 3, "Remarks 6", true, 2 },
-                    { 7, null, 1, new DateTimeOffset(new DateTime(2024, 1, 7, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 7", 1, new DateTimeOffset(new DateTime(2024, 1, 7, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step7", 2, 106, "Job 7", null, 7, 350, 6650, 7000, 3, "Remarks 7", true, 1 },
-                    { 8, null, 1, new DateTimeOffset(new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 8", 2, new DateTimeOffset(new DateTime(2024, 1, 8, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step8", 2, 107, "Job 8", null, 8, 400, 7600, 8000, 3, "Remarks 8", true, 2 },
-                    { 9, null, 1, new DateTimeOffset(new DateTime(2024, 1, 9, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 9", 3, new DateTimeOffset(new DateTime(2024, 1, 9, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step9", 2, 108, "Job 9", null, 9, 450, 8550, 9000, 3, "Remarks 9", true, 1 }
+                    { 1, null, 1, new DateTimeOffset(new DateTime(2024, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 1", 1, new DateTimeOffset(new DateTime(2024, 1, 1, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step1", 1, 100, "Job 1", 10, 1, 50, 950, 1000, 1, "Remarks 1", true, 1 },
+                    { 2, null, 2, new DateTimeOffset(new DateTime(2024, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 2", 2, new DateTimeOffset(new DateTime(2024, 1, 2, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 2, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step2", 1, 101, "Job 2", 10, 2, 100, 1900, 2000, 2, "Remarks 2", true, 2 },
+                    { 3, null, 3, new DateTimeOffset(new DateTime(2024, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 3", 3, new DateTimeOffset(new DateTime(2024, 1, 3, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step3", 1, 102, "Job 3", 10, 3, 150, 2850, 3000, 3, "Remarks 3", true, 3 },
+                    { 4, null, 4, new DateTimeOffset(new DateTime(2024, 1, 4, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 4", 1, new DateTimeOffset(new DateTime(2024, 1, 4, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step4", 1, 103, "Job 4", 10, 4, 200, 3800, 4000, 1, "Remarks 4", true, 4 },
+                    { 5, null, 1, new DateTimeOffset(new DateTime(2024, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 5", 2, new DateTimeOffset(new DateTime(2024, 1, 5, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 5, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step5", 2, 104, "Job 5", 10, 5, 250, 4750, 5000, 2, "Remarks 5", true, 1 },
+                    { 6, null, 1, new DateTimeOffset(new DateTime(2024, 1, 6, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 6", 3, new DateTimeOffset(new DateTime(2024, 1, 6, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 6, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step6", 2, 105, "Job 6", 10, 6, 300, 5700, 6000, 3, "Remarks 6", true, 2 },
+                    { 7, null, 1, new DateTimeOffset(new DateTime(2024, 1, 7, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 7", 1, new DateTimeOffset(new DateTime(2024, 1, 7, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step7", 2, 106, "Job 7", 10, 7, 350, 6650, 7000, 3, "Remarks 7", true, 1 },
+                    { 8, null, 1, new DateTimeOffset(new DateTime(2024, 1, 8, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 8", 2, new DateTimeOffset(new DateTime(2024, 1, 8, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 8, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step8", 2, 107, "Job 8", 10, 8, 400, 7600, 8000, 3, "Remarks 8", true, 2 },
+                    { 9, null, 1, new DateTimeOffset(new DateTime(2024, 1, 9, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Description 9", 3, new DateTimeOffset(new DateTime(2024, 1, 9, 18, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2024, 1, 9, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, "Step9", 2, 108, "Job 9", 10, 9, 450, 8550, 9000, 3, "Remarks 9", true, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -619,8 +629,8 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FiscalYear", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 21, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(479), "Description 1", null, 1, 10, null, 1, new DateTime(2024, 5, 21, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(470), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 22, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(471), null, null, "Duration1", "Shift1", true, 1, 1 },
-                    { 2, 2, new DateTime(2024, 5, 21, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(486), "Description 2", null, 2, 10, null, 2, new DateTime(2024, 5, 21, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(483), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 23, 15, 20, 1, 774, DateTimeKind.Utc).AddTicks(483), null, null, "Duration2", "Shift2", true, 2, 2 }
+                    { 1, 1, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5709), "Description 1", null, 1, 10, null, 1, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5699), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 25, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5700), null, null, "Duration1", "Shift1", true, 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5715), "Description 2", null, 2, 10, null, 2, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5712), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 26, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5713), null, null, "Duration2", "Shift2", true, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -687,6 +697,11 @@ namespace Ecom.DataAccess.Migrations
                 name: "IX_P2M_ProductId",
                 table: "P2M",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_P2M_SubjectId",
+                table: "P2M",
+                column: "SubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

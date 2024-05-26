@@ -1,5 +1,4 @@
-﻿@model List<Ecom.Models.SearchViewModel>
-
+﻿@model PaginatedViewModel<P2M>
 @{
     int Tpokanumber = 0;
     int Tproductqty = 0;
@@ -67,12 +66,12 @@
         <label for="searchString" class="sr-only">Search</label>
         <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Search" value="@ViewData["searchString"]" />
     </div>
-    <div class="col-2">
+@*     <div class="col-2">
         <label asp-for="ClassId" class="control-label"></label>
         <select asp-for="ClassId" class="form-control" asp-items="ViewBag.ClassList">
             <option value="">Please Choose your Class</option>
         </select>
-    </div>
+    </div> *@
     <div class="col-2">
         <label for="categoryId" class="sr-only">Category ID</label>
         <input type="number" class="form-control" id="categoryId" name="categoryId" placeholder="Category ID" value="@ViewData["categoryId"]" />
