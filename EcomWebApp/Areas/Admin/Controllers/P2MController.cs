@@ -6,6 +6,7 @@ using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
 using System.Net.Sockets;
 
@@ -221,7 +222,50 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View();
         }
+        [HttpGet]
+        public IActionResult PopupView(int id)
+        {
+            var objProduct = _unitOfWork.P2M
+                .GetAll()?
+                .Where(P2M => P2M.Id == id) // Add a filter to get the specific P2M with the provided Id
+                .Select(P2M => new P2M
+                {
+                    Id = P2M.Id,
+                    P2M_Code = P2M.P2M_Code,
+                    Name = P2M.Name,
+                    ProductId = P2M.ProductId,
+                    ClassId = P2M.ClassId,
+                    P2MDate = P2M.P2MDate,
+                    ReportDate = P2M.ReportDate,
+                    JobTicketId = P2M.JobTicketId,
+                    FormaNumber = P2M.FormaNumber,
+                    PerPokaSize = P2M.PerPokaSize,
+                    PokaNumber = P2M.PokaNumber,
+                    ProductQuantity = P2M.ProductQuantity,
+                    PiecesQuantity = P2M.PiecesQuantity,
+                    TotalProductQuantity = P2M.TotalProductQuantity,
+                    JobStepId = P2M.JobStepId,
+                    Status = P2M.Status,
+                    Desc = P2M.Desc,
+                    CheckedById = P2M.CheckedById,
+                    VerifiedById = P2M.VerifiedById,
+                    ReceivedById = P2M.ReceivedById,
+                    FiscalYear = P2M.FiscalYear,
+                    SubjectId = P2M.SubjectId
+                    // Set values for any other new properties
+                })
+                .FirstOrDefault(); // Get the first item that matches the criteria or null if no match is found
 
+
+
+
+            if (objProduct == null)
+            {
+                return NotFound();
+            }
+
+            return Json(objProduct);
+        }
 
         public IActionResult Edit(int? id)
         {

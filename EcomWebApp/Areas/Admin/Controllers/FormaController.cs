@@ -68,7 +68,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                obj.Code = "Forma-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                obj.Code = "F-" + obj.Name+"-"+ DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
 
                 obj.Status = true;
               

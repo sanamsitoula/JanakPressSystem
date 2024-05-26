@@ -66,6 +66,15 @@
                     <td>@obj.VerifiedById</td>
                     <td>@obj.ReceivedById</td>
                     <td>@obj.Status</td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <button id="cust_btn" type="button" class="btn btn-info btn-lg" data-id="@obj.Id">View</button>
+
+                            <a asp-controller="P2M" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -96,9 +105,67 @@
         </ul>
     </nav>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
 
 @section Scripts {
     <script>
+        $(document).on("click", "#cust_btn", function () {
+
+            $("#myModal").modal("toggle");
+            var id = $(this).data('id');
+         
+            $.ajax({
+                url: '@Url.Action("PopupView", "P2M")',
+                type: 'GET', // or 'POST' depending on your API
+                data: { id: id }, // Pass the ID parameter
+                success: function (response) {
+                        // Populate modal fields with the response data
+            $('#JobStepId').val(response.JobStepId);
+            $('#Name').val(response.Name);
+
+                   
+                    // Handle the successful response
+                    console.log("Success:", response);
+                    // Assuming the response is a list of data
+                    var listContent = '<ul>';
+                    response.forEach(function (item) {
+                        listContent += '<li>' + item.name + ' - ' + item.value + '</li>'; // Customize this to match your data structure
+                    });
+                    listContent += '</ul>';
+
+                    // Update the modal content
+                    $('#modalContent').html(listContent);
+                
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error("Error:", error);
+                }
+            });
+
+        })
         $(document).ready(function () {
             $('#searchTitle').on('keyup', function () {
                 var value = $(this).val().toLowerCase();
@@ -122,5 +189,24 @@
                 });
             });
         });
+
+  
     </script>
+    <script>
+        function openPopup(id) {
+            $.ajax({
+                url: '/P2M/View', // URL to the controller action
+                type: 'GET',
+                data: { Id: id },
+                success: function (response) {
+                    $('#modalBody').html(response); // Load the response into the modal body
+                    $('#viewModal').modal('show'); // Show the modal
+                },
+                error: function () {
+                    alert('An error occurred while loading details.');
+                }
+            });
+        }
+    </script>
+
 }

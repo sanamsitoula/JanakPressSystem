@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
@@ -28,6 +29,25 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             return View();
         }
-      
+        [HttpPost]
+        public IActionResult Create(Class obj)
+        {
+            if (ModelState.IsValid)
+            {
+                obj.Code = "Class-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+
+
+                obj.status = true;
+
+                _unitOfWork.Class.Add(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Class Created Sucessfully";
+                return RedirectToAction("Index", "Class");
+            }
+
+            return View();
+        }
+
+
     }
 }
