@@ -195,7 +195,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                obj.Code = "JT-"+DateTime.Now.Year +"-"+ DateTime.Now.Month+ "-" +UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                obj.Code = "JT-"+obj.JobStepId + "-"+ DateTime.Now.Year +"-"+ DateTime.Now.Month+ "-" +UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
 
                 obj.Status = true;
               

@@ -20,6 +20,12 @@
         <thead>
             <tr>
                 <th>
+                    S.N
+                </th>
+                <th>
+                    Code
+                </th>
+                <th>
                      Name
                 </th>
                 <th>
@@ -41,6 +47,8 @@
             @foreach (var obj in Model)
             {
                 <tr>
+                    <td>@obj.Id</td>
+                    <td>@obj.Code</td>
                     <td>@obj.Name</td>
                      <td>@obj.Page</td>
                     <td>@obj.PrintTarget</td>

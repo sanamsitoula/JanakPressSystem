@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -26,7 +27,9 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Name = Forma.Name,
                 Page = Forma.Page,
                 PrintTarget = Forma.PrintTarget,
-                ProductId = Forma.ProductId
+                ProductId = Forma.ProductId,
+                Code=Forma.Code
+
                 // Set values for any other new properties
             })
             .ToList();
@@ -65,6 +68,8 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                obj.Code = "F-" + obj.Name+"-"+ DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+
                 obj.Status = true;
               
                 _unitOfWork.Forma.Add(obj);

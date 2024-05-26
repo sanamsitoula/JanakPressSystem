@@ -31,6 +31,9 @@
                 <th>
                     # 
                 </th>
+                <th>
+                    Desc
+                </th>
                  <th>
                     Job Date 
                 </th>
@@ -86,15 +89,14 @@
             {    
                 <tr>
                     <td>@obj.Id</td>
+                    <td>@obj.Desc</td>
                     <td>@obj.JobDate</td>
                     <td>@obj.Desc</td>
                     <td>@(obj.Machinary != null ? obj.Machinary.Name : "No Machinary")</td>
-
                     <td>@obj.Product.Title</td>
                     <td>@obj.JobTicket.Name</td>
                     <td>@obj.Name</td>
                     <td>@(obj.Forma != null ? obj.Forma.Name : "No Forma")</td>
-
 
                     <td>@obj.Forma.Page</td>
                     <td>@obj.Forma.PrintTarget</td>

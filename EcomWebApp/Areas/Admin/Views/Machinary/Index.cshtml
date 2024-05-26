@@ -20,34 +20,31 @@
         <thead>
             <tr>
                 <th>
-                    S.N
+                    Category Name
                 </th>
                 <th>
-                    Machinary Name
+                    Display Order
                 </th>
              
                 <th>
-                    Description
-                </th>
-                <th>
-                    JobStep
+                    Name
                 </th>
                 <th>
                     Status
                 </th>
-               
-               
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Created Date
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var obj in Model)
             {
                 <tr>
-                    <td>@obj.Id</td>
                     <td>@obj.Name</td>
-                    <td>@obj.Description</td>
-                    <td>@(obj.JobStepId?.ToString())</td>
-                    <td>@obj.Status</td>
                  
                     <td>
                         <div class="w-75 btn-group" role="group">

@@ -1,6 +1,7 @@
 ﻿using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
+using Ecom.Utility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
@@ -17,8 +18,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            //List<Subject> objCategoryList1 = _db.Categories.ToList();
-            //  List<Subject>? objCategoryList = _categoryRepo.Get(e => e.Status == true).toList();
             List<Subject>? obj = _unitOfWork.Subject.GetAll().ToList();
 
             return View(obj);
@@ -28,6 +27,21 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             return View();
         }
-        
+        [HttpPost]
+        public IActionResult Create(Subject obj)
+        {
+            if (ModelState.IsValid)
+            {
+                obj.Description = "SUB-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                obj.status = true;
+                _unitOfWork.Subject.Add(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Subject Created Sucessfully";
+                return RedirectToAction("Index", "Subject");
+            }
+
+            return View();
+        }
+
     }
 }

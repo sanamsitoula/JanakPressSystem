@@ -19,7 +19,8 @@ namespace Ecom.Models
         public string ?Remarks { get; set; }
         public bool ?Status { get; set; }
         public  int ProductId { get; set; }
-       
+        public string ?Code { get; set; }
+
         public Product? Product { get; set; }
 
 

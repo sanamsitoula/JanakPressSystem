@@ -20,25 +20,34 @@
         <thead>
             <tr>
                 <th>
-                    Class Name
+                    Category Name
                 </th>
                 
                 <th>
-                    Description
+                     Code
                 </th>
                 <th>
-                    Status
+                    Name
                 </th>
-                
+                <th>
+                    Value
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Created Date
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var obj in Model)
             {
                 <tr>
-                    <td>@obj.Name</td
-                          <td>@obj.Description</td>
-                            <td>@obj.status</td>
+                    <td>@obj.Name</td>
+                    <td>@obj.Value</td>
+
+                    <td>@obj.Description</td>
                  
                     <td>
                         <div class="w-75 btn-group" role="group">

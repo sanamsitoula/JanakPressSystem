@@ -115,24 +115,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
 
             return View();
         }
-        [HttpPost]
-        public IActionResult Create(Machinary c)
-        {
-
-
-            if (ModelState.IsValid)
-            {
-                c.Description = "MACH-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
-
-                _unitOfWork.Machinary.Add(c);
-                _unitOfWork.Save();
-                TempData["success"] = "Machinary Created Sucessfully";
-                return RedirectToAction("Index", "Machinary");
-            }
-
-            return RedirectToAction("Create", "Machinary");
-
-        }
-
+      
     }
 }

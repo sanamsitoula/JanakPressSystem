@@ -231,7 +231,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                obj.Desc = "MJ-" + obj.JobStepId + "-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                obj.Desc = "MJ-"+obj.JobStepId + "-"+ DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
 
                 obj.JobDate = obj.JobDate.Value.Date;
                 obj.ReportDate = obj.ReportDate.Value.Date;

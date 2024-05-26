@@ -15,8 +15,5 @@ namespace Ecom.Models
         public string? Description { get; set; }
         public bool? status { get; set; }
 
-
-
-
     }
 }

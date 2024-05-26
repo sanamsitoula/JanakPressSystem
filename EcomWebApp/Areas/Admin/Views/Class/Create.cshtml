@@ -1,49 +1,35 @@
-﻿@model Machinary
+﻿@model Class
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white py-3">
-                    <h2 class="text-center mb-0">Create Machine </h2>
+                    <h2 class="text-center mb-0">Create New Class</h2>
                 </div>
                 <div class="card-body">
                     <form method="post" class="row">
 
-                        <div class="form-floating py-4 col-12">
-                            <label for="name" class="form-label p-4">Name</label>
-                            <input type="text" id="name" class="form-control" asp-for="Name" />
+                        <div class="form-floating py-4 col-6">
+                            <label for="Name" class="form-label p-4">Name</label>
+                            <input type="text" id="Name" class="form-control" asp-for="Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label for="Value" class="form-label p-4">Value</label>
+                            <input type="text" id="Value" class="form-control" asp-for="Value" />
+                            <span asp-validation-for="Value" class="text-danger"></span>
                         </div>
 
                         <div class="form-floating py-4 col-6">
-                            <label asp-for="Description" class="form-label p-4"> Description</label>
+                            <label for="Description" class="form-label  p-4"> Description</label>
                             <input type="Description" id="Description" class="form-control" asp-for="Description" />
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
-
-
-                        <div class="form-floating py-4 col-6">
-                            <label asp-for="JobStepId" class="p-4"></label>
-                            <select asp-for="JobStepId" class="form-control">
-                                <option value="">Please Choose your JobStep</option>
-                                @foreach (var Item in Enum.GetValues(typeof(JobStep)))
-                                {
-                                    <option value="@Item.ToString()">@Item.ToString()</option>
-                                }
-                            </select>
-
-                            <span asp-validation-for="JobStepId" class="text-danger"></span>
-
-                        </div>
-
-                       
-
-
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Create</button>
-                            <a asp-controller="Machinary" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            <a asp-controller="Class" asp-action="Index" class="btn btn-secondary">Back to List</a>
                         </div>
                     </form>
                 </div>
@@ -113,7 +99,5 @@
             });
         });
     </script>
-
-
     <partial name="_ValidationScriptsPartial" />
 }

@@ -38,6 +38,32 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-4 col-6">
+                            <label asp-for="JobStepId" class="p-4"></label>
+                            <select asp-for="JobStepId" class="form-control">
+                                <option value="">Please Choose your JobStep</option>
+                                @foreach (var Item in Enum.GetValues(typeof(JobStep)))
+                                {
+                                    <option value="@Item.ToString()">@Item.ToString()</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="JobStepId" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobTicketId" class="form-label p-4"></label>
+                            <select asp-for="JobTicketId" class="form-control" asp-items="ViewBag.JobTicket">
+                                <option value="">Please Choose your JobTicket</option>
+                            </select>
+
+                            <span asp-validation-for="JobTicketId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobTicketTarget" class="form-label p-4"> JobTicketTarget</label>
+                            <input type="JobTicketTarget" id="JobTicketTarget" class="form-control" asp-for="JobTicketTarget" />
+                            <span asp-validation-for="JobTicketTarget" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-4 col-6">
                             <label asp-for="ProductId" class="form-label p-4"></label>
                             <select asp-for="ProductId" class="form-control" asp-items="ViewBag.Product">
                                 <option value="">Please Choose your Product</option>
@@ -45,7 +71,14 @@
 
                             <span asp-validation-for="ProductId" class="text-danger"></span>
                         </div>
-                       
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="MachinaryId" class="form-label p-4"></label>
+                            <select asp-for="MachinaryId" class="form-control" asp-items="ViewBag.Machinary">
+                                <option value="">Please Choose your Machinary</option>
+                            </select>
+
+                            <span asp-validation-for="MachinaryId" class="text-danger"></span>
+                        </div>
                         <div class="form-floating py-4 col-6">
                             <label asp-for="JobTicketId" class="form-label p-4"></label>
                             <select asp-for="JobTicketId" class="form-control" asp-items="ViewBag.JobTicket">
@@ -88,7 +121,20 @@
                             <span asp-validation-for="JobTypeId" class="text-danger"></span>
                         </div>
 
-                      
+                        <div class="form-floating py-4 col-6">
+                            <label asp-for="JobStepId" class="p-4"></label>
+                            <select asp-for="JobStepId" class="form-control">
+                                <option value="">Please Choose your JobStep</option>
+                                @foreach (var Item in Enum.GetValues(typeof(JobStep)))
+                                {
+                                    <option value="@Item.ToString()">@Item.ToString()</option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="JobStepId" class="text-danger"></span>
+
+                        </div>
+
            
 
                         <div class="form-floating py-4 col-6">
@@ -209,6 +255,35 @@
 
                 }
             });
+
+
+            $('#JobTicketId').change(function () {
+                var JobTicketId = $(this).val();
+                if (JobTicketId) {
+                    $.ajax({
+                        url: '@Url.Action("GetJobTicketTargetByJobTicketId", "MachineJob")',
+                        type: 'GET',
+                        data: { JobTicketId: JobTicketId },
+                        success: function (data) {
+                            $('#FormaPageSize').val(data.pageSize);
+                          //  $('#FormaTarget').val(data.formaTarget);
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                            $('#FormaPageSize').val('');
+                          //  $('#FormaTarget').val('');
+
+                        }
+                    });
+                } else {
+                    $('#FormaPageSize').val('');
+                    $('#FormaTarget').val('');
+
+                }
+            });
+
+
         });
     </script>
 
