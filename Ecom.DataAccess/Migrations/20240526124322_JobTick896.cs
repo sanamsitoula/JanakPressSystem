@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecom.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class JPS1 : Migration
+    public partial class JobTick896 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,6 +38,8 @@ namespace Ecom.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     status = table.Column<bool>(type: "bit", nullable: true),
                     FiscalYear = table.Column<int>(type: "int", nullable: true)
@@ -104,7 +106,7 @@ namespace Ecom.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
-                    JobStepId = table.Column<int>(type: "int", nullable: true),
+                    JobStepId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobStep = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -301,7 +303,8 @@ namespace Ecom.DataAccess.Migrations
                     AssociatedFormaId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -398,7 +401,8 @@ namespace Ecom.DataAccess.Migrations
                     SupervisorId = table.Column<int>(type: "int", nullable: true),
                     InchargeId = table.Column<int>(type: "int", nullable: true),
                     OperatorId = table.Column<int>(type: "int", nullable: true),
-                    FiscalYear = table.Column<int>(type: "int", nullable: true)
+                    FiscalYear = table.Column<int>(type: "int", nullable: true),
+                    JobTicketTarget = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -501,25 +505,25 @@ namespace Ecom.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "Description", "DisplayOrder", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5234), "NEB", 1, "NEB", true },
-                    { 2, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5251), "HSEB", 3, "HSEB", true },
-                    { 3, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5252), "SLC", 3, "SLC", true },
-                    { 4, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5253), "Book", 3, "Book", true },
-                    { 5, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5255), "Exercise Book", 3, "Exercise Book", true },
-                    { 6, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5256), "Jhura Kagaj", 3, "Jhura Kagaj", true },
-                    { 7, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5257), "Kawadi", 3, "Kawadi", true },
-                    { 8, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5259), "Religious", 3, "Religious", true },
-                    { 9, "1", new DateTime(2024, 5, 24, 10, 20, 47, 985, DateTimeKind.Local).AddTicks(5265), "Election", 2, "Election", true }
+                    { 1, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7767), "NEB", 1, "NEB", true },
+                    { 2, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7790), "HSEB", 3, "HSEB", true },
+                    { 3, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7793), "SLC", 3, "SLC", true },
+                    { 4, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7796), "Book", 3, "Book", true },
+                    { 5, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7799), "Exercise Book", 3, "Exercise Book", true },
+                    { 6, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7802), "Jhura Kagaj", 3, "Jhura Kagaj", true },
+                    { 7, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7805), "Kawadi", 3, "Kawadi", true },
+                    { 8, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7808), "Religious", 3, "Religious", true },
+                    { 9, "1", new DateTime(2024, 5, 26, 18, 28, 21, 305, DateTimeKind.Local).AddTicks(7810), "Election", 2, "Election", true }
                 });
 
             migrationBuilder.InsertData(
                 table: "Class",
-                columns: new[] { "Id", "Description", "FiscalYear", "Name", "status" },
+                columns: new[] { "Id", "Code", "Description", "FiscalYear", "Name", "Value", "status" },
                 values: new object[,]
                 {
-                    { 1, null, null, "One", null },
-                    { 2, null, null, "Two", null },
-                    { 3, null, null, "Three", null }
+                    { 1, null, null, null, "One", null, null },
+                    { 2, null, null, null, "Two", null, null },
+                    { 3, null, null, null, "Three", null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -594,18 +598,18 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Forma",
-                columns: new[] { "Id", "AssociatedFormaId", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
+                columns: new[] { "Id", "AssociatedFormaId", "Code", "Name", "Page", "PrintAchieved", "PrintTarget", "ProductId", "Remarks", "Status" },
                 values: new object[,]
                 {
-                    { 1, null, "TA-32", 32, null, 205000, 1, null, null },
-                    { 2, null, "33-40", null, null, 205000, 1, null, null },
-                    { 3, null, "41-51", null, null, 205000, 1, null, null },
-                    { 4, null, "52-62", null, null, 205000, 1, null, null },
-                    { 5, null, "TA-62", null, null, 205000, 2, null, null },
-                    { 6, null, "33-40", null, null, 205000, 2, null, null },
-                    { 7, null, "41-51", null, null, 205000, 2, null, null },
-                    { 8, null, "52-62", null, null, 205000, 3, null, null },
-                    { 9, null, "64-93", 32, null, 205000, 3, null, null }
+                    { 1, null, null, "TA-32", 32, null, 205000, 1, null, null },
+                    { 2, null, null, "33-40", null, null, 205000, 1, null, null },
+                    { 3, null, null, "41-51", null, null, 205000, 1, null, null },
+                    { 4, null, null, "52-62", null, null, 205000, 1, null, null },
+                    { 5, null, null, "TA-62", null, null, 205000, 2, null, null },
+                    { 6, null, null, "33-40", null, null, 205000, 2, null, null },
+                    { 7, null, null, "41-51", null, null, 205000, 2, null, null },
+                    { 8, null, null, "52-62", null, null, 205000, 3, null, null },
+                    { 9, null, null, "64-93", 32, null, 205000, 3, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -626,11 +630,11 @@ namespace Ecom.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "MachineJobs",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FiscalYear", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Desc", "FiscalYear", "FormaId", "FormaPageSize", "FormaTarget", "InchargeId", "JobDate", "JobQuantity", "JobStep", "JobStepId", "JobTicketId", "JobTicketTarget", "JobTypeId", "MachinaryId", "Name", "OperatorId", "ProductId", "Remarks", "ReportDate", "Shift", "ShiftDuration", "ShiftDurationId", "ShiftId", "Status", "SupervisorId", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5709), "Description 1", null, 1, 10, null, 1, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5699), 10, null, "Step1", 1, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 25, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5700), null, null, "Duration1", "Shift1", true, 1, 1 },
-                    { 2, 2, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5715), "Description 2", null, 2, 10, null, 2, new DateTime(2024, 5, 24, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5712), 10, null, "Step2", 2, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 26, 4, 35, 47, 985, DateTimeKind.Utc).AddTicks(5713), null, null, "Duration2", "Shift2", true, 2, 2 }
+                    { 1, 1, new DateTime(2024, 5, 26, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8856), "Description 1", null, 1, 10, null, 1, new DateTime(2024, 5, 26, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8840), 10, null, "Step1", 1, null, 1, 1, "Machine Job 1", null, 1, "Remarks 1", new DateTime(2024, 5, 27, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8844), null, null, "Duration1", "Shift1", true, 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 26, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8866), "Description 2", null, 2, 10, null, 2, new DateTime(2024, 5, 26, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8862), 10, null, "Step2", 2, null, 2, 2, "Machine Job 2", null, 2, "Remarks 2", new DateTime(2024, 5, 28, 12, 43, 21, 305, DateTimeKind.Utc).AddTicks(8863), null, null, "Duration2", "Shift2", true, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(

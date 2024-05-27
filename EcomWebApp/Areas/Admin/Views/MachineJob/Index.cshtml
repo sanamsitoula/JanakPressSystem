@@ -38,7 +38,7 @@
                     Job Date 
                 </th>
                 <th>
-                    Desc
+                    Name
                 </th>
                 <th>
                     Machine
@@ -64,6 +64,9 @@
                 </th>
                 <th>
                    Job Quantity
+                </th>
+                <th>
+                    Job Ticket Target
                 </th>
                 <th>
                    Job Type
@@ -101,6 +104,7 @@
                     <td>@obj.Forma.Page</td>
                     <td>@obj.Forma.PrintTarget</td>
                     <td>@obj.JobQuantity</td>
+                    <td>@obj.JobTicketTarget</td>
                     <td>@(obj.JobType != null ? obj.JobType.Name : "No JobType")</td>
                     <td>@obj.JobStepId.ToString()</td>
                     <td>@obj.ShiftId.ToString()</td>
