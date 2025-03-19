@@ -15,7 +15,7 @@ namespace Ecom.DataAccess.Repository
        
   
 
-        public void Update(Product product)
+        public async void Update(Product product)
         {
            _db.Products.Update(product);
         }

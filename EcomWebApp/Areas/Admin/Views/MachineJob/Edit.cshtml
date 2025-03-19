@@ -1,4 +1,4 @@
-﻿@model Forma
+﻿@model MachineJob
 <div class="card shadow border-0 my-4">
     <div class="card-header  ml-0 py-3">
         <div class="row">
@@ -17,16 +17,16 @@
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
                 <div class="form-floating py-2 col-12">
-            <label asp-for="Page" class="p-0"></label>
-                    <input asp-for="Page" class="form-control" />
-                    <span asp-validation-for="Page" class="text-danger"></span>
+            <label asp-for="Product" class="p-0"></label>
+                    <input asp-for="Product" class="form-control" />
+                    <span asp-validation-for="Product" class="text-danger"></span>
 
         </div>
 
                 <div class="form-floating py-2 col-12">
-            <label asp-for="PrintTarget" class="p-0"></label>
-                    <input asp-for="PrintTarget" class="form-control" />
-                    <span asp-validation-for="PrintTarget" class="text-danger"></span>
+            <label asp-for="JobTicket" class="p-0"></label>
+                    <input asp-for="JobTicket" class="form-control" />
+                    <span asp-validation-for="JobTicket" class="text-danger"></span>
 
         </div>
 

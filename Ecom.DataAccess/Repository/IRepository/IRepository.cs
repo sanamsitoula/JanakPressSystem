@@ -11,6 +11,8 @@ namespace Ecom.DataAccess.Repository.IRepository
     {
         // T- Category
         IQueryable<T> GetAll();
+
+        Task<T?> GetByIdAsync(int id);
       //  <T> GetAll(Func<object, bool> value);
         T GetFirstOrDefault(Expression<Func<T , bool>> filter);
        // IQueryable<T> GetAllThroughParam(Expression<Func<T, bool>> filter);

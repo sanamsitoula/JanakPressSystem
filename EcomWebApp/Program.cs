@@ -17,18 +17,21 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Database context configuration
-builder.Services.AddDbContext<ApplicationDBContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptionsAction: sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 10,
-                maxRetryDelay: TimeSpan.FromSeconds(5),
-                errorNumbersToAdd: null
-            );
-        });
-});
+// builder.Services.AddDbContext<ApplicationDBContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+//         sqlServerOptionsAction: sqlOptions =>
+//         {
+//             sqlOptions.EnableRetryOnFailure(
+//                 maxRetryCount: 10,
+//                 maxRetryDelay: TimeSpan.FromSeconds(5),
+//                 errorNumbersToAdd: null
+//             );
+//         });
+// });
+var config = builder.Configuration;
+builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(config.GetConnectionString("PgConnection")));
+
 
 
 // Identity configuration

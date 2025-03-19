@@ -1,4 +1,4 @@
-﻿
+﻿    
 using Ecom.DataAccess.Data;
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
@@ -21,6 +21,6 @@ namespace Ecom.DataAccess.Repository
         public void Update(Category category)
         {
            _db.Categories.Update(category);
-        }
+        }  
     }
 }

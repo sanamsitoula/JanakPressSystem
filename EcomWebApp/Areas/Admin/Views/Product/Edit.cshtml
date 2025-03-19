@@ -1,4 +1,7 @@
 ﻿@model Product
+@{
+    ViewData["Title"] = "Edit " + @Model.Title;
+}
 <div class="card shadow border-0 my-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
@@ -9,59 +12,93 @@
         <div class="card-body p-4">
          <form method="post">
         <div asp-validation-summary="ModelOnly"></div>
-        <div class="border p-3 mt-4">
-                    <div class="form-floating py-2 col-12">
+             <div class="border p-3 mt-4">
+                 <h2 class="text-primary mb-3">Edit Product</h2>
+                 <div asp-validation-summary="ModelOnly"></div>
 
-                <label asp-for="Title" class="p-0"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-                    <div class="form-floating py-2 col-12">
+                 <input type="hidden" asp-for="Id" />
 
-                <label asp-for="Description" class="p-0"></label>
-                <textarea asp-for="Description" class="form-control" ></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                 <div class="form-floating col-6 mb-3">
+                     <input type="text" id="Title" class="form-control" placeholder="Enter Title" asp-for="Title" />
+                     <label for="Title">Title</label>
+                     <span asp-validation-for="Title" class="text-danger"></span>
+                 </div>
 
-            </div>
-                    <div class="form-floating py-2 col-12">
+                 <div class="form-floating col-6 mb-3">
+                     <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.categorylist">
+                         <option value="">Please Choose your Category</option>
+                     </select>
+                     <label asp-for="CategoryId"></label>
+                     <span asp-validation-for="CategoryId" class="text-danger"></span>
+                 </div>
 
-                <label asp-for="ISBN" class="p-0"></label>
-                <input asp-for="ISBN" class="form-control" />
-                <span asp-validation-for="ISBN" class="text-danger"></span>
+                 <div class="form-floating col-6 mb-3">
+                     <input asp-for="ImageURL" class="form-control" placeholder="Enter Image Url"/>
+                     <label asp-for="ImageURL"></label>
+                     <span asp-validation-for="ImageURL" class="text-danger"></span>
+                 </div>
 
-            </div>
-                    <div class="form-floating py-2 col-12">
+                 <div class="form-floating col-6 mb-3">
+                     <input type="number" id="PageNumber" class="form-control" asp-for="PageNumber" placeholder="Enter Page Number">
+                     <label for="PageNumber" class="form-label">PageNumber</label>
+                     <span asp-validation-for="PageNumber" class="text-danger"></span>
+                 </div>
 
-                <label asp-for="BasePrice" class="p-0"></label>
-                <input asp-for="BasePrice" class="form-control" />
-                <span asp-validation-for="BasePrice" class="text-danger"></span>
+                 <div class="form-floating col-6 mb-3">
+                     <input id="FormaNumber" class="form-control" asp-for="FormaNumber" placeholder="Enter Forma Number"/>
+                     <label for="FormaNumber" class="form-label">FormaNumber</label>
+                     <span asp-validation-for="FormaNumber" class="text-danger"></span>
+                 </div>
 
-            </div>
-                    <div class="form-floating py-2 col-12">
+                 <div class="form-floating col-6 mb-3">
+                     <select asp-for="SubjectId" class="form-select" asp-items="ViewBag.subjectlist">
+                         <option value="">Please Choose your Subject</option>
+                     </select>
+                     <label asp-for="SubjectId"></label>
+                     <span asp-validation-for="SubjectId" class="text-danger"></span>
+                 </div>
 
-                <label asp-for="CostPrice" class="p-0"></label>
-                <input asp-for="CostPrice" class="form-control" />
-                <span asp-validation-for="CostPrice" class="text-danger"></span>
+                 <div class="form-floating col-6 mb-3">
+                     <select asp-for="ClassId" class="form-select" asp-items="ViewBag.classlist">
+                         <option value="">Please Choose your Class</option>
+                     </select>
+                     <label asp-for="ClassId"></label>
+                     <span asp-validation-for="ClassId" class="text-danger"></span>
+                 </div>
 
-            </div>
-                    <div class="form-floating py-2 col-12">
+                 <div class="form-floating col-6 mb-3">
+                     <select asp-for="SubjectLanguageId" class="form-select">
+                         <option value="">Please Choose your Language</option>
+                         @foreach (var language in Enum.GetValues(typeof(SubjectLanguage)))
+                         {
+                         <option value="@language.ToString()">@language.ToString()</option>
+                         }
+                     </select>
+                     <label asp-for="SubjectLanguageId"></label>
+                     <span asp-validation-for="SubjectLanguageId" class="text-danger"></span>
+                 </div>
 
-                <label asp-for="Author" class="p-0"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+                 <div class="form-floating col-6 mb-3">
+                     <select asp-for="SubjectTypeId" class="form-select">
+                         <option value="">Please Choose your Type</option>
+                         @foreach (var language in Enum.GetValues(typeof(SubjectType)))
+                         {
+                         <option value="@language.ToString()">@language.ToString()</option>
+                         }
+                     </select>
+                     <label asp-for="SubjectTypeId"></label>
+                     <span asp-validation-for="SubjectTypeId" class="text-danger"></span>
+                 </div>
 
-            </div>
-            <div class="row pt-2">
-            <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
-
-            </div>
-            <div class="col-6 col-md-3">
-                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
-
-            </div>
-        </div>
-    </div>
+                 <div class="row pt-2">
+                     <div class="col-6 col-md-3">
+                         <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                     </div>
+                     <div class="col-6 col-md-3">
+                         <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+                     </div>
+                 </div>
+             </div>
 
             </form>
         </div>

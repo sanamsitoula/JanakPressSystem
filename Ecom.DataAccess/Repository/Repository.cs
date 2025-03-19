@@ -30,6 +30,11 @@ namespace Ecom.DataAccess.Repository
             dbSet.Add(entity);
         }
 
+        public async Task<T?> GetByIdAsync(int id)
+        {
+            return await dbSet.FindAsync(id);
+        }
+
         public T? GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;

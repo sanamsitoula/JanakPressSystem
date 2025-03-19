@@ -35,7 +35,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 Id = product.Id,
                 Title = product.Title,
                 CategoryId = product.CategoryId,
-               // FormaListId = string.IsNullOrEmpty(product.FormaListId)?"" : product.FormaListId,
+                // FormaListId = string.IsNullOrEmpty(product.FormaListId)?"" : product.FormaListId,
                 SubjectId = product.SubjectId,
                 ClassId = product.ClassId,
                 SubjectLanguageId = product.SubjectLanguageId,
@@ -50,9 +50,6 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             // Set values for any other new properties
         })
             .ToList();
-
-         
-
             objProductList.ForEach(e =>
             {
                
@@ -80,7 +77,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         public IActionResult Create()
         {
             //var model = new Product() { };
-            List < Forma >? obj = _unitOfWork.Forma.GetAll().ToList();
+            List<Forma>? obj = _unitOfWork.Forma.GetAll().ToList();
             List<Class>? objc = _unitOfWork.Class.GetAll().ToList();           
             List<Subject>? objs = _unitOfWork.Subject.GetAll().ToList();
             List<Category>? catobj = _unitOfWork.Category.GetAll().ToList();
@@ -154,18 +151,23 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 return NotFound();
             }
             Product? cd = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+            
             if (cd == null) { return NotFound(); }
+            ViewBag.categoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            ViewBag.subjectList = _unitOfWork.Subject.GetAll().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
+            ViewBag.classList = _unitOfWork.Class.GetAll().Select(c => new SelectListItem(c.Name, c.Id.ToString()));
             return View(cd);
         }
         [HttpPost]
         public IActionResult Edit(Product c)
         {
-
-
+            
             c.Status = true;
             c.CreatedBy = "1";
             if (ModelState.IsValid)
             {
+                if(c.Description== null){c.Description = "PRO-" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + UniqueCodeGenerator.GenerateUniqueCodeFromTimestamp();
+                }
                 _unitOfWork.Product.Update(c);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Edited Sucessfully";
