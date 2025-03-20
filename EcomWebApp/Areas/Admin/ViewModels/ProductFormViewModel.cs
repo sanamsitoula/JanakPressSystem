@@ -17,21 +17,21 @@ public class ProductFormViewModel
     public string Image { get; set; }
 
     // Dropdown lists
-    [BindNever]
-    public IEnumerable<SelectListItem> Categories { get; set; }
-    [BindNever]
-
-    public IEnumerable<SelectListItem> Classes { get; set; }
-    [BindNever]
-
-    public IEnumerable<SelectListItem> Subjects { get; set; }
-    [BindNever]
-
-    public IEnumerable<SelectListItem> Formas { get; set; }
-    [BindNever]
-
-    public IEnumerable<SelectListItem> SubjectLanguages { get; set; }
-    [BindNever]
-
-    public IEnumerable<SelectListItem> SubjectTypes { get; set; }
+    // [BindNever]
+    // public IEnumerable<SelectListItem> Categories { get; set; }
+    // [BindNever]
+    //
+    // public IEnumerable<SelectListItem> Classes { get; set; }
+    // [BindNever]
+    //
+    // public IEnumerable<SelectListItem> Subjects { get; set; }
+    // [BindNever]
+    //
+    // public IEnumerable<SelectListItem> Formas { get; set; }
+    // [BindNever]
+    //
+    // public IEnumerable<SelectListItem> SubjectLanguages { get; set; }
+    // [BindNever]
+    //
+    // public IEnumerable<SelectListItem> SubjectTypes { get; set; }
 }

@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="CategoryId" class="form-select" asp-items="Model.Categories">
+                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
                             <option value="">Please Choose your Category</option>
                         </select>
                         <label asp-for="CategoryId"></label>
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="SubjectId" class="form-select" asp-items="Model.Subjects">
+                        <select asp-for="SubjectId" class="form-select" asp-items="ViewBag.Subjects">
                             <option value="">Please Choose your Subject</option>
                         </select>
                         <label asp-for="SubjectId"></label>
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="ClassId" class="form-select" asp-items="Model.Classes">
+                        <select asp-for="ClassId" class="form-select" asp-items="ViewBag.Classes">
                             <option value="">Please Choose your Class</option>
                         </select>
                         <label asp-for="ClassId"></label>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="SubjectLanguageId" class="form-select" asp-items="Model.SubjectLanguages">
+                        <select asp-for="SubjectLanguageId" class="form-select" asp-items="ViewBag.SubjectLanguages">
                             <option value="">Please Choose your Language</option>
 
                         </select>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="SubjectTypeId" class="form-select" asp-items="Model.SubjectTypes">
+                        <select asp-for="SubjectTypeId" class="form-select" asp-items="ViewBag.SubjectTypes">
                             <option value="">Please Choose your Type</option>
                         </select>
                         <label asp-for="SubjectTypeId"></label>

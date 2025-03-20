@@ -67,24 +67,14 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                     PageNumber = product.PageNumber,
                     Description = product.Description
                 }).ToList();
-
+            
             return View(products);
         }
 
         public IActionResult Create()
         {
-            var viewModel = new ProductFormViewModel
-            {
-                Categories = GetSelectList(_unitOfWork.Category.GetAll(), "Id", "Name"),
-                Classes = GetSelectList(_unitOfWork.Class.GetAll(), "Id", "Name"),
-                Subjects = GetSelectList(_unitOfWork.Subject.GetAll(), "Id", "Name"),
-                Formas = GetSelectList(_unitOfWork.Forma.GetAll(), "Id", "Name"),
-                SubjectLanguages = GetEnumSelectList<SubjectLanguage>(),  
-                SubjectTypes = GetEnumSelectList<SubjectType>()   
-                
-            };
 
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
@@ -92,7 +82,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                PopulateDropdowns(viewModel);
+                PopulateDropdowns();
                 return View(viewModel);
             }
 
@@ -133,14 +123,14 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 SubjectLanguageId = product.SubjectLanguageId,
                 SubjectTypeId = product.SubjectTypeId,
                 Image = product.ImageURL,
-                Categories = GetSelectList(_unitOfWork.Category.GetAll(), "Id", "Name"),
-                Classes = GetSelectList(_unitOfWork.Class.GetAll(), "Id", "Name"),
-                Subjects = GetSelectList(_unitOfWork.Subject.GetAll(), "Id", "Name"),
-                Formas = GetSelectList(_unitOfWork.Forma.GetAll(), "Id", "Name"),
-                SubjectLanguages = GetEnumSelectList<SubjectLanguage>(),  
-                SubjectTypes = GetEnumSelectList<SubjectType>()   
+                // Categories = GetSelectList(_unitOfWork.Category.GetAll(), "Id", "Name"),
+                // Classes = GetSelectList(_unitOfWork.Class.GetAll(), "Id", "Name"),
+                // Subjects = GetSelectList(_unitOfWork.Subject.GetAll(), "Id", "Name"),
+                // Formas = GetSelectList(_unitOfWork.Forma.GetAll(), "Id", "Name"),
+                // SubjectLanguages = GetEnumSelectList<SubjectLanguage>(),  
+                // SubjectTypes = GetEnumSelectList<SubjectType>()   
             };
-
+            PopulateDropdowns();
             return View(viewModel);
         }
 
@@ -161,7 +151,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                     }
 
                 }
-                PopulateDropdowns(viewModel);
+                PopulateDropdowns();
                 return View(viewModel);
             }
 
@@ -208,14 +198,14 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
 
  
-        private void PopulateDropdowns(ProductFormViewModel viewModel)
+        private void PopulateDropdowns()
         {
-            viewModel.Categories = GetSelectList(_unitOfWork.Category.GetAll() , "Id", "Name");
-            viewModel.Classes = GetSelectList(_unitOfWork.Class.GetAll(), "Id", "Name");
-            viewModel.Subjects = GetSelectList(_unitOfWork.Subject.GetAll(), "Id", "Name");
-            viewModel.Formas = GetSelectList(_unitOfWork.Forma.GetAll(), "Id", "Name");
-            viewModel.SubjectTypes = GetEnumSelectList<SubjectType>();
-            viewModel.SubjectLanguages = GetEnumSelectList<SubjectLanguage>();
+            ViewBag.Categories = GetSelectList(_unitOfWork.Category.GetAll() , "Id", "Name");
+            ViewBag.Classes = GetSelectList(_unitOfWork.Class.GetAll(), "Id", "Name");
+            ViewBag.Subjects = GetSelectList(_unitOfWork.Subject.GetAll(), "Id", "Name");
+            ViewBag.Formas = GetSelectList(_unitOfWork.Forma.GetAll(), "Id", "Name");
+            ViewBag.SubjectTypes = GetEnumSelectList<SubjectType>();
+            ViewBag.SubjectLanguages = GetEnumSelectList<SubjectLanguage>(); 
         }
     }
     
