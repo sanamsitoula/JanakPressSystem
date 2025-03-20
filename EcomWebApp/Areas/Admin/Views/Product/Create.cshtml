@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductFormViewModel
 
 
 @{
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.categorylist">
+                        <select asp-for="CategoryId" class="form-select" asp-items="Model.Categories">
                             <option value="">Please Choose your Category</option>
                         </select>
                         <label asp-for="CategoryId"></label>
@@ -37,9 +37,9 @@
                     </div>
                     
                     <div class="form-floating col-6 mb-3">
-                        <input asp-for="ImageURL" class="form-control" placeholder="Enter Image Url"/>
-                        <label asp-for="ImageURL" ></label>
-                        <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        <input asp-for="Image" class="form-control" placeholder="Enter Image Url"/>
+                        <label asp-for="Image" ></label>
+                        <span asp-validation-for="Image" class="text-danger"></span>
 
                     </div>
                     <div class="form-floating col-6 mb-3">
@@ -53,7 +53,7 @@
                         <span asp-validation-for="FormaNumber" class="text-danger"></span>
                     </div>
                     <div class="form-floating col-6 mb-3">
-                        <select asp-for="SubjectId" class="form-select" asp-items="ViewBag.subjectlist">
+                        <select asp-for="SubjectId" class="form-select" asp-items="Model.Subjects">
                             <option value="">Please Choose your Subject</option>
                         </select>
                         <label asp-for="SubjectId"></label>
@@ -62,7 +62,7 @@
 
                     <div class="form-floating col-6 mb-3">
                         
-                        <select asp-for="ClassId" class="form-select"  asp-items="ViewBag.classlist">
+                        <select asp-for="ClassId" class="form-select"  asp-items="Model.Classes">
                             <option value="">Please Choose your Class</option>
                         </select>
                         <label asp-for="ClassId"></label>
@@ -73,12 +73,8 @@
                    
                     <div class="form-floating col-6 mb-3">
                         
-                        <select asp-for="SubjectLanguageId" class="form-select">
+                        <select asp-for="SubjectLanguageId" class="form-select" asp-items="Model.SubjectLanguages">
                             <option value="">Please Choose your Language</option>
-                            @foreach (var language in Enum.GetValues(typeof(SubjectLanguage)))
-                            {
-                                <option value="@language.ToString()">@language.ToString()</option>
-                            }
                         </select>
                         <label asp-for="SubjectLanguageId"></label>
 
@@ -89,12 +85,12 @@
 
                     <div class="form-floating col-6">
                         
-                        <select asp-for="SubjectTypeId" class="form-select">
+                        <select asp-for="SubjectTypeId" class="form-select" asp-items="Model.SubjectTypes">
                             <option value="">Please Choose your Language</option>
-                                @foreach (var language in Enum.GetValues(typeof(SubjectType)))
-                            {
-                                <option value="@language.ToString()">@language.ToString()</option>
-                            }
+                            @*     @foreach (var language in Enum.GetValues(typeof(SubjectType))) *@
+                            @* { *@
+                            @*     <option value="@language.ToString()">@language.ToString()</option> *@
+                            @* } *@
                         </select>
                         <label asp-for="SubjectTypeId"></label>
 
