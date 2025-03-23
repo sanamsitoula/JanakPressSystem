@@ -1,4 +1,4 @@
-﻿@model List<Forma>
+﻿@model List<Ecom.WebApp.Areas.Admin.ViewModels.FormaViewModel.FormaViewModel>
 
 <div class="container">
     <div class="row pt-4">
@@ -52,7 +52,7 @@
                     <td>@obj.Name</td>
                      <td>@obj.Page</td>
                     <td>@obj.PrintTarget</td>
-                   <td>@(obj.Product.Title)</td>
+                   <td>@(obj.Product)</td>
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Forma" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">

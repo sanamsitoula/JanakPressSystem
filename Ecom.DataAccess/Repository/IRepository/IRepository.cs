@@ -14,8 +14,9 @@ namespace Ecom.DataAccess.Repository.IRepository
 
         Task<T?> GetByIdAsync(int id);
       //  <T> GetAll(Func<object, bool> value);
-        T GetFirstOrDefault(Expression<Func<T , bool>> filter);
-       // IQueryable<T> GetAllThroughParam(Expression<Func<T, bool>> filter);
+      public T? GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter,
+          params Expression<Func<T, object>>[] includes);
+      // IQueryable<T> GetAllThroughParam(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);

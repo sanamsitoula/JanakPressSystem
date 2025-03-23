@@ -26,7 +26,7 @@ namespace Ecom.Models
         public  Category? Category { get; set; }
         public string? ImageURL { get; set; }
         public int? FiscalYear { get; set; }
-        public int? PageNumber { get; set; }
+        public int PageNumber { get; set; }
         [ForeignKey("SubjectId")]
         public  int? SubjectId { get; set; }
         public  Subject? Subject { get; set; }
@@ -38,11 +38,11 @@ namespace Ecom.Models
 
         // public List<Forma>? Forma { get; set; }
         // public string? FormaNames { get; set; }
-        public int? FormaNumber { get; set; }
-        public string? SubjectLanguageId { get; set; }
+        public int FormaNumber { get; set; }
+        public SubjectLanguage SubjectLanguageId { get; set; }
         public SubjectLanguage? SubjectLanguages { get; set; }
 
-        public string? SubjectTypeId { get; set; }
+        public SubjectType SubjectTypeId { get; set; }
         public SubjectType? SubjectTypes { get; set; }
 
         [NotMapped]

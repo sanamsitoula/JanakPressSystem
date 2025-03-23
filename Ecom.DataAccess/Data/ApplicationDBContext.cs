@@ -93,8 +93,8 @@ namespace Ecom.DataAccess.Data
                     PageNumber = 100,
                     SubjectId = 1,
                     ClassId = 1,
-                    SubjectLanguageId = "1",
-                    SubjectTypeId = "1"
+                    SubjectLanguageId = SubjectLanguage.Nepali,
+                    SubjectTypeId = SubjectType.Optional
                 },
                 new Product
                 {
@@ -113,8 +113,8 @@ namespace Ecom.DataAccess.Data
                     PageNumber = 200,
                     SubjectId = 2,
                     ClassId = 2,
-                    SubjectLanguageId = "2",
-                    SubjectTypeId = "2"
+                    SubjectLanguageId = SubjectLanguage.Nepali,
+                    SubjectTypeId = SubjectType.Optional
                 },
                 new Product
                 {
@@ -133,8 +133,8 @@ namespace Ecom.DataAccess.Data
                     PageNumber = 100,
                     SubjectId = 1,
                     ClassId = 1,
-                    SubjectLanguageId = "1",
-                    SubjectTypeId = "1"
+                    SubjectLanguageId = SubjectLanguage.Nepali,
+                    SubjectTypeId = SubjectType.Optional
                 }
             );
 
@@ -321,7 +321,15 @@ namespace Ecom.DataAccess.Data
                       .HasForeignKey(p => p.ClassId)
                       .OnDelete(DeleteBehavior.SetNull);
             });
+            modelBuilder.Entity<Product>()
+                .Property(e => e.SubjectLanguageId)
+                .HasConversion<int>();  // Force int storage
+            modelBuilder.Entity<Product>().Property(e => e.SubjectTypeId)
+                .HasConversion<int>();
 
+            modelBuilder.Entity<Product>()
+                .Property(e => e.SubjectLanguages)
+                .HasConversion<int>(); 
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(u => new { u.UserId, u.RoleId });
             modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
             modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();

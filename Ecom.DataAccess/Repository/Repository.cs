@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,10 +36,15 @@ namespace Ecom.DataAccess.Repository
             return await dbSet.FindAsync(id);
         }
 
-        public T? GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter)
+        public T? GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter,  params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = dbSet;
             query=query.Where(filter);
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
             return query.FirstOrDefault();
         }
      

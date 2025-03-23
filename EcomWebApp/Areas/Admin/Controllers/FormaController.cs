@@ -2,8 +2,10 @@
 using Ecom.DataAccess.Repository.IRepository;
 using Ecom.Models;
 using Ecom.Utility;
+using Ecom.WebApp.Areas.Admin.ViewModels.FormaViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecom.WebApp.Areas.Admin.Controllers
 {
@@ -19,44 +21,33 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Forma>? objProductList = _unitOfWork.Forma.
-                GetAll()?
-            .Select(Forma => new Forma
-            {
-                Id = Forma.Id,
-                Name = Forma.Name,
-                Page = Forma.Page,
-                PrintTarget = Forma.PrintTarget,
-                ProductId = Forma.ProductId,
-                Code=Forma.Code
-
-                // Set values for any other new properties
-            })
-            .ToList();
-            objProductList.ForEach(e =>
-            {
-
-                e.Product = new Product // Assuming Category is a complex object
+            List<FormaViewModel>? objProductList = _unitOfWork.Forma.
+                GetAll().Include(f=> f.Product)
+            .Select(forma => new FormaViewModel
                 {
-                    // Set the SubjectId here
-                    Title = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == e.ProductId).Title,
-                    Id = e.ProductId
-                    // Set other properties of the Category object if needed
-                };
-            });
+                    Id = forma.Id,
+                    Name = forma.Name,
+                    Page = forma.Page,
+                    PrintTarget = forma.PrintTarget,
+                    PrintAchieved = forma.PrintAchieved,
+                    AssociatedForma = forma.AssociatedFormaId,
+                    Remarks = forma.Remarks,
+                    Status = forma.Status,
+                    Product = forma.Product.Title,
+                    ProductId = forma.ProductId,
+                    Code = forma.Code
+                })
+            .ToList();
+            
             return View(objProductList);
         }
 
         public IActionResult Create()
         {
-            List<Product>? pro = _unitOfWork.Product.GetAll().ToList();
+            var selectItems = GetProductList();
             // Convert the List<Forma>? to IEnumerable<SelectListItem>
-            IEnumerable<SelectListItem>? selectListItems3 = pro?.Select(s => new SelectListItem
-            {
-                Value = s.Id.ToString(), // Replace with the actual property you want as the value
-                Text = s.Title // Replace with the actual property you want as the text
-            });
-            ViewBag.productlist = selectListItems3;
+            
+            ViewBag.productlist = selectItems;
 
             return View();
         }
@@ -88,9 +79,27 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Forma? obj = _unitOfWork.Forma.GetFirstOrDefault(u => u.Id == id);
+
+            Forma obj = _unitOfWork.Forma
+                .GetFirstOrDefault(o => o.Id == id, o=>o.Product);
             if (obj == null) { return NotFound(); }
-            return View(obj);
+
+            var productId = obj.Product.Id;
+            FormaFormViewModel ffvm = new FormaFormViewModel
+            {
+                Name = obj.Name,
+                Page = obj.Page,
+                PrintTarget = obj.PrintTarget,
+                PrintAchieved = obj.PrintAchieved,
+                AssociatedForma = obj.AssociatedFormaId,
+                Remarks = obj.Remarks,
+                Status = obj.Status,
+                Product = obj.Product.Title,
+                Code = obj.Code
+            };
+            var selectItems = GetProductList();
+            ViewBag.productlist = selectItems;
+            return View(ffvm);
         }
         [HttpPost]
         public IActionResult Edit(Forma obj)
@@ -145,7 +154,15 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
             return View();
         }
 
-
+        public IQueryable<SelectListItem> GetProductList()
+        {
+            var selectItems = _unitOfWork.Product.GetAll().Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(), // Replace with the actual property you want as the value
+                Text = s.Title // Replace with the actual property you want as the text
+            });
+            return selectItems;
+        }
 
 
 
