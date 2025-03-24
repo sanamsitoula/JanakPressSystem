@@ -380,7 +380,7 @@ namespace Ecom.WebApp.Areas.Admin.Controllers
                 return Json(new
                 {
                     productId = jobTicket.ProductId,
-                    noofAssociatedForma = jobTicket.NoofAssociatedForma,
+                    noofAssociatedForma = jobTicket.NoOfAssociatedForma,
                     classId = cls.Id,
                     subjectId = subject.Id
                 });

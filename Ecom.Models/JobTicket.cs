@@ -42,7 +42,7 @@ namespace Ecom.Models
         public int? PrePrintSize { get; set; }
         public string ?JobStepId { get; set; }
         public JobStep ?JobStep { get; set; }
-        public int? NoofAssociatedForma { get; set; }
+        public int? NoOfAssociatedForma { get; set; }
 
 
     }
